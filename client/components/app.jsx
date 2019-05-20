@@ -26,7 +26,7 @@ export default class App extends React.Component {
             <Header title="Wicked Sales"/>
           </div>
           <div className="row">
-            <ProductList/>
+            <ProductList products={this.state.products}/>
           </div>
         </div>
       </React.Fragment>
