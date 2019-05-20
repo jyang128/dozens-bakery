@@ -1,0 +1,14 @@
+body {
+    margin:0;
+}
+.card-container {
+    width: 18rem;
+    box-sizing: border-box;
+    padding: 10px;
+}
+.card-width {
+    width: 100%;
+}
+.gray {
+    color: gray;
+}
