@@ -6,8 +6,8 @@ class ProductListItem extends React.Component {
     return (
       <div className="card-container">
         <div className="card card-width">
-          <div className="card-img-top">
-            <img className="image-width" src={product.image} alt="product shot"/>
+          <div className="card-img-top image-container text-center">
+            <img className="image-dims img-fluid" src={product.image} alt="product shot"/>
           </div>
           <div className="card-body">
             <h5 className="card-title">{product.name}</h5>
