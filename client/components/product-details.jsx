@@ -17,7 +17,7 @@ export default class ProductDetails extends React.Component {
       .catch(err => console.error(err.message));
   }
   goBack() {
-    this.props.setView('catalog', { id: null });
+    this.props.setView('catalog', {});
   }
   addHandler() {
     this.props.addHandler(this.state.product);
