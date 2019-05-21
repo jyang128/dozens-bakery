@@ -19,6 +19,7 @@ export default class ProductDetails extends React.Component {
     this.props.setView('catalog', { id: null });
   }
   render() {
+    let price = (this.state.product.price / 100).toFixed(2);
     return (
       <div className="container mx-3">
         <div className="row justify-content-center">
@@ -32,7 +33,7 @@ export default class ProductDetails extends React.Component {
           </div>
           <div className="col-md-4">
             <h3 className="card-title">{this.state.product.name}</h3>
-            <p className="gray">${this.state.product.price}</p>
+            <p className="gray">${price}</p>
             <p className="card-text">{this.state.product.shortDescription}</p>
           </div>
         </div>
