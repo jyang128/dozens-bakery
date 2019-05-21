@@ -51,6 +51,24 @@ export default class App extends React.Component {
       .then(res => res.json())
       .then(res => this.setState({ cart: this.state.cart.concat(res) }));
   }
+  placeOrder(name, creditCard, shippingAddress) {
+    let orderDetails = {
+      name,
+      creditCard,
+      shippingAddress,
+      cart: this.state.cart
+    };
+    fetch('/api/orders.php', {
+      method: 'POST',
+      body: JSON.stringify(orderDetails),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ cart: [] });
+        this.setView('catalog', {});
+      });
+  }
   render() {
     let display = null;
     if (this.state.view.name === 'catalog') {

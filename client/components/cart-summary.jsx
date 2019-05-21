@@ -19,7 +19,6 @@ export default class CartSummary extends React.Component {
     cartTotal = (cartTotal / 100).toFixed(2);
 
     let cartStatus = null;
-
     if (this.props.items.length === 0) {
       cartStatus = <h4>The cart is empty!</h4>;
     } else {
@@ -37,7 +36,7 @@ export default class CartSummary extends React.Component {
         </div>
         <div className="row justify-content-center">
           <div className="col-md-8 my-4">
-            { cartStatus }
+            { cartStatus } <button className="btn btn-danger">Place Order</button>
           </div>
         </div>
       </div>
