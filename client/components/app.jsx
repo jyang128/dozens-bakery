@@ -8,15 +8,18 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       products: [],
+      cart: [],
       view: {
         name: 'catalog',
         params: {}
       }
     };
     this.setView = this.setView.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
   componentDidMount() {
     this.getProducts();
+    this.getCartItems();
   }
   getProducts() {
     fetch('/api/products.php')
@@ -32,18 +35,33 @@ export default class App extends React.Component {
       }
     });
   }
+  getCartItems() {
+    fetch('/api/cart.php')
+      .then(res => res.json())
+      .then(res => this.setState({ cart: res }))
+      .catch(err => console.error(err.message));
+  }
+  addToCart(product) {
+    fetch('/api/cart.php', {
+      method: 'POST',
+      body: JSON.stringify(product),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(res => res.json())
+      .then(res => this.setState({ cart: this.state.cart.concat(res) }));
+  }
   render() {
     let display = null;
     if (this.state.view.name === 'catalog') {
       display = <ProductList stateData={this.state} setView={this.setView}/>;
     } else {
-      display = <ProductDetails viewParams={this.state.view.params} setView={this.setView}/>;
+      display = <ProductDetails viewParams={this.state.view.params} setView={this.setView} addHandler={this.addToCart}/>;
     }
     return (
       <React.Fragment>
         <div className="container">
           <div className="row">
-            <Header title="Wicked Sales"/>
+            <Header title="Wicked Sales" cartItemCount={this.state.cart.length}/>
           </div>
           <div className="row">
             { display }
