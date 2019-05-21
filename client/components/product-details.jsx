@@ -7,6 +7,7 @@ export default class ProductDetails extends React.Component {
       product: {}
     };
     this.goBack = this.goBack.bind(this);
+    this.addHandler = this.addHandler.bind(this);
   }
   componentDidMount() {
     let prodId = this.props.viewParams.id;
@@ -17,6 +18,9 @@ export default class ProductDetails extends React.Component {
   }
   goBack() {
     this.props.setView('catalog', { id: null });
+  }
+  addHandler() {
+    this.props.addHandler(this.state.product);
   }
   render() {
     let price = (this.state.product.price / 100).toFixed(2);
@@ -34,7 +38,9 @@ export default class ProductDetails extends React.Component {
           <div className="col-md-4">
             <h3 className="card-title">{this.state.product.name}</h3>
             <p className="gray">${price}</p>
-            <p className="card-text">{this.state.product.shortDescription}</p>
+            <p className="card-text">{this.state.product.shortDescription}
+            </p>
+            <button className="btn btn-info mb-3" onClick={this.addHandler}>Add To Cart</button>
           </div>
         </div>
         <div className="row justify-content-center">
