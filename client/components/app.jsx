@@ -1,13 +1,19 @@
 import React from 'react';
 import Header from './header';
 import ProductList from './product-list';
+import ProductDetails from './product-details';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: []
+      products: [],
+      view: {
+        name: 'catalog',
+        params: { id: null }
+      }
     };
+    this.setView = this.setView.bind(this);
   }
   componentDidMount() {
     this.getProducts();
@@ -18,7 +24,21 @@ export default class App extends React.Component {
       .then(res => this.setState({ products: res }))
       .catch(err => console.error(err.message));
   }
+  setView(name, params) {
+    this.setState({
+      view: {
+        name,
+        params
+      }
+    });
+  }
   render() {
+    let display = null;
+    if (this.state.view.name === 'catalog') {
+      display = <ProductList stateData={this.state} setView={this.setView}/>;
+    } else {
+      display = <ProductDetails viewParams={this.state.view.params} setView={this.setView}/>;
+    }
     return (
       <React.Fragment>
         <div className="container">
@@ -26,7 +46,7 @@ export default class App extends React.Component {
             <Header title="Wicked Sales"/>
           </div>
           <div className="row">
-            <ProductList products={this.state.products}/>
+            { display }
           </div>
         </div>
       </React.Fragment>

@@ -6,6 +6,9 @@ body {
     box-sizing: border-box;
     padding: 10px;
 }
+.card-container:hover {
+    cursor: pointer;
+}
 .card-width {
     width: 100%;
     height: 100%;
@@ -17,6 +20,13 @@ body {
 .image-dims {
     height: 100%;
 }
+.contain {
+    object-fit: contain;
+}
 .gray {
     color: gray;
+}
+.gray.cursor:hover {
+    cursor:pointer;
+    color: #3d69e4;
 }

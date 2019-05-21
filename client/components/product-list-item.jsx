@@ -1,13 +1,20 @@
 import React from 'react';
 
-class ProductListItem extends React.Component {
+export default class ProductListItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.viewHandler = this.viewHandler.bind(this);
+  }
+  viewHandler() {
+    this.props.viewHandler('details', this.props.prodData.id);
+  }
   render() {
-    let product = this.props.productData;
+    let product = this.props.prodData;
     return (
-      <div className="card-container">
+      <div className="card-container cursor" onClick={this.viewHandler}>
         <div className="card card-width">
           <div className="card-img-top image-container text-center">
-            <img className="image-dims img-fluid" src={product.image} alt="product shot"/>
+            <img className="image-dims img-fluid contain" src={product.image} alt="product shot"/>
           </div>
           <div className="card-body">
             <h5 className="card-title">{product.name}</h5>
@@ -19,5 +26,3 @@ class ProductListItem extends React.Component {
     );
   }
 }
-
-export default ProductListItem;
