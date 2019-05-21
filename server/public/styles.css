@@ -26,6 +26,9 @@ body {
 .gray {
     color: gray;
 }
+.cursor {
+    cursor: pointer;
+}
 .gray.cursor:hover {
     cursor:pointer;
     color: #3d69e4;
