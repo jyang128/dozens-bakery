@@ -5,15 +5,17 @@ require_once('db_connection.php');
 
 startUp();
 
-// header('Content-Type: application/json');
-
+if (empty($_GET['id'])){
+  $query = "SELECT * FROM `products`";
+} else {
+  $query = "SELECT * FROM `products` WHERE id=".$_GET['id'];
+}
 // if (empty($_GET['id'])) {
 //   readfile('dummy-products-list.json');
 // } else {
 //   readfile('dummy-product-details.json');
 // }
 
-$query = "SELECT * FROM `products`";
 $result = mysqli_query($conn, $query);
 
 if(!$result){
