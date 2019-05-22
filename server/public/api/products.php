@@ -6,16 +6,12 @@ require_once('db_connection.php');
 startUp();
 
 if (empty($_GET['id'])){
-  $query = "SELECT * FROM `products`";
+  $whereClause = '';
 } else {
-  $query = "SELECT * FROM `products` WHERE id=".$_GET['id'];
+  $whereClause = "WHERE id=".$_GET['id'];
 }
-// if (empty($_GET['id'])) {
-//   readfile('dummy-products-list.json');
-// } else {
-//   readfile('dummy-product-details.json');
-// }
 
+$query = "SELECT * FROM `products` ".$whereClause;
 $result = mysqli_query($conn, $query);
 
 if(!$result){
