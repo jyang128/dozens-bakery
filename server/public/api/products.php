@@ -27,10 +27,7 @@ $numRows = mysqli_num_rows($result);
 if(!$numRows){
     if (!empty($_GET['id'])){
       throw new Exception('Invalid Id: '.$_GET['id']);
-      exit();
     }
-    print('No data available!');
-    exit();
 } 
 
 $output = [];
