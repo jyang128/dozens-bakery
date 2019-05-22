@@ -13,7 +13,10 @@ export default class ProductDetails extends React.Component {
     let prodId = this.props.viewParams.id;
     fetch(`/api/products.php?id=${prodId}`)
       .then(res => res.json())
-      .then(res => this.setState({ product: res[0] }))
+      .then(res => {
+        res[0].price = parseInt(res[0].price);
+        this.setState({ product: res[0] });
+      })
       .catch(err => console.error(err.message));
   }
   goBack() {
