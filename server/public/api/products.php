@@ -3,6 +3,7 @@ require_once('functions.php');
 set_exception_handler('error_handler');
 require_once('db_connection.php');
 
+
 // header('Content-Type: application/json');
 
 // if (empty($_GET['id'])) {
@@ -29,7 +30,7 @@ if(!$numRows){
 $output = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
-   array_push($output, $row);
+   $output[] = $row;
 }
 
 $json_output = json_encode($output);
