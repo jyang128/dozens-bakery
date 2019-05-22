@@ -1,0 +1,58 @@
+import React from 'react';
+
+export default class CheckoutForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      creditCard: '',
+      shippingAddress: ''
+    };
+    this.placeOrder = this.placeOrder.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleCreditChange = this.handleCreditChange.bind(this);
+    this.handleAddressChange = this.handleAddressChange.bind(this);
+  }
+  placeOrder() {
+    this.props.orderHandler(this.state.name, this.state.creditCard, this.state.shippingAddress);
+  }
+  handleNameChange(event) {
+    this.setState({ name: event.target.value });
+  }
+  handleCreditChange(event) {
+    this.setState({ creditCard: event.target.value });
+  }
+  handleAddressChange(event) {
+    this.setState({ shippingAddress: event.target.value });
+  }
+  render() {
+    let orderTotal = this.props.cartItems.reduce((sum, item) => {
+      sum += item.price;
+      return sum;
+    }, 0);
+    orderTotal = (orderTotal / 100).toFixed(2);
+    return (
+      <div className="container mx-3">
+        <div className="row justify-content-center">
+          <div className="col-md-8 mb-4">
+            <h2>Checkout</h2>
+            <h4 className="gray">Order Total: ${orderTotal}</h4>
+          </div>
+          <form className="col-md-8">
+            <h4>Name</h4>
+            <input type="text" value={this.state.name} onChange={this.handleNameChange} placeholder="Name"/>
+            <h4>Credit Card</h4>
+            <input type="number" value={this.state.creditCard} onChange={this.handleCreditChange} placeholder="Credit Card Number"/>
+            <h4>Shipping Address</h4>
+            <input type="textarea" value={this.state.shippingAddress} onChange={this.handleAddressChange} placeholder="Shipping Address"/>
+          </form>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-md-8 my-4">
+            <button onClick={this.placeOrder} className="btn btn-danger">Place Order</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}

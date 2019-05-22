@@ -3,6 +3,7 @@ import Header from './header';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
+import CheckoutForm from './checkout-form';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ export default class App extends React.Component {
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.placeOrder = this.placeOrder.bind(this);
   }
   componentDidMount() {
     this.getProducts();
@@ -77,6 +79,8 @@ export default class App extends React.Component {
       display = <ProductDetails viewParams={this.state.view.params} setView={this.setView} addHandler={this.addToCart}/>;
     } else if (this.state.view.name === 'cart') {
       display = <CartSummary items={this.state.cart} setView={this.setView}/>;
+    } else if (this.state.view.name === 'checkout') {
+      display = <CheckoutForm cartItems={this.state.cart} orderHandler={this.placeOrder} setView={this.setView}/>;
     }
 
     return (

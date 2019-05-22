@@ -5,9 +5,13 @@ export default class CartSummary extends React.Component {
   constructor(props) {
     super(props);
     this.setView = this.setView.bind(this);
+    this.goToCheckout = this.goToCheckout.bind(this);
   }
   setView() {
     this.props.setView('catalog', {});
+  }
+  goToCheckout() {
+    this.props.setView('checkout', {});
   }
   render() {
     let cartItems = this.props.items.map(item => <CartSummaryItem key={item.id} item={item}/>);
@@ -36,7 +40,7 @@ export default class CartSummary extends React.Component {
         </div>
         <div className="row justify-content-center">
           <div className="col-md-8 my-4">
-            { cartStatus } <button className="btn btn-danger">Place Order</button>
+            { cartStatus } <button onClick={this.goToCheckout} className="btn btn-danger">Place Order</button>
           </div>
         </div>
       </div>
