@@ -8,7 +8,10 @@ startUp();
 if (empty($_GET['id'])){
   $whereClause = '';
 } else {
-  $whereClause = "WHERE id=".$_GET['id'];
+  if( !is_numeric($_GET['id']) ){
+    throw new Exception('id needs to be a number!');
+  }
+  $whereClause = "WHERE id={$_GET['id']}";
 }
 
 $query = "SELECT * FROM `products` ".$whereClause;
@@ -22,9 +25,13 @@ if(!$result){
 $numRows = mysqli_num_rows($result);
 
 if(!$numRows){
+    if (!empty($_GET['id'])){
+      throw new Exception('Invalid Id: '.$_GET['id']);
+      exit();
+    }
     print('No data available!');
     exit();
-}
+} 
 
 $output = [];
 
