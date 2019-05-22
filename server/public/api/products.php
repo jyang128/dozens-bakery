@@ -11,7 +11,7 @@ require_once('db_connection.php');
 //   readfile('dummy-product-details.json');
 // }
 
-$query = "SELECT * FROM `products` WHERE id=3";
+$query = "SELECT * FROM `products`";
 $result = mysqli_query($conn, $query);
 
 if(!$result){
@@ -19,23 +19,20 @@ if(!$result){
   exit();
 }
 
-$output = [ 'success' => false ];
 $numRows = mysqli_num_rows($result);
 
 if(!$numRows){
     print('No data available!');
     exit();
-} else{
-    $output['success'] = true;
 }
 
-$output['data'] = [];
+$output = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
-   array_push($output['data'], $row);
+   array_push($output, $row);
 }
 
 $json_output = json_encode($output);
-print('query test result:'.$json_output);
+print($json_output);
 
 ?>
