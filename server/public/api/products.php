@@ -1,5 +1,7 @@
 <?php
-require_once('./functions.php');
+require_once('functions.php');
+set_exception_handler('error_handler');
+require_once('db_connection.php');
 
 // header('Content-Type: application/json');
 
@@ -9,7 +11,7 @@ require_once('./functions.php');
 //   readfile('dummy-product-details.json');
 // }
 
-set_exception_handler('error_handler');
+
 
 $output = file_get_contents('./dummy-products-list.json');
 print($output);
