@@ -14,8 +14,8 @@ export default class CartSummary extends React.Component {
     this.props.setView('checkout', {});
   }
   render() {
-    let cartItems = this.props.items.map(item =>
-      <CartSummaryItem key={item.id} item={item}/>);
+    let cartItems = this.props.items.map((item, index) =>
+      <CartSummaryItem key={index} item={item}/>);
 
     let cartTotal = this.props.items.reduce((sum, item) => {
       sum += item.price;
