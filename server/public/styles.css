@@ -33,3 +33,8 @@ body {
     cursor:pointer;
     color: #3d69e4;
 }
+input {
+    outline: none;
+    width: 100%;
+    padding: 5px;
+}

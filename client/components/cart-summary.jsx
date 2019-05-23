@@ -39,8 +39,9 @@ export default class CartSummary extends React.Component {
           { cartItems }
         </div>
         <div className="row justify-content-center">
-          <div className="col-md-8 my-4">
-            { cartStatus } <button onClick={this.goToCheckout} className="btn btn-danger">Place Order</button>
+          <div className="col-md-8 my-4 d-flex justify-content-between">
+            { cartStatus }
+            <button onClick={this.goToCheckout} className="btn btn-danger">Place Order</button>
           </div>
         </div>
       </div>

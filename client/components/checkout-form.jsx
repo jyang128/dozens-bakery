@@ -12,6 +12,7 @@ export default class CheckoutForm extends React.Component {
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleCreditChange = this.handleCreditChange.bind(this);
     this.handleAddressChange = this.handleAddressChange.bind(this);
+    this.setView = this.setView.bind(this);
   }
   placeOrder() {
     this.props.orderHandler(this.state.name, this.state.creditCard, this.state.shippingAddress);
@@ -24,6 +25,9 @@ export default class CheckoutForm extends React.Component {
   }
   handleAddressChange(event) {
     this.setState({ shippingAddress: event.target.value });
+  }
+  setView() {
+    this.props.setView('catalog', {});
   }
   render() {
     let orderTotal = this.props.cartItems.reduce((sum, item) => {
@@ -40,15 +44,16 @@ export default class CheckoutForm extends React.Component {
           </div>
           <form className="col-md-8">
             <h4>Name</h4>
-            <input type="text" value={this.state.name} onChange={this.handleNameChange} placeholder="Name"/>
+            <input type="text" value={this.state.name} onChange={this.handleNameChange} className="mb-3"/>
             <h4>Credit Card</h4>
-            <input type="number" value={this.state.creditCard} onChange={this.handleCreditChange} placeholder="Credit Card Number"/>
+            <input type="number" value={this.state.creditCard} onChange={this.handleCreditChange} className="mb-3"/>
             <h4>Shipping Address</h4>
-            <input type="textarea" value={this.state.shippingAddress} onChange={this.handleAddressChange} placeholder="Shipping Address"/>
+            <input type="textarea" value={this.state.shippingAddress} onChange={this.handleAddressChange} className="mb-3"/>
           </form>
         </div>
         <div className="row justify-content-center">
-          <div className="col-md-8 my-4">
+          <div className="col-md-8 my-4 d-flex justify-content-between">
+            <p className="gray cursor align-self-center" onClick={this.setView}><i className="fas fa-arrow-left"></i> Continue Shopping</p>
             <button onClick={this.placeOrder} className="btn btn-danger">Place Order</button>
           </div>
         </div>

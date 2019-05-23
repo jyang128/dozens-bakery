@@ -18,8 +18,7 @@ $query = "SELECT * FROM `products` ".$whereClause;
 $result = mysqli_query($conn, $query);
 
 if(!$result){
-  print('error message: '.mysqli_connect_error());
-  exit();
+  throw new Exception('error message: '.mysqli_connect_error());
 }
 
 $numRows = mysqli_num_rows($result);
@@ -33,6 +32,7 @@ if(!$numRows){
 $output = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
+   $row['price'] = intval($row['price']);
    $output[] = $row;
 }
 
