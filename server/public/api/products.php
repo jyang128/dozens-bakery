@@ -32,6 +32,7 @@ if(!$numRows){
 $output = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
+   $row['id'] = intval($row['id']);
    $row['price'] = intval($row['price']);
    $output[] = $row;
 }

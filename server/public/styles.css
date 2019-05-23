@@ -26,6 +26,9 @@ body {
 .gray {
     color: gray;
 }
+.red {
+    color: red;
+}
 .cursor {
     cursor: pointer;
 }

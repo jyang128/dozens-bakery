@@ -6,7 +6,8 @@ export default class CheckoutForm extends React.Component {
     this.state = {
       name: '',
       creditCard: '',
-      shippingAddress: ''
+      shippingAddress: '',
+      errorMessage: ''
     };
     this.placeOrder = this.placeOrder.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -15,6 +16,10 @@ export default class CheckoutForm extends React.Component {
     this.setView = this.setView.bind(this);
   }
   placeOrder() {
+    if (!this.state.name || !this.state.creditCard || !this.state.shippingAddress) {
+      this.setState({ errorMessage: 'Missing a required input!' });
+      return;
+    }
     this.props.orderHandler(this.state.name, this.state.creditCard, this.state.shippingAddress);
   }
   handleNameChange(event) {
@@ -44,12 +49,32 @@ export default class CheckoutForm extends React.Component {
           </div>
           <form className="col-md-8">
             <h4>Name</h4>
-            <input type="text" value={this.state.name} onChange={this.handleNameChange} className="mb-3"/>
+            <input
+              type="text"
+              value={this.state.name}
+              onChange={this.handleNameChange}
+              className="mb-3"
+            />
             <h4>Credit Card</h4>
-            <input type="number" value={this.state.creditCard} onChange={this.handleCreditChange} className="mb-3"/>
+            <input
+              type="number"
+              value={this.state.creditCard}
+              onChange={this.handleCreditChange}
+              className="mb-3"
+            />
             <h4>Shipping Address</h4>
-            <input type="textarea" value={this.state.shippingAddress} onChange={this.handleAddressChange} className="mb-3"/>
+            <input
+              type="textarea"
+              value={this.state.shippingAddress}
+              onChange={this.handleAddressChange}
+              className="mb-3"
+            />
           </form>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-md-8 d-flex justify-content-between">
+            <p className="red">{this.state.errorMessage}</p>
+          </div>
         </div>
         <div className="row justify-content-center">
           <div className="col-md-8 my-4 d-flex justify-content-between">
