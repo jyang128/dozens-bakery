@@ -26,10 +26,18 @@ body {
 .gray {
     color: gray;
 }
+.red {
+    color: red;
+}
 .cursor {
     cursor: pointer;
 }
 .gray.cursor:hover {
     cursor:pointer;
     color: #3d69e4;
+}
+input {
+    outline: none;
+    width: 100%;
+    padding: 5px;
 }

@@ -5,12 +5,17 @@ export default class CartSummary extends React.Component {
   constructor(props) {
     super(props);
     this.setView = this.setView.bind(this);
+    this.goToCheckout = this.goToCheckout.bind(this);
   }
   setView() {
     this.props.setView('catalog', {});
   }
+  goToCheckout() {
+    this.props.setView('checkout', {});
+  }
   render() {
-    let cartItems = this.props.items.map(item => <CartSummaryItem key={item.id} item={item}/>);
+    let cartItems = this.props.items.map((item, index) =>
+      <CartSummaryItem key={index} item={item}/>);
 
     let cartTotal = this.props.items.reduce((sum, item) => {
       sum += item.price;
@@ -19,11 +24,14 @@ export default class CartSummary extends React.Component {
     cartTotal = (cartTotal / 100).toFixed(2);
 
     let cartStatus = null;
-
     if (this.props.items.length === 0) {
       cartStatus = <h4>The cart is empty!</h4>;
     } else {
-      cartStatus = <h4>Item Total: ${ cartTotal }</h4>;
+      cartStatus =
+        <React.Fragment>
+          <h4>Item Total: ${ cartTotal }</h4>
+          <button onClick={this.goToCheckout} className="btn btn-danger">Place Order</button>
+        </React.Fragment>;
     }
 
     return (
@@ -36,7 +44,7 @@ export default class CartSummary extends React.Component {
           { cartItems }
         </div>
         <div className="row justify-content-center">
-          <div className="col-md-8 my-4">
+          <div className="col-md-8 my-4 d-flex justify-content-between">
             { cartStatus }
           </div>
         </div>

@@ -6,7 +6,7 @@ export default class ProductDetails extends React.Component {
     this.state = {
       product: {}
     };
-    this.goBack = this.goBack.bind(this);
+    this.setView = this.setView.bind(this);
     this.addHandler = this.addHandler.bind(this);
   }
   componentDidMount() {
@@ -14,12 +14,11 @@ export default class ProductDetails extends React.Component {
     fetch(`/api/products.php?id=${prodId}`)
       .then(res => res.json())
       .then(res => {
-        res[0].price = parseInt(res[0].price);
         this.setState({ product: res[0] });
       })
       .catch(err => console.error(err.message));
   }
-  goBack() {
+  setView() {
     this.props.setView('catalog', {});
   }
   addHandler() {
@@ -31,7 +30,7 @@ export default class ProductDetails extends React.Component {
       <div className="container mx-3">
         <div className="row justify-content-center">
           <div className="col-md-8">
-            <p className="gray cursor" onClick={this.goBack}><i className="fas fa-arrow-left"></i> Back to Catalog</p>
+            <p className="gray cursor" onClick={this.setView}><i className="fas fa-arrow-left"></i> Back to Catalog</p>
           </div>
         </div>
         <div className="row justify-content-center">
