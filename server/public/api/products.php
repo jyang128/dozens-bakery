@@ -6,15 +6,15 @@ require_once('db_connection.php');
 startUp();
 
 if (empty($_GET['id'])){
-  $whereClause = '';
+  $query = "SELECT * FROM `products`";
 } else {
   if( !is_numeric($_GET['id']) ){
     throw new Exception('id needs to be a number!');
   }
-  $whereClause = "WHERE id={$_GET['id']}";
+  $whereClause = "WHERE p.`id`={$_GET['id']} ";
+  $query = "SELECT p.*, GROUP_CONCAT(i.`url`) AS url FROM `products` AS p JOIN `images` AS i ON p.`id` = i.`product_id` ".$whereClause." GROUP BY p.`id`";
 }
 
-$query = "SELECT * FROM `products` ".$whereClause;
 $result = mysqli_query($conn, $query);
 
 if(!$result){
@@ -34,6 +34,9 @@ $output = [];
 while ($row = mysqli_fetch_assoc($result)) {
    $row['id'] = intval($row['id']);
    $row['price'] = intval($row['price']);
+   if (!empty($_GET['id'])) {
+    $row['url'] = explode( ',', $row['url'] );
+   }
    $output[] = $row;
 }
 
