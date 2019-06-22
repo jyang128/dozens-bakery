@@ -6,24 +6,33 @@ require_once('db_connection.php');
 startUp();
 
 if (empty($_GET['id'])){
-  $query = "SELECT * FROM `products`";
+  $productQuery = "SELECT * FROM `products`";
 } else {
   if( !is_numeric($_GET['id']) ){
     throw new Exception('id needs to be a number!');
   }
-  $whereClause = "WHERE p.`id`={$_GET['id']} ";
-  $query = "SELECT p.*, GROUP_CONCAT(i.`url`) AS url FROM `products` AS p JOIN `images` AS i ON p.`id` = i.`product_id` ".$whereClause." GROUP BY p.`id`";
+  $whereClause = "WHERE p.`id`={$_GET['id']}";
+  $imageQuery = "SELECT p.*, GROUP_CONCAT(i.`url`) AS url FROM `products` AS p JOIN `images` AS i ON p.`id` = i.`product_id` ".$whereClause." GROUP BY p.`id`";
+  $productQuery = "SELECT * FROM `products` WHERE id={$_GET['id']}";
 }
 
-$result = mysqli_query($conn, $query);
+$productResult = mysqli_query($conn, $productQuery);
 
-if(!$result){
+if($productResult){
+  if(!empty($_GET['id'])) {
+    $imageResult = mysqli_query($conn, $imageQuery);
+  }
+} else {
   throw new Exception('error message: '.mysqli_connect_error());
 }
 
-$numRows = mysqli_num_rows($result);
+$numRowsProduct = mysqli_num_rows($productResult);
 
-if(!$numRows){
+if(!empty($_GET['id'])) {
+  $numRowsImage = mysqli_num_rows($imageResult);
+}
+
+if(!$numRowsProduct){
     if (!empty($_GET['id'])){
       throw new Exception('Invalid Id: '.$_GET['id']);
     }
@@ -31,11 +40,11 @@ if(!$numRows){
 
 $output = [];
 
-while ($row = mysqli_fetch_assoc($result)) {
+while ($row = mysqli_fetch_assoc($productResult)) {
    $row['id'] = intval($row['id']);
    $row['price'] = intval($row['price']);
-   if (!empty($_GET['id'])) {
-    $row['url'] = explode( ',', $row['url'] );
+   if(!empty($_GET['id'])) {
+    $row['url'] = explode( ',', mysqli_fetch_assoc($imageResult) );
    }
    $output[] = $row;
 }
