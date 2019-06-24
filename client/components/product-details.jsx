@@ -6,20 +6,16 @@ export default class ProductDetails extends React.Component {
     this.state = {
       product: {}
     };
-    this.setView = this.setView.bind(this);
     this.addHandler = this.addHandler.bind(this);
   }
   componentDidMount() {
-    let prodId = this.props.viewParams.id;
+    let prodId = this.props.match.params.id;
     fetch(`/api/products.php?id=${prodId}`)
       .then(res => res.json())
       .then(res => {
         this.setState({ product: res[0] });
       })
       .catch(err => console.error(err.message));
-  }
-  setView() {
-    this.props.setView('catalog', {});
   }
   addHandler() {
     this.props.addHandler(this.state.product);
@@ -28,11 +24,6 @@ export default class ProductDetails extends React.Component {
     let price = (this.state.product.price / 100).toFixed(2);
     return (
       <div className="container mx-3">
-        <div className="row justify-content-center">
-          <div className="col-md-8">
-            <p className="gray cursor" onClick={this.setView}><i className="fas fa-arrow-left"></i> Back to Catalog</p>
-          </div>
-        </div>
         <div className="row justify-content-center">
           <div className="col-md-4 mb-4">
             <img src={this.state.product.image} className="img-fluid" alt="product shot"/>

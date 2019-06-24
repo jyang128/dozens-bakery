@@ -4,19 +4,15 @@ import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       products: [],
-      cart: [],
-      view: {
-        name: 'catalog',
-        params: {}
-      }
+      cart: []
     };
-    this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
   }
@@ -29,14 +25,6 @@ export default class App extends React.Component {
       .then(res => res.json())
       .then(res => this.setState({ products: res }))
       .catch(err => console.error(err.message));
-  }
-  setView(name, params) {
-    this.setState({
-      view: {
-        name,
-        params: { id: params }
-      }
-    });
   }
   getCartItems() {
     fetch('/api/cart.php')
@@ -68,32 +56,46 @@ export default class App extends React.Component {
       .then(res => res.json())
       .then(res => {
         this.setState({ cart: [] });
-        this.setView('catalog', {});
+        this.props.history.push({
+          pathname: '/'
+        });
       });
   }
   render() {
-    let display = null;
-    if (this.state.view.name === 'catalog') {
-      display = <ProductList stateData={this.state} setView={this.setView}/>;
-    } else if (this.state.view.name === 'details') {
-      display = <ProductDetails viewParams={this.state.view.params} setView={this.setView} addHandler={this.addToCart}/>;
-    } else if (this.state.view.name === 'cart') {
-      display = <CartSummary items={this.state.cart} setView={this.setView}/>;
-    } else if (this.state.view.name === 'checkout') {
-      display = <CheckoutForm cartItems={this.state.cart} orderHandler={this.placeOrder} setView={this.setView}/>;
-    }
-
     return (
       <React.Fragment>
         <div className="container">
           <div className="row">
-            <Header title="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
+            <Header title="Wicked Sales" cartItemCount={this.state.cart.length}/>
           </div>
           <div className="row">
-            { display }
+            <Switch>
+              <Route exact path="/" render={ props =>
+                <ProductList {...props}
+                  stateData={this.state}/>
+              }/>
+              <Route path="/cart-summary" render={ props =>
+                <CartSummary {...props}
+                  items={this.state.cart}
+                />
+              }/>
+              <Route path="/checkout" render={ props =>
+                <CheckoutForm {...props}
+                  cartItems={this.state.cart}
+                  orderHandler={this.placeOrder}
+                />
+              }/>
+              <Route path="/:id" render={ props =>
+                <ProductDetails {...props}
+                  addHandler={this.addToCart}
+                />
+              }/>
+            </Switch>
           </div>
         </div>
       </React.Fragment>
     );
   }
 }
+
+export default withRouter(App);

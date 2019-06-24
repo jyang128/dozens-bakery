@@ -44,7 +44,9 @@ while ($row = mysqli_fetch_assoc($productResult)) {
    $row['id'] = intval($row['id']);
    $row['price'] = intval($row['price']);
    if(!empty($_GET['id'])) {
-    $row['url'] = explode( ',', mysqli_fetch_assoc($imageResult) );
+    while ($imageRow = mysqli_fetch_assoc($imageResult)){
+      $row['url'] = explode( ',', $imageRow['url']);
+    }
    }
    $output[] = $row;
 }
