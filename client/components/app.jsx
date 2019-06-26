@@ -34,7 +34,8 @@ class App extends React.Component {
   addToCart(product, event) {
     if (event) {
       this.showCartChanged(event);
-      let checkmark = event.target.nextElementSibling.className += ' on';
+      let checkmark = event.target.nextElementSibling;
+      checkmark.className += ' on';
       setTimeout(() => {
         checkmark.className = 'feedback';
       }, 600);
