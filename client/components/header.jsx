@@ -12,7 +12,7 @@ export default class Header extends React.Component {
         </h1>
         <h4 className="align-self-center">
           <Link to="/cart-summary">
-            {this.props.cartItemCount} <i className="fas fa-shopping-cart cursor"></i>
+            {this.props.cartItemCount} <i className="fas fa-cookie cursor"></i>
           </Link>
         </h4>
       </div>
