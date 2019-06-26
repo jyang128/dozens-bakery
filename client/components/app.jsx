@@ -87,7 +87,7 @@ class App extends React.Component {
               }/>
               <Route path="/:id" render={ props =>
                 <ProductDetails {...props}
-                  addHandler={this.addToCart}
+                  addToCartHandler={this.addToCart}
                 />
               }/>
             </Switch>

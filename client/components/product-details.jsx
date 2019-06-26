@@ -6,7 +6,7 @@ export default class ProductDetails extends React.Component {
     this.state = {
       product: {}
     };
-    this.addHandler = this.addHandler.bind(this);
+    this.addToCartHandler = this.addToCartHandler.bind(this);
   }
   componentDidMount() {
     let prodId = this.props.match.params.id;
@@ -17,8 +17,8 @@ export default class ProductDetails extends React.Component {
       })
       .catch(err => console.error(err.message));
   }
-  addHandler() {
-    this.props.addHandler(this.state.product);
+  addToCartHandler() {
+    this.props.addToCartHandler(this.state.product);
   }
   render() {
     let price = (this.state.product.price / 100).toFixed(2);
@@ -33,7 +33,7 @@ export default class ProductDetails extends React.Component {
             <p className="gray">${price}</p>
             <p className="card-text">{this.state.product.shortDescription}
             </p>
-            <button className="btn btn-info mb-3" onClick={this.addHandler}>Add To Cart</button>
+            <button className="btn btn-info mb-3" onClick={this.addToCartHandler}>Add To Cart</button>
           </div>
         </div>
         <div className="row justify-content-center">
