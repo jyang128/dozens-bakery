@@ -14,11 +14,16 @@ class App extends React.Component {
       cart: []
     };
     this.addToCart = this.addToCart.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
   }
   componentDidMount() {
     this.getProducts();
-    this.getCartItems();
+    if (!localStorage.cart) {
+      localStorage.cart = JSON.stringify(this.state.cart);
+    } else {
+      this.setState({ cart: JSON.parse(localStorage.cart) });
+    }
   }
   getProducts() {
     fetch('/api/products.php')
@@ -26,23 +31,23 @@ class App extends React.Component {
       .then(res => this.setState({ products: res }))
       .catch(err => console.error(err.message));
   }
-  getCartItems() {
-    fetch('/api/cart.php')
-      .then(res => res.json())
-      .then(res => this.setState({ cart: res }))
-      .catch(err => console.error(err.message));
-  }
   addToCart(product, event) {
     this.showCartChanged(event);
-    fetch('/api/cart.php', {
-      method: 'POST',
-      body: JSON.stringify(product),
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(res => res.json())
-      .then(res => this.setState({ cart: this.state.cart.concat(res) }));
+    let currentCart = JSON.parse(localStorage.getItem('cart'));
+    currentCart.push(product);
+    this.setState({ cart: currentCart });
+    localStorage.cart = JSON.stringify(currentCart);
   }
-  showCartChanged(event) {
+  removeFromCart(removalIndex) {
+    let currentCart = JSON.parse(localStorage.getItem('cart'));
+    let indexToRemove = currentCart.findIndex(item => {
+      return item.id === removalIndex;
+    });
+    currentCart.splice(indexToRemove, 1);
+    this.setState({ cart: currentCart });
+    localStorage.cart = JSON.stringify(currentCart);
+  }
+  showCartChanged() {
     let orders = document.querySelector('.order-total');
     orders.className += ' updated';
     setTimeout(() => {
@@ -87,6 +92,7 @@ class App extends React.Component {
               <Route path="/cart-summary" render={ props =>
                 <CartSummary {...props}
                   items={this.state.cart}
+                  deleteHandler={this.removeFromCart}
                 />
               }/>
               <Route path="/checkout" render={ props =>

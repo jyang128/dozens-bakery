@@ -24,7 +24,11 @@ export default class CartSummary extends React.Component {
     const cart = this.tallyItems();
 
     const cartItems = cart.map((item, index) =>
-      <CartSummaryItem key={index} item={item}/>);
+      <CartSummaryItem
+        key={index}
+        deleteHandler={this.props.deleteHandler}
+        item={item}
+      />);
 
     let cartTotal = this.props.items.reduce((sum, item) => {
       sum += item.price;
@@ -35,31 +39,32 @@ export default class CartSummary extends React.Component {
     let cartStatus = null;
     if (cart.length === 0) {
       cartStatus = (
-        <React.Fragment>
-          <h4>There are no treats in your order.</h4>
-        </React.Fragment>);
+        <div className="col-md-8 my-4 text-center">
+          <h4>There are currently 0 treats in your order.</h4>
+          <Link to="/">
+            <button className="btn btn-info my-4">Shop Now</button>
+          </Link>
+        </div>);
     } else {
       cartStatus = (
-        <React.Fragment>
+        <div className="col-md-8 my-4 d-flex justify-content-between">
           <h4>Order Total: ${ cartTotal }</h4>
           <Link to="/checkout">
             <button className="btn btn-info">Place Order</button>
           </Link>
-        </React.Fragment>);
+        </div>);
     }
 
     return (
       <div className="container mx-3">
         <div className="row justify-content-center">
-          <div className="col-md-8 mb-4">
-            <h2>My Order</h2>
+          <div className="col-md-8 text-center mb-3">
+            <h2>Your Order</h2>
           </div>
           { cartItems }
         </div>
         <div className="row justify-content-center">
-          <div className="col-md-8 my-4 d-flex justify-content-between">
-            { cartStatus }
-          </div>
+          { cartStatus }
         </div>
       </div>
     );
