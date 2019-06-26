@@ -32,7 +32,14 @@ class App extends React.Component {
       .catch(err => console.error(err.message));
   }
   addToCart(product, event) {
-    this.showCartChanged(event);
+    if (event) {
+      this.showCartChanged(event);
+      let checkmark = event.target.nextElementSibling;
+      checkmark.className += ' on';
+      setTimeout(() => {
+        checkmark.className = 'feedback';
+      }, 600);
+    }
     let currentCart = JSON.parse(localStorage.getItem('cart'));
     currentCart.push(product);
     this.setState({ cart: currentCart });
@@ -93,6 +100,7 @@ class App extends React.Component {
                 <CartSummary {...props}
                   items={this.state.cart}
                   deleteHandler={this.removeFromCart}
+                  addHandler={this.addToCart}
                 />
               }/>
               <Route path="/checkout" render={ props =>

@@ -20,33 +20,23 @@ body {
     color: #D8B1B1;
     border-bottom: 2px solid #D8B1B1;
 }
+.card-body {
+    min-height: 30vh;
+} 
 .order-total {
     transition: color .5s ease-in;
 }
 .updated {
     color: #A5435C;
 }
-/* .card-container {
-    min-height: 60vh;
+.plus img {
+    max-width: 24px;
+    margin-right: 5px;
 }
-.card-container:hover {
+.plus:hover {
     cursor: pointer;
 }
-.card-width {
-    width: 100%;
-    height: 100%;
-}
-.image-container {
-    width: 100%;
-    height: 19rem;
-}
-.image-dims {
-    height: 100%;
-    object-fit: contain;
-}*/
-.card-body {
-    min-height: 30vh;
-} 
+
 .btn-info {
     color: #fff;
     background-color: #d88f97;
@@ -60,16 +50,29 @@ body {
     background-color: #c48289;
     border-color: #c48289;
 }
-.remove:hover {
+.minus img {
+    max-width: 24px;
+}
+.minus:hover {
     cursor: pointer;
     color: #a23347;
 }
 .add-to-order {
     color: #A5435C;
+    transition: all 0.5s ease-out;
 }
 .add-to-order:hover {
     cursor: pointer;
     border-bottom: 1px solid #d88f97;
+}
+.feedback {
+    visibility: hidden;
+    color: #ffbc65;
+    font-size: 1.25em;
+    margin-left: 10px;
+}
+.feedback.on {
+    visibility: visible;
 }
 .gray {
     color: gray;
@@ -89,3 +92,21 @@ input, textarea {
     border-radius: 5px;
     padding: 10px;
 }
+/* .card-container {
+    min-height: 60vh;
+}
+.card-container:hover {
+    cursor: pointer;
+}
+.card-width {
+    width: 100%;
+    height: 100%;
+}
+.image-container {
+    width: 100%;
+    height: 19rem;
+}
+.image-dims {
+    height: 100%;
+    object-fit: contain;
+}*/

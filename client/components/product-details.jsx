@@ -17,8 +17,8 @@ export default class ProductDetails extends React.Component {
       })
       .catch(err => console.error(err.message));
   }
-  addToCartHandler() {
-    this.props.addToCartHandler(this.state.product);
+  addToCartHandler(event) {
+    this.props.addToCartHandler(this.state.product, event);
   }
   render() {
     let price = (this.state.product.price / 100);
@@ -34,6 +34,7 @@ export default class ProductDetails extends React.Component {
             <p className="card-text">{this.state.product.shortDescription}
             </p>
             <button className="btn btn-info mb-3" onClick={this.addToCartHandler}>Add To Order</button>
+            <span className="feedback"><i className="fas fa-check"></i></span>
           </div>
         </div>
         <div className="row justify-content-center">
