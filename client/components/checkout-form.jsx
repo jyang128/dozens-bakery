@@ -5,30 +5,31 @@ export default class CheckoutForm extends React.Component {
     super(props);
     this.state = {
       name: '',
-      creditCard: '',
-      shippingAddress: '',
+      phoneNum: '',
+      specialInstr: '',
       errorMessage: ''
     };
     this.placeOrder = this.placeOrder.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleCreditChange = this.handleCreditChange.bind(this);
-    this.handleAddressChange = this.handleAddressChange.bind(this);
+    this.handlePhoneNumChange = this.handlePhoneNumChange.bind(this);
+    this.handleSpecialInstrChange = this.handleSpecialInstrChange.bind(this);
   }
   placeOrder() {
-    if (!this.state.name || !this.state.creditCard || !this.state.shippingAddress) {
-      this.setState({ errorMessage: 'Missing a required input!' });
+    if (!this.state.name || !this.state.phoneNum || !this.state.specialInstr) {
+      this.setState({ errorMessage: 'Missing required input!' });
       return;
     }
-    this.props.orderHandler(this.state.name, this.state.creditCard, this.state.shippingAddress);
+    this.props.orderHandler(this.state.name, this.state.email, this.state.specialInstr);
+    document.getElementById('formSubmit').disabled = true;
   }
   handleNameChange(event) {
     this.setState({ name: event.target.value });
   }
-  handleCreditChange(event) {
-    this.setState({ creditCard: event.target.value });
+  handlePhoneNumChange(event) {
+    this.setState({ phoneNum: event.target.value });
   }
-  handleAddressChange(event) {
-    this.setState({ shippingAddress: event.target.value });
+  handleSpecialInstrChange(event) {
+    this.setState({ specialInstr: event.target.value });
   }
   render() {
     let orderTotal = this.props.cartItems.reduce((sum, item) => {
@@ -51,18 +52,19 @@ export default class CheckoutForm extends React.Component {
               onChange={this.handleNameChange}
               className="mb-3"
             />
-            <h4>Credit Card</h4>
+            <h4>Phone Number</h4>
             <input
-              type="number"
-              value={this.state.creditCard}
-              onChange={this.handleCreditChange}
+              type="text"
+              value={this.state.phoneNum}
+              onChange={this.handlePhoneNumChange}
               className="mb-3"
             />
-            <h4>Shipping Address</h4>
-            <input
-              type="textarea"
-              value={this.state.shippingAddress}
-              onChange={this.handleAddressChange}
+            <h4>Special Instructions</h4>
+            <p><small>Let us know if you have any special requests.</small></p>
+            <textarea
+              rows="3"
+              value={this.state.specialInstr}
+              onChange={this.handleSpecialInstrChange}
               className="mb-3"
             />
           </form>
@@ -73,8 +75,8 @@ export default class CheckoutForm extends React.Component {
           </div>
         </div>
         <div className="row justify-content-center">
-          <div className="col-md-8 my-4 d-flex justify-content-between">
-            <button onClick={this.placeOrder} className="btn btn-danger">Place Order</button>
+          <div className="col-md-8 mt-2 d-flex justify-content-between">
+            <button id="formSubmit" onClick={this.placeOrder} className="btn btn-info">Place Order</button>
           </div>
         </div>
       </div>

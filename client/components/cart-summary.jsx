@@ -41,9 +41,9 @@ export default class CartSummary extends React.Component {
     } else {
       cartStatus = (
         <React.Fragment>
-          <h4>Item Total: ${ cartTotal }</h4>
+          <h4>Order Total: ${ cartTotal }</h4>
           <Link to="/checkout">
-            <button className="btn btn-danger">Place Order</button>
+            <button className="btn btn-info">Place Order</button>
           </Link>
         </React.Fragment>);
     }

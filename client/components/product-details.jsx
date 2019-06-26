@@ -21,7 +21,7 @@ export default class ProductDetails extends React.Component {
     this.props.addToCartHandler(this.state.product);
   }
   render() {
-    let price = (this.state.product.price / 100).toFixed(2);
+    let price = (this.state.product.price / 100);
     return (
       <div className="container mx-3">
         <div className="row justify-content-center">
@@ -30,10 +30,10 @@ export default class ProductDetails extends React.Component {
           </div>
           <div className="col-md-4">
             <h3 className="card-title">{this.state.product.name}</h3>
-            <p className="gray">${price}</p>
+            <p className="gray">${price} <small>/ dozen</small></p>
             <p className="card-text">{this.state.product.shortDescription}
             </p>
-            <button className="btn btn-info mb-3" onClick={this.addToCartHandler}>Add To Cart</button>
+            <button className="btn btn-info mb-3" onClick={this.addToCartHandler}>Add To Order</button>
           </div>
         </div>
         <div className="row justify-content-center">
