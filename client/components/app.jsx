@@ -66,7 +66,7 @@ class App extends React.Component {
       <React.Fragment>
         <div className="container">
           <div className="row">
-            <Header title="Savor" cartItemCount={this.state.cart.length}/>
+            <Header title="Some Bakery" cartItemCount={this.state.cart.length}/>
           </div>
           <div className="row">
             <Switch>
