@@ -20,6 +20,12 @@ body {
     color: #D8B1B1;
     border-bottom: 2px solid #D8B1B1;
 }
+.order-total {
+    transition: color .5s ease-in;
+}
+.updated {
+    color: #A5435C;
+}
 /* .card-container {
     min-height: 60vh;
 }
@@ -54,14 +60,22 @@ body {
     background-color: #c48289;
     border-color: #c48289;
 }
+.remove:hover {
+    cursor: pointer;
+    color: #a23347;
+}
+.add-to-order {
+    color: #A5435C;
+}
+.add-to-order:hover {
+    cursor: pointer;
+    border-bottom: 1px solid #d88f97;
+}
 .gray {
     color: gray;
 }
 .red {
     color: red;
-}
-.cursor {
-    cursor: pointer;
 }
 .gray.cursor:hover {
     cursor:pointer;

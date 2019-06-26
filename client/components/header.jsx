@@ -18,7 +18,7 @@ export default class Header extends React.Component {
             <span className="menu">Featured</span>
           </Link>
           <Link to="/cart-summary">
-            <span className="menu">Your Order: {this.props.cartItemCount}</span>
+            <span className="menu order-total">Your Order: {this.props.cartItemCount}</span>
           </Link>
         </h5>
       </div>

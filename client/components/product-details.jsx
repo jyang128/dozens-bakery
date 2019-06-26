@@ -21,7 +21,7 @@ export default class ProductDetails extends React.Component {
     this.props.addToCartHandler(this.state.product);
   }
   render() {
-    let price = (this.state.product.price / 100).toFixed(2);
+    let price = (this.state.product.price / 100);
     return (
       <div className="container mx-3">
         <div className="row justify-content-center">

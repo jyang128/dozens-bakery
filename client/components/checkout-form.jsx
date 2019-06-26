@@ -60,6 +60,7 @@ export default class CheckoutForm extends React.Component {
               className="mb-3"
             />
             <h4>Special Instructions</h4>
+            <p><small>Let us know if you have any special requests.</small></p>
             <textarea
               rows="3"
               value={this.state.specialInstr}

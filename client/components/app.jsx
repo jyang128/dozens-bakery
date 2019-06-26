@@ -32,7 +32,8 @@ class App extends React.Component {
       .then(res => this.setState({ cart: res }))
       .catch(err => console.error(err.message));
   }
-  addToCart(product) {
+  addToCart(product, event) {
+    this.showCartChanged(event);
     fetch('/api/cart.php', {
       method: 'POST',
       body: JSON.stringify(product),
@@ -40,6 +41,13 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(res => this.setState({ cart: this.state.cart.concat(res) }));
+  }
+  showCartChanged(event) {
+    let orders = document.querySelector('.order-total');
+    orders.className += ' updated';
+    setTimeout(() => {
+      orders.className = 'menu order-total';
+    }, 500);
   }
   placeOrder(name, creditCard, shippingAddress) {
     let orderDetails = {
@@ -72,7 +80,9 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/" render={ props =>
                 <ProductList {...props}
-                  stateData={this.state}/>
+                  stateData={this.state}
+                  addToCartHandler={this.addToCart}
+                />
               }/>
               <Route path="/cart-summary" render={ props =>
                 <CartSummary {...props}
