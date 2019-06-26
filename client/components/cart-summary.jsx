@@ -36,7 +36,7 @@ export default class CartSummary extends React.Component {
     if (cart.length === 0) {
       cartStatus = (
         <React.Fragment>
-          <h4>There are no items in your cart.</h4>
+          <h4>There are no treats in your order.</h4>
         </React.Fragment>);
     } else {
       cartStatus = (
@@ -52,7 +52,7 @@ export default class CartSummary extends React.Component {
       <div className="container mx-3">
         <div className="row justify-content-center">
           <div className="col-md-8 mb-4">
-            <h2>My Cart</h2>
+            <h2>My Order</h2>
           </div>
           { cartItems }
         </div>

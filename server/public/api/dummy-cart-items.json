@@ -1,16 +1,16 @@
 [
   {
     "id": 3,
-    "name": "Snuggie",
-    "price": 2900,
-    "image": "https://bit.ly/2LVHYAk",
-    "shortDescription": "Super-Soft Fleece with pockets! One Size fits all Adults! Keeps you Warm & Your Hands-Free!"
+    "name": "Strawberries and Creme",
+    "price": 2000,
+    "image": "../../images/cream-pots.jpg",
+    "shortDescription": "Fresh sweet parfait topped with ripe strawberries and a dollop of honey."
   },
   {
-    "id": 5,
-    "name": "Ostrich Pillow",
-    "price": 9900,
-    "image": "https://bit.ly/2VD80b8",
-    "shortDescription": "Create your own snugly space in the world and feel-good anywhere with the ultimate cocoon pillow."
+    "id": 2,
+    "name": "Mini Cheesecakes",
+    "price": 2500,
+    "image": "../../images/orange-tart.jpg",
+    "shortDescription": "Sweet and tart mini cheesecakes topped with fresh blueberries and oranges."
   }
 ]

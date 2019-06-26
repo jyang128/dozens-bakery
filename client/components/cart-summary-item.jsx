@@ -14,7 +14,7 @@ export default class CartSummaryItem extends React.Component {
               <h3 className="card-title">{this.props.item.name}</h3>
             </div>
             <div className="col-12 d-flex justify-content-between my-2">
-              <h6 className="gray">${price}</h6>
+              <h6 className="gray">${price} <small>/ dozen</small></h6>
               <h6 className="card-qty">QTY: {this.props.item.quantity}</h6>
             </div>
             <div className="col-12">

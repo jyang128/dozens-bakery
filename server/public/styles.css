@@ -1,10 +1,9 @@
 body {
     margin:0;
+    font-family: 'Nunito', sans-serif;
 }
 .card-container {
-    width: 20rem;
-    box-sizing: border-box;
-    padding: 10px;
+    min-height: 60vh;
 }
 .card-container:hover {
     cursor: pointer;
@@ -13,15 +12,16 @@ body {
     width: 100%;
     height: 100%;
 }
-.image-container{
+.image-container {
     width: 100%;
     height: 19rem;
 }
 .image-dims {
     height: 100%;
-}
-.contain {
     object-fit: contain;
+}
+.card-body {
+    min-height: 25vh;
 }
 .gray {
     color: gray;
