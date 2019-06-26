@@ -3,8 +3,27 @@ import CartSummaryItem from './cart-summary-item';
 import { Link } from 'react-router-dom';
 
 export default class CartSummary extends React.Component {
+  tallyItems() {
+    const items = this.props.items.reduce((withItemQty, item) => {
+      if (!withItemQty[item.id]) {
+        withItemQty[item.id] = item;
+        withItemQty[item.id].quantity = 1;
+      } else {
+        withItemQty[item.id].quantity++;
+      }
+      return withItemQty;
+    }, {});
+
+    const itemArray = Object.keys(items).map(key => {
+      return items[key];
+    });
+
+    return itemArray;
+  }
   render() {
-    let cartItems = this.props.items.map((item, index) =>
+    const cart = this.tallyItems();
+
+    const cartItems = cart.map((item, index) =>
       <CartSummaryItem key={index} item={item}/>);
 
     let cartTotal = this.props.items.reduce((sum, item) => {
@@ -14,16 +33,19 @@ export default class CartSummary extends React.Component {
     cartTotal = (cartTotal / 100).toFixed(2);
 
     let cartStatus = null;
-    if (this.props.items.length === 0) {
-      cartStatus = <h4>The cart is empty!</h4>;
+    if (cart.length === 0) {
+      cartStatus = (
+        <React.Fragment>
+          <h4>There are no items in your cart.</h4>
+        </React.Fragment>);
     } else {
-      cartStatus =
+      cartStatus = (
         <React.Fragment>
           <h4>Item Total: ${ cartTotal }</h4>
           <Link to="/checkout">
             <button className="btn btn-danger">Place Order</button>
           </Link>
-        </React.Fragment>;
+        </React.Fragment>);
     }
 
     return (

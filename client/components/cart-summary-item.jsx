@@ -10,10 +10,16 @@ export default class CartSummaryItem extends React.Component {
             <img src={this.props.item.image} className="img-fluid" alt="cart item image"/>
           </div>
           <div className="col-md-5 align-self-center">
-            <h3 className="card-title">{this.props.item.name}</h3>
-            <p className="gray">${price}</p>
-            <p className="card-text">{this.props.item.shortDescription}
-            </p>
+            <div className="col-12">
+              <h3 className="card-title">{this.props.item.name}</h3>
+            </div>
+            <div className="col-12 d-flex justify-content-between my-2">
+              <h6 className="gray">${price}</h6>
+              <h6 className="card-qty">QTY: {this.props.item.quantity}</h6>
+            </div>
+            <div className="col-12">
+              <p className="card-text">{this.props.item.shortDescription}</p>
+            </div>
           </div>
         </div>
       </React.Fragment>
