@@ -1,6 +1,13 @@
 import React from 'react';
 
 export default class CartSummaryItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.deleteHandler = this.deleteHandler.bind(this);
+  }
+  deleteHandler() {
+    this.props.deleteHandler(this.props.item.id);
+  }
   render() {
     let price = ((this.props.item.price / 100) * this.props.item.quantity);
     return (
@@ -21,7 +28,7 @@ export default class CartSummaryItem extends React.Component {
               <p className="card-text">{this.props.item.shortDescription}</p>
             </div>
             <div className="col-12 mt-2">
-              <p className="card-text gray remove">&times; remove</p>
+              <p className="card-text gray remove" onClick={this.deleteHandler}>&times; remove</p>
             </div>
           </div>
         </div>
