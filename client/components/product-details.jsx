@@ -22,6 +22,34 @@ export default class ProductDetails extends React.Component {
   }
   render() {
     let price = (this.state.product.price / 100);
+    let reviews = null;
+    if (this.state.product.longDescription) {
+      reviews = (
+        <React.Fragment><div className="col-12 text-center my-4">
+          <h3>
+            <span className="red-underline">Reviews</span>
+          </h3>
+        </div>
+        <div className="col-12 d-flex flex-wrap mt-4 reviews">
+          <div className="col-lg-4 mb-4">
+            <h5>{`"${this.state.product.longDescription}"`}</h5>
+          </div>
+          <div className="col-lg-4 mb-4">
+            <h5>{`"${this.state.product.longDescription}"`}</h5>
+          </div>
+          <div className="col-lg-4 mb-4">
+            <h5>{`"${this.state.product.longDescription}"`}</h5>
+          </div>
+          <div className="col-lg-4 mb-4">
+            <h5>{`"${this.state.product.longDescription}"`}</h5>
+          </div>
+          <div className="col-lg-4 mb-4">
+            <h5>{`"${this.state.product.longDescription}"`}</h5>
+          </div>
+        </div>
+        </React.Fragment>);
+    } else { reviews = null; }
+
     return (
       <React.Fragment>
         <div className="col-12 col-sm-6 mb-4">
@@ -35,9 +63,7 @@ export default class ProductDetails extends React.Component {
           <button className="btn btn-info mb-3" onClick={this.addToCartHandler}>Add To Order</button>
           <span className="feedback"><i className="fas fa-check"></i></span>
         </div>
-        <div className="col-12 col-md-8 offset-md-2 mt-2">
-          <p>{this.state.product.longDescription}</p>
-        </div>
+        {reviews}
       </React.Fragment>
     );
   }

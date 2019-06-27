@@ -11,11 +11,8 @@ export default class Header extends React.Component {
           </Link>
         </h1>
         <h5 className="align-self-center">
-          <Link to="/">
+          <Link to="/about-us">
             <span>About Us</span>
-          </Link>
-          <Link to="/2">
-            <span>Featured</span>
           </Link>
           <Link to="/cart-summary">
             <span className="total">Your Order: {this.props.cartItemCount}</span>

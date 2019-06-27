@@ -15,8 +15,8 @@ export default class CheckoutForm extends React.Component {
     this.handleSpecialInstrChange = this.handleSpecialInstrChange.bind(this);
   }
   placeOrder() {
-    if (!this.state.name || !this.state.phoneNum || !this.state.specialInstr) {
-      this.setState({ errorMessage: 'Missing required input(s)!' });
+    if (!this.state.name || !this.state.phoneNum) {
+      this.setState({ errorMessage: 'Pleases provide name and phone number!' });
       return;
     }
 
@@ -61,21 +61,21 @@ export default class CheckoutForm extends React.Component {
           <h4 className="gray">Order Total: ${orderTotal}</h4>
         </div>
         <form className="col-md-8 offset-md-2">
-          <h4>Name</h4>
+          <h5>Name</h5>
           <input
             type="text"
             value={this.state.name}
             onChange={this.handleNameChange}
             className="mb-3"
           />
-          <h4>Phone Number</h4>
+          <h5>Phone Number</h5>
           <input
             type="text"
             value={this.state.phoneNum}
             onChange={this.handlePhoneNumChange}
             className="mb-3"
           />
-          <h4>Special Instructions</h4>
+          <h5>Special Instructions</h5>
           <p className="gray">{`Let us know if there are any special adjustments or customizations you'd like to make. We'll be in touch within 48 business hours to discuss the details of your order.`}</p>
           <textarea
             rows="3"

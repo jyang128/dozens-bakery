@@ -4,8 +4,9 @@ import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import About from './about-us';
 import Confirmation from './confirmation';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
@@ -90,7 +91,7 @@ class App extends React.Component {
         <div className="wrapper">
           <div className="container header">
             <div className="row">
-              <Header title="Some Bakery" cartItemCount={this.state.cart.length}/>
+              <Header title="Dozen's Bakery" cartItemCount={this.state.cart.length}/>
             </div>
           </div>
           <div className="container main-section">
@@ -115,9 +116,8 @@ class App extends React.Component {
                     orderHandler={this.placeOrder}
                   />
                 }/>
-                <Route path="/confirmation" render={ props =>
-                  <Confirmation {...props}/>
-                }/>
+                <Route path="/about-us" component={About}/>
+                <Route path="/confirmation" component={Confirmation}/>
                 <Route path="/:id" render={ props =>
                   <ProductDetails {...props}
                     addToCartHandler={this.addToCart}
@@ -130,7 +130,7 @@ class App extends React.Component {
         <div className="container footer">
           <div className="row">
             <div className="col-12 d-flex justify-content-center my-4 gray">
-              <div>Copyright &copy;2019 Some Bakery</div>
+              <div>Copyright <i className="far fa-copyright"></i>{`2019 Dozen's Bakery`}</div>
             </div>
           </div>
         </div>
