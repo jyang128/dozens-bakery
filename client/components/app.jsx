@@ -63,6 +63,7 @@ class App extends React.Component {
     }, 600);
   }
   placeOrder(name, phoneNum, specialInstr) {
+    localStorage.clear();
     let orderDetails = {
       name,
       phoneNum,
@@ -84,46 +85,55 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div className="wrapper">
-        <div className="container header">
-          <div className="row">
-            <Header title="Some Bakery" cartItemCount={this.state.cart.length}/>
+      <React.Fragment>
+        <div className="wrapper">
+          <div className="container header">
+            <div className="row">
+              <Header title="Some Bakery" cartItemCount={this.state.cart.length}/>
+            </div>
+          </div>
+          <div className="container main-section">
+            <div className="row">
+              <Switch>
+                <Route exact path="/" render={ props =>
+                  <ProductList {...props}
+                    stateData={this.state}
+                    addToCartHandler={this.addToCart}
+                  />
+                }/>
+                <Route path="/cart-summary" render={ props =>
+                  <CartSummary {...props}
+                    items={this.state.cart}
+                    deleteHandler={this.removeFromCart}
+                    addHandler={this.addToCart}
+                  />
+                }/>
+                <Route path="/checkout" render={ props =>
+                  <CheckoutForm {...props}
+                    cartItems={this.state.cart}
+                    orderHandler={this.placeOrder}
+                  />
+                }/>
+                <Route path="/confirmation" render={ props =>
+                  <Confirmation {...props}/>
+                }/>
+                <Route path="/:id" render={ props =>
+                  <ProductDetails {...props}
+                    addToCartHandler={this.addToCart}
+                  />
+                }/>
+              </Switch>
+            </div>
           </div>
         </div>
-        <div className="container main-section">
+        <div className="container footer">
           <div className="row">
-            <Switch>
-              <Route exact path="/" render={ props =>
-                <ProductList {...props}
-                  stateData={this.state}
-                  addToCartHandler={this.addToCart}
-                />
-              }/>
-              <Route path="/cart-summary" render={ props =>
-                <CartSummary {...props}
-                  items={this.state.cart}
-                  deleteHandler={this.removeFromCart}
-                  addHandler={this.addToCart}
-                />
-              }/>
-              <Route path="/checkout" render={ props =>
-                <CheckoutForm {...props}
-                  cartItems={this.state.cart}
-                  orderHandler={this.placeOrder}
-                />
-              }/>
-              <Route path="/confirmation" render={ props =>
-                <Confirmation {...props}/>
-              }/>
-              <Route path="/:id" render={ props =>
-                <ProductDetails {...props}
-                  addToCartHandler={this.addToCart}
-                />
-              }/>
-            </Switch>
+            <div className="col-12 d-flex justify-content-center my-4 gray">
+              <div>Copyright &copy;2019 Some Bakery</div>
+            </div>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

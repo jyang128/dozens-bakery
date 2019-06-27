@@ -5,7 +5,7 @@ body {
 .wrapper {
     min-height: 90vh;
 }
-/* header and menu*/
+/* header and footer */
 .header a:hover {
     text-decoration: none;
 }
@@ -25,6 +25,11 @@ body {
 }
 .total.updated {
     color: #A5435C;
+}
+.footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
 }
 /* add and remove from cart operations */
 .plus img {
@@ -92,24 +97,25 @@ input, textarea {
     padding: 10px;
 }
 /* confirmation page */
-.confirmation-page {
-    height: 100%;
-}
-/* .card-container {
-    min-height: 60vh;
-}
-.card-container:hover {
-    cursor: pointer;
-}
-.card-width {
+.thank-you-container {
+    background: url('../../images/cookie-spread.jpg') no-repeat;
     width: 100%;
-    height: 100%;
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+    opacity: .9;
+    position: relative;
 }
-.image-container {
-    width: 100%;
-    height: 19rem;
+.thank-you-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255, .9); 
+    box-sizing: border-box;
+    padding: 30px;
+    border-radius: 5px;
 }
-.image-dims {
-    height: 100%;
-    object-fit: contain;
-}*/
+.thank-you-inner h1 {
+    font-family: 'Kaushan Script', cursive;
+}
