@@ -36,7 +36,7 @@ export default class CheckoutForm extends React.Component {
       return;
     }
 
-    this.props.orderHandler(this.state.name, this.state.email, this.state.specialInstr);
+    this.props.orderHandler(this.state.name, this.state.phoneNum, this.state.specialInstr);
     document.getElementById('formSubmit').disabled = true;
   }
   handleNameChange(event) {

@@ -68,7 +68,7 @@ class App extends React.Component {
       name,
       phoneNum,
       specialInstr,
-      cart: this.state.cart
+      cart: JSON.stringify(this.state.cart)
     };
     fetch('/api/orders.php', {
       method: 'POST',
@@ -77,6 +77,7 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(res => {
+        localStorage.cart = JSON.stringify([]);
         this.setState({ cart: [] });
         this.props.history.push({
           pathname: '/confirmation'
