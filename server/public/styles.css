@@ -2,6 +2,13 @@ body {
     margin:0;
     font-family: 'Nunito', sans-serif;
 }
+.wrapper {
+    min-height: 90vh;
+}
+/* header and menu*/
+.header a:hover {
+    text-decoration: none;
+}
 .header h1 a {
     font-family: 'Kaushan Script', cursive;
     color: #D8B1B1;
@@ -9,49 +16,26 @@ body {
 }
 .header h5 a {
     color: #D8B1B1;
-}
-.header a:hover {
-    text-decoration: none;
-}
-.menu {
     margin: 0 15px;
+    transition: color .5s ease-in-out;
 }
-.menu:hover {
+.header h5 a:hover {
     color: #D8B1B1;
     border-bottom: 2px solid #D8B1B1;
 }
-.card-body {
-    min-height: 30vh;
-} 
-.order-total {
-    transition: color .5s ease-in;
-}
-.updated {
+.total.updated {
     color: #A5435C;
 }
+/* add and remove from cart operations */
 .plus img {
     max-width: 24px;
-    margin-right: 5px;
 }
 .plus:hover {
     cursor: pointer;
 }
-
-.btn-info {
-    color: #fff;
-    background-color: #d88f97;
-    border-color: #d88f97;
-}
-.btn-info:hover {
-    background-color: #c48289;
-    border-color: #c48289;
-}
-.btn-info:not(:disabled):not(.disabled):active {
-    background-color: #c48289;
-    border-color: #c48289;
-}
 .minus img {
     max-width: 24px;
+    margin-right: 5px;
 }
 .minus:hover {
     cursor: pointer;
@@ -74,6 +58,20 @@ body {
 .feedback.on {
     visibility: visible;
 }
+/* general styling */
+.btn-info {
+    color: #fff;
+    background-color: #d88f97;
+    border-color: #d88f97;
+}
+.btn-info:hover {
+    background-color: #c48289;
+    border-color: #c48289;
+}
+.btn-info:not(:disabled):not(.disabled):active {
+    background-color: #c48289;
+    border-color: #c48289;
+}
 .gray {
     color: gray;
 }
@@ -84,6 +82,7 @@ body {
     cursor:pointer;
     color: #3d69e4;
 }
+/* checkout form styling */
 input, textarea {
     outline: none;
     width: 100%;
@@ -91,6 +90,10 @@ input, textarea {
     border: 1px solid #c6c6c6;
     border-radius: 5px;
     padding: 10px;
+}
+/* confirmation page */
+.confirmation-page {
+    height: 100%;
 }
 /* .card-container {
     min-height: 60vh;

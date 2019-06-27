@@ -5,6 +5,7 @@ import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import Confirmation from './confirmation';
 
 class App extends React.Component {
   constructor(props) {
@@ -55,17 +56,17 @@ class App extends React.Component {
     localStorage.cart = JSON.stringify(currentCart);
   }
   showCartChanged() {
-    let orders = document.querySelector('.order-total');
+    let orders = document.querySelector('.total');
     orders.className += ' updated';
     setTimeout(() => {
-      orders.className = 'menu order-total';
-    }, 500);
+      orders.className = 'total';
+    }, 600);
   }
-  placeOrder(name, creditCard, shippingAddress) {
+  placeOrder(name, phoneNum, specialInstr) {
     let orderDetails = {
       name,
-      creditCard,
-      shippingAddress,
+      phoneNum,
+      specialInstr,
       cart: this.state.cart
     };
     fetch('/api/orders.php', {
@@ -77,17 +78,19 @@ class App extends React.Component {
       .then(res => {
         this.setState({ cart: [] });
         this.props.history.push({
-          pathname: '/'
+          pathname: '/confirmation'
         });
       });
   }
   render() {
     return (
-      <React.Fragment>
-        <div className="container">
+      <div className="wrapper">
+        <div className="container header">
           <div className="row">
             <Header title="Some Bakery" cartItemCount={this.state.cart.length}/>
           </div>
+        </div>
+        <div className="container main-section">
           <div className="row">
             <Switch>
               <Route exact path="/" render={ props =>
@@ -109,6 +112,9 @@ class App extends React.Component {
                   orderHandler={this.placeOrder}
                 />
               }/>
+              <Route path="/confirmation" render={ props =>
+                <Confirmation {...props}/>
+              }/>
               <Route path="/:id" render={ props =>
                 <ProductDetails {...props}
                   addToCartHandler={this.addToCart}
@@ -117,7 +123,7 @@ class App extends React.Component {
             </Switch>
           </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

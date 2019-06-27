@@ -35,12 +35,12 @@ export default class CartSummary extends React.Component {
       sum += item.price;
       return sum;
     }, 0);
-    cartTotal = (cartTotal / 100).toFixed(2);
+    cartTotal = (cartTotal / 100);
 
     let cartStatus = null;
     if (cart.length === 0) {
       cartStatus = (
-        <div className="col-md-8 my-4 text-center">
+        <div className="my-4">
           <h4>There are currently 0 treats in your order.</h4>
           <Link to="/">
             <button className="btn btn-info my-4">Shop Now</button>
@@ -48,7 +48,7 @@ export default class CartSummary extends React.Component {
         </div>);
     } else {
       cartStatus = (
-        <div className="col-md-8 my-4 d-flex justify-content-between">
+        <div className="col-lg-8 offset-lg-2 my-4 d-flex justify-content-between">
           <h4>Order Total: ${ cartTotal }</h4>
           <Link to="/checkout">
             <button className="btn btn-info">Place Order</button>
@@ -57,17 +57,16 @@ export default class CartSummary extends React.Component {
     }
 
     return (
-      <div className="container mx-3">
-        <div className="row justify-content-center">
-          <div className="col-md-8 text-center mb-3">
-            <h2>Your Order</h2>
-          </div>
-          { cartItems }
+      <React.Fragment>
+        <div className="col-12 text-center mb-3">
+          <h2>Your Order</h2>
         </div>
-        <div className="row justify-content-center">
+        { cartItems }
+        <div className="col-12">
           { cartStatus }
         </div>
-      </div>
+      </React.Fragment>
+
     );
   }
 }

@@ -16,9 +16,26 @@ export default class CheckoutForm extends React.Component {
   }
   placeOrder() {
     if (!this.state.name || !this.state.phoneNum || !this.state.specialInstr) {
-      this.setState({ errorMessage: 'Missing required input!' });
+      this.setState({ errorMessage: 'Missing required input(s)!' });
       return;
     }
+
+    if (this.state.name.length > 65) {
+      this.setState({ errorMessage: 'Name must be under 65 characters.' });
+      return;
+    }
+
+    let phoneNumRegex = /^1?\(?([0-9]{3})\)?[-.]?([0-9]{3})[-.]?([0-9]{4})$/gm;
+    if (!phoneNumRegex.test(this.state.phoneNum)) {
+      this.setState({ errorMessage: 'Not a valid phone number.' });
+      return;
+    }
+
+    if (this.state.specialInstr.length > 500) {
+      this.setState({ errorMessage: `Description must be under 500 characters. It currently has ${this.state.specialInstr.length}.` });
+      return;
+    }
+
     this.props.orderHandler(this.state.name, this.state.email, this.state.specialInstr);
     document.getElementById('formSubmit').disabled = true;
   }
@@ -36,50 +53,48 @@ export default class CheckoutForm extends React.Component {
       sum += item.price;
       return sum;
     }, 0);
-    orderTotal = (orderTotal / 100).toFixed(2);
+    orderTotal = (orderTotal / 100);
     return (
-      <div className="container mx-3">
-        <div className="row justify-content-center">
-          <div className="col-md-8 mb-4">
-            <h2>Checkout</h2>
-            <h4 className="gray">Order Total: ${orderTotal}</h4>
-          </div>
-          <form className="col-md-8">
-            <h4>Name</h4>
-            <input
-              type="text"
-              value={this.state.name}
-              onChange={this.handleNameChange}
-              className="mb-3"
-            />
-            <h4>Phone Number</h4>
-            <input
-              type="text"
-              value={this.state.phoneNum}
-              onChange={this.handlePhoneNumChange}
-              className="mb-3"
-            />
-            <h4>Special Instructions</h4>
-            <p><small>Let us know if you have any special requests.</small></p>
-            <textarea
-              rows="3"
-              value={this.state.specialInstr}
-              onChange={this.handleSpecialInstrChange}
-              className="mb-3"
-            />
-          </form>
+      <React.Fragment>
+        <div className="col-md-8 offset-md-2 mb-4">
+          <h2>Checkout</h2>
+          <h4 className="gray">Order Total: ${orderTotal}</h4>
         </div>
-        <div className="row justify-content-center">
-          <div className="col-md-8 d-flex justify-content-between">
-            <p className="red">{this.state.errorMessage}</p>
-          </div>
+        <form className="col-md-8 offset-md-2">
+          <h4>Name</h4>
+          <input
+            type="text"
+            value={this.state.name}
+            onChange={this.handleNameChange}
+            className="mb-3"
+          />
+          <h4>Phone Number</h4>
+          <input
+            type="text"
+            value={this.state.phoneNum}
+            onChange={this.handlePhoneNumChange}
+            className="mb-3"
+          />
+          <h4>Special Instructions</h4>
+          <p className="gray">{`Let us know if there are any special adjustments or customizations you'd like to make. We'll be in touch within 48 business hours to discuss the details of your order.`}</p>
+          <textarea
+            rows="3"
+            value={this.state.specialInstr}
+            onChange={this.handleSpecialInstrChange}
+            className="mb-3"
+          />
+        </form>
+        <div className="col-md-8 offset-md-2 d-flex justify-content-between">
+          <button
+            id="formSubmit"
+            onClick={this.placeOrder}
+            className="btn btn-info"
+          >
+            Place Order
+          </button>
+          <p className="red my-2">{this.state.errorMessage}</p>
         </div>
-        <div className="row justify-content-center">
-          <div className="col-md-8 mt-2 d-flex justify-content-between">
-            <button id="formSubmit" onClick={this.placeOrder} className="btn btn-info">Place Order</button>
-          </div>
-        </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

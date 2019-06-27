@@ -15,7 +15,7 @@ export default class ProductListItem extends React.Component {
     return (
       <div className="col-12 col-sm-6 col-md-4 mb-3">
         <div className="card-container">
-          <div className="card card-width">
+          <div className="card">
             <Link to={`/${this.props.prodData.id}`}>
               <div className="card-img-top image-container text-center">
                 <img className="image-dims img-fluid" src={product.image} alt="product shot"/>
@@ -24,8 +24,8 @@ export default class ProductListItem extends React.Component {
             <div className="card-body">
               <h5 className="card-title">{product.name}</h5>
               <p className="gray">${price} <small>/ dozen</small></p>
-              <p className="card-text line-height">{
-                product.shortDescription.length < 110 ? product.shortDescription : product.shortDescription.substring(0, 101) + '...'
+              <p className="card-text">{
+                product.shortDescription.length < 71 ? product.shortDescription : product.shortDescription.substring(0, 70) + '...'
               }</p>
               <h6 onClick={this.addToCartHandler}>
                 <span className="add-to-order">+ Add to Order</span>
