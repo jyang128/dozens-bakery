@@ -7,6 +7,7 @@ import CheckoutForm from './checkout-form';
 import About from './about-us';
 import Confirmation from './confirmation';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import PageNotFound from './page-not-found';
 
 class App extends React.Component {
   constructor(props) {
@@ -118,11 +119,12 @@ class App extends React.Component {
                 }/>
                 <Route path="/about-us" component={About}/>
                 <Route path="/confirmation" component={Confirmation}/>
-                <Route path="/:id" render={ props =>
+                <Route exact path="/:id" render={ props =>
                   <ProductDetails {...props}
                     addToCartHandler={this.addToCart}
                   />
                 }/>
+                <Route component={PageNotFound}/>
               </Switch>
             </div>
           </div>
