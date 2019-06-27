@@ -40,7 +40,7 @@ export default class CartSummary extends React.Component {
     let cartStatus = null;
     if (cart.length === 0) {
       cartStatus = (
-        <div className="my-4">
+        <div className="col-lg-8 offset-lg-2 text-center my-4">
           <h4>There are currently 0 treats in your order.</h4>
           <Link to="/">
             <button className="btn btn-info my-4">Shop Now</button>
