@@ -3,26 +3,8 @@ import CartSummaryItem from './cart-summary-item';
 import { Link } from 'react-router-dom';
 
 export default class CartSummary extends React.Component {
-  tallyItems() {
-    const items = this.props.items.reduce((withItemQty, item) => {
-      if (!withItemQty[item.id]) {
-        withItemQty[item.id] = item;
-        withItemQty[item.id].quantity = 1;
-      } else {
-        withItemQty[item.id].quantity++;
-      }
-      return withItemQty;
-    }, {});
-
-    const itemArray = Object.keys(items).map(key => {
-      return items[key];
-    });
-
-    return itemArray;
-  }
   render() {
-    const cart = this.tallyItems();
-
+    const cart = this.props.items;
     const cartItems = cart.map((item, index) =>
       <CartSummaryItem
         key={index}
@@ -32,7 +14,7 @@ export default class CartSummary extends React.Component {
       />);
 
     let cartTotal = this.props.items.reduce((sum, item) => {
-      sum += item.price;
+      sum += item.price * item.quantity;
       return sum;
     }, 0);
     cartTotal = (cartTotal / 100);
@@ -49,7 +31,7 @@ export default class CartSummary extends React.Component {
     } else {
       cartStatus = (
         <div className="col-lg-8 offset-lg-2 my-4 d-flex justify-content-between">
-          <h4>Order Total: ${ cartTotal }</h4>
+          <h4>Order Total: ${cartTotal}</h4>
           <Link to="/checkout">
             <button className="btn btn-info">Place Order</button>
           </Link>
@@ -59,11 +41,11 @@ export default class CartSummary extends React.Component {
     return (
       <React.Fragment>
         <div className="col-12 text-center mb-3">
-          <h2>Your Order</h2>
+          <h2><span className="red-underline">Your Order</span></h2>
         </div>
-        { cartItems }
+        {cartItems}
         <div className="col-12">
-          { cartStatus }
+          {cartStatus}
         </div>
       </React.Fragment>
 

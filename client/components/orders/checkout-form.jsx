@@ -50,7 +50,7 @@ export default class CheckoutForm extends React.Component {
   }
   render() {
     let orderTotal = this.props.cartItems.reduce((sum, item) => {
-      sum += item.price;
+      sum += item.price * item.quantity;
       return sum;
     }, 0);
     orderTotal = (orderTotal / 100);

@@ -1,20 +1,22 @@
 import React from 'react';
-import Header from './header';
-import ProductList from './product-list';
-import ProductDetails from './product-details';
-import CartSummary from './cart-summary';
-import CheckoutForm from './checkout-form';
-import About from './about-us';
-import Confirmation from './confirmation';
+import Header from './general/header';
+import ProductList from './products/product-list';
+import ProductDetails from './products/product-details';
+import CartSummary from './orders/cart-summary';
+import CheckoutForm from './orders/checkout-form';
+import About from './general/about-us';
+import Confirmation from './orders/confirmation';
+import OrderSummary from './orders/order-summary';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import PageNotFound from './page-not-found';
+import PageNotFound from './404/page-not-found';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       products: [],
-      cart: []
+      cart: [],
+      order: {}
     };
     this.addToCart = this.addToCart.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
@@ -44,16 +46,35 @@ class App extends React.Component {
       }, 600);
     }
     let currentCart = JSON.parse(localStorage.getItem('cart'));
-    currentCart.push(product);
+
+    // check for duplication and only push if unique, else add and increment qty property on the item
+    let indexToCheck = currentCart.findIndex(item => {
+      return item.id === product.id;
+    });
+
+    if (indexToCheck > -1) {
+      currentCart[indexToCheck].quantity++;
+    } else {
+      product.quantity = 1;
+      currentCart.push(product);
+    }
+
     this.setState({ cart: currentCart });
     localStorage.cart = JSON.stringify(currentCart);
   }
-  removeFromCart(removalIndex) {
+  removeFromCart(removalId) {
     let currentCart = JSON.parse(localStorage.getItem('cart'));
     let indexToRemove = currentCart.findIndex(item => {
-      return item.id === removalIndex;
+      return item.id === removalId;
     });
-    currentCart.splice(indexToRemove, 1);
+
+    // check for quantity and decrement it, or remove completely if 1 left
+    if (currentCart[indexToRemove].quantity > 1) {
+      currentCart[indexToRemove].quantity--;
+    } else {
+      currentCart.splice(indexToRemove, 1);
+    }
+
     this.setState({ cart: currentCart });
     localStorage.cart = JSON.stringify(currentCart);
   }
@@ -79,8 +100,10 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(res => {
+        let order = res[0];
+        order.cart_items = JSON.parse(order.cart_items);
         localStorage.cart = JSON.stringify([]);
-        this.setState({ cart: [] });
+        this.setState({ cart: [], order });
         this.props.history.push({
           pathname: '/confirmation'
         });
@@ -92,7 +115,7 @@ class App extends React.Component {
         <div className="wrapper">
           <div className="container header">
             <div className="row">
-              <Header title="Dozen's Bakery" cartItemCount={this.state.cart.length}/>
+              <Header title="Dozen's Bakery" cart={this.state.cart}/>
             </div>
           </div>
           <div className="container main-section">
@@ -118,8 +141,17 @@ class App extends React.Component {
                   />
                 }/>
                 <Route path="/about-us" component={About}/>
-                <Route path="/confirmation" component={Confirmation}/>
-                <Route exact path="/:id" render={ props =>
+                <Route path="/confirmation" render={ props =>
+                  <Confirmation {...props}
+                    orderId={this.state.order.id}
+                  />
+                }/>
+                <Route path="/order/:orderId" render={ props =>
+                  <OrderSummary {...props}
+                    order={this.state.order.cart_items}
+                  />
+                }/>
+                <Route exact path="/product/:id" render={ props =>
                   <ProductDetails {...props}
                     addToCartHandler={this.addToCart}
                   />
