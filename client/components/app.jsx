@@ -16,7 +16,7 @@ class App extends React.Component {
     this.state = {
       products: [],
       cart: [],
-      order: {}
+      orderId: null
     };
     this.addToCart = this.addToCart.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
@@ -100,14 +100,14 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(res => {
-        let order = res[0];
-        order.cart_items = JSON.parse(order.cart_items);
+        let orderId = res.orderId;
         localStorage.cart = JSON.stringify([]);
-        this.setState({ cart: [], order });
+        this.setState({ cart: [], orderId });
         this.props.history.push({
           pathname: '/confirmation'
         });
-      });
+      })
+      .catch(err => console.error(err.message));
   }
   render() {
     return (
@@ -143,14 +143,10 @@ class App extends React.Component {
                 <Route path="/about-us" component={About} />
                 <Route path="/confirmation" render={props =>
                   <Confirmation {...props}
-                    orderId={this.state.order.id}
+                    orderId={this.state.orderId}
                   />
                 } />
-                <Route path="/order/:orderId" render={props =>
-                  <OrderSummary {...props}
-                    order={this.state.order.cart_items}
-                  />
-                } />
+                <Route path="/order/:orderId" component={OrderSummary} />
                 <Route exact path="/product/:id" render={props =>
                   <ProductDetails {...props}
                     addToCartHandler={this.addToCart}
