@@ -31,7 +31,7 @@ export default class CartSummary extends React.Component {
     } else {
       cartStatus = (
         <div className="col-lg-8 offset-lg-2 my-4 d-flex justify-content-between">
-          <h4>Order Total: ${cartTotal}</h4>
+          <h4 className="font-weight-bold">Order Total: ${cartTotal}</h4>
           <Link to="/checkout">
             <button className="btn btn-info">Place Order</button>
           </Link>
