@@ -6,7 +6,7 @@ require_once('db_connection.php');
 startUp();
 
 if(!$conn){
-  throw new Exception('there is an error' . mysqli_connect_error());
+    throw new Exception('there is an error' . mysqli_connect_error());
 }
 
 $item = file_get_contents('php://input');
@@ -22,33 +22,33 @@ $query = "INSERT INTO `orders` (`customer_name`, `phone_number`, `special_instr`
 $result = mysqli_query($conn, $query);
 
 if(!$result){
-  throw new Exception( mysqli_error($conn) );
+    throw new Exception( mysqli_error($conn) );
 }
 
 if ($result) {
     
-  $lastId = mysqli_insert_id($conn);
-  $getQuery = "SELECT * FROM `orders` WHERE id = {$lastId}";
-  $result = mysqli_query($conn, $getQuery);
+    $lastId = mysqli_insert_id($conn);
+    $getQuery = "SELECT * FROM `orders` WHERE id = {$lastId}";
+    $result = mysqli_query($conn, $getQuery);
 
-  if ($result) {
-      $numRows = mysqli_num_rows($result);
-  } else {
-      throw new Exception('there is an error' . mysqli_error($conn));
-  }
+    if ($result) {
+        $numRows = mysqli_num_rows($result);
+    } else {
+        throw new Exception('there is an error' . mysqli_error($conn));
+    }
 
-  if ($numRows === 0) {
-    throw new Exception("no orders found");
-  }
+    if ($numRows === 0) {
+        throw new Exception("no orders found");
+    }
 
-  $output = [];
+    $output = [];
 
-  while ($row = mysqli_fetch_assoc($result)) {   
-    $output[] = $row;
-  }
+    while ($row = mysqli_fetch_assoc($result)) {   
+        $output[] = $row;
+    }
 
 } else {
-  throw new Exception("failed to create order: " . mysqli_error($conn));
+    throw new Exception("failed to create order: " . mysqli_error($conn));
 }
 
 $json_output = json_encode($output);

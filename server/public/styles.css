@@ -170,6 +170,7 @@ textarea:focus, input[type="text"]:focus {
     position: relative;
 }
 .page-not-found-inner {
+    width: 70vw;
     position: absolute;
     top: 50%;
     left: 50%;

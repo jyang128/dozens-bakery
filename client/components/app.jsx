@@ -115,48 +115,48 @@ class App extends React.Component {
         <div className="wrapper">
           <div className="container header">
             <div className="row">
-              <Header title="Dozen's Bakery" cart={this.state.cart}/>
+              <Header title="Dozen's Bakery" cart={this.state.cart} />
             </div>
           </div>
           <div className="container main-section">
             <div className="row">
               <Switch>
-                <Route exact path="/" render={ props =>
+                <Route exact path="/" render={props =>
                   <ProductList {...props}
                     stateData={this.state}
                     addToCartHandler={this.addToCart}
                   />
-                }/>
-                <Route path="/cart-summary" render={ props =>
+                } />
+                <Route path="/cart-summary" render={props =>
                   <CartSummary {...props}
                     items={this.state.cart}
                     deleteHandler={this.removeFromCart}
                     addHandler={this.addToCart}
                   />
-                }/>
-                <Route path="/checkout" render={ props =>
+                } />
+                <Route path="/checkout" render={props =>
                   <CheckoutForm {...props}
                     cartItems={this.state.cart}
                     orderHandler={this.placeOrder}
                   />
-                }/>
-                <Route path="/about-us" component={About}/>
-                <Route path="/confirmation" render={ props =>
+                } />
+                <Route path="/about-us" component={About} />
+                <Route path="/confirmation" render={props =>
                   <Confirmation {...props}
                     orderId={this.state.order.id}
                   />
-                }/>
-                <Route path="/order/:orderId" render={ props =>
+                } />
+                <Route path="/order/:orderId" render={props =>
                   <OrderSummary {...props}
                     order={this.state.order.cart_items}
                   />
-                }/>
-                <Route exact path="/product/:id" render={ props =>
+                } />
+                <Route exact path="/product/:id" render={props =>
                   <ProductDetails {...props}
                     addToCartHandler={this.addToCart}
                   />
-                }/>
-                <Route component={PageNotFound}/>
+                } />
+                <Route component={PageNotFound} />
               </Switch>
             </div>
           </div>
