@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Img from '../general/image';
 
 export default class ProductListItem extends React.Component {
   constructor(props) {
@@ -17,8 +18,8 @@ export default class ProductListItem extends React.Component {
         <div className="card-container">
           <div className="card">
             <Link to={`/product/${this.props.prodData.id}`}>
-              <div className="card-img-top image-container text-center">
-                <img className="image-dims img-fluid" src={product.image} alt="product shot" />
+              <div className="card-img-top">
+                <Img src={product.image} className="img-fluid" alt="product shot" />
               </div>
             </Link>
             <div className="card-body">
