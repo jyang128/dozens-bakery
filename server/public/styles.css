@@ -212,37 +212,24 @@ textarea:focus, input[type="text"]:focus {
     transform: translate(-50%, -50%);
     width: 64px;
 }
-.loading-bars div {
-    animation: loading-bars 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
-    display: inline-block;
-    left: 6px;
+.animation {
+    width: 70px;
+}
+/* page loader */
+.loading-page {
+    position: fixed;
+    top: 65px;
+    left:0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+}
+.loading-icon {
     position: absolute;
-    width: 13px;
-}
-.loading-bars div:nth-child(1) {
-    animation-delay: -0.24s;
-    left: 6px;
-}
-
-.loading-bars div:nth-child(2) {
-    animation-delay: -0.12s;
-    left: 26px;
-}
-
-.loading-bars div:nth-child(3) {
-    animation-delay: 0;
-    left: 45px;
-}
-
-@keyframes loading-bars {
-    0% {
-        background: #bfbfbf;
-        height: 51px;
-        top: 6px;
-    }
-    50%, 100% {
-        background: #dcdcdc;
-        height: 26px;
-        top: 19px;
-    }
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    
 }
