@@ -1,10 +1,12 @@
 import React from 'react';
+import Img from '../general/image';
 
 export default class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: {}
+      product: {},
+      loading: true
     };
     this.addToCartHandler = this.addToCartHandler.bind(this);
   }
@@ -15,7 +17,10 @@ export default class ProductDetails extends React.Component {
       .then(res => {
         this.setState({ product: res[0] });
       })
-      .catch(err => console.error(err.message));
+      .catch(err => console.error(err.message))
+      .finally(() => {
+        this.setState({ loading: false });
+      });
   }
   addToCartHandler(event) {
     this.props.addToCartHandler(this.state.product, event);
@@ -50,10 +55,15 @@ export default class ProductDetails extends React.Component {
         </React.Fragment>);
     } else { reviews = null; }
 
+    let loader = null;
+    if (this.state.loading) {
+      loader = (<div className="loading-page"></div>);
+    }
+
     return (
       <React.Fragment>
         <div className="col-12 col-sm-6 mb-4">
-          <img src={this.state.product.image} className="img-fluid" alt="product shot" />
+          <Img src={this.state.product.image} className="img-fluid" alt="product shot" />
         </div>
         <div className="col-12 col-sm-6">
           <h3 className="card-title">{this.state.product.name}</h3>
@@ -64,6 +74,7 @@ export default class ProductDetails extends React.Component {
           <span className="feedback"><i className="fas fa-check"></i></span>
         </div>
         {reviews}
+        {loader}
       </React.Fragment>
     );
   }

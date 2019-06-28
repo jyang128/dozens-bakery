@@ -1,10 +1,12 @@
 import React from 'react';
+import Img from '../general/image';
 
 export default class OrderSummary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      order: []
+      order: [],
+      loading: true
     };
   }
   componentDidMount() {
@@ -18,7 +20,8 @@ export default class OrderSummary extends React.Component {
         const order = JSON.parse(res[0].cart_items);
         this.setState({ order });
       })
-      .catch(err => console.error(err.message));
+      .catch(err => console.error(err.message))
+      .finally(() => { this.setState({ loading: false }); });
   }
   render() {
     let orderTotal = 0;
@@ -27,7 +30,7 @@ export default class OrderSummary extends React.Component {
       orderTotal += price;
       return <React.Fragment key={index}>
         <div className="col-12 col-md-3 align-self-md-start mb-4">
-          <img src={item.image} className="img-fluid" alt="cart item image" />
+          <Img src={item.image} className="img-fluid" alt="cart item image"/>
         </div>
         <div className="col-12 col-md-9 align-self-md-center mb-4">
           <div className="col-12">
@@ -40,6 +43,12 @@ export default class OrderSummary extends React.Component {
         </div>
       </React.Fragment>;
     });
+
+    let loader = null;
+    if (this.state.loading) {
+      loader = (<div className="loading-page"></div>);
+    }
+
     return (
       <React.Fragment>
         <div className="col-12 text-center mb-4">
@@ -50,6 +59,7 @@ export default class OrderSummary extends React.Component {
         <div className="col-12 col-lg-8 offset-lg-2 d-flex flex-wrap">
           {orders}
         </div>
+        {loader}
       </React.Fragment>
     );
   }
