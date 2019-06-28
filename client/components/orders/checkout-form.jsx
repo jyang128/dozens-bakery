@@ -16,7 +16,7 @@ export default class CheckoutForm extends React.Component {
   }
   placeOrder() {
     if (!this.state.name || !this.state.phoneNum) {
-      this.setState({ errorMessage: 'Pleases provide name and phone number!' });
+      this.setState({ errorMessage: 'Please provide name and phone number!' });
       return;
     }
 
@@ -82,18 +82,18 @@ export default class CheckoutForm extends React.Component {
             rows="3"
             value={this.state.specialInstr}
             onChange={this.handleSpecialInstrChange}
-            className="mb-3"
+            className="mb-2"
           />
         </form>
-        <div className="col-md-8 offset-md-2 d-flex justify-content-between">
+        <div className="col-md-8 offset-md-2">
+          <p className="red"><small>{this.state.errorMessage}</small></p>
           <button
             id="formSubmit"
             onClick={this.placeOrder}
             className="btn btn-info"
           >
-                        Place Order
+            Place Order
           </button>
-          <p className="red my-2">{this.state.errorMessage}</p>
         </div>
       </React.Fragment>
     );
