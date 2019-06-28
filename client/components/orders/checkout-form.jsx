@@ -20,14 +20,14 @@ export default class CheckoutForm extends React.Component {
       return;
     }
 
-    if (this.state.name.length > 65) {
-      this.setState({ errorMessage: 'Name must be under 65 characters.' });
+    if (this.state.name.length > 40) {
+      this.setState({ errorMessage: 'Name must be 40 characters max.' });
       return;
     }
 
     let phoneNumRegex = /^1?\(?([0-9]{3})\)?[-.]?([0-9]{3})[-.]?([0-9]{4})$/gm;
     if (!phoneNumRegex.test(this.state.phoneNum)) {
-      this.setState({ errorMessage: 'Not a valid phone number.' });
+      this.setState({ errorMessage: 'Not a valid phone number format.' });
       return;
     }
 
@@ -54,6 +54,7 @@ export default class CheckoutForm extends React.Component {
       return sum;
     }, 0);
     orderTotal = (orderTotal / 100);
+
     return (
       <React.Fragment>
         <div className="col-md-8 offset-md-2 mb-4">
@@ -90,7 +91,7 @@ export default class CheckoutForm extends React.Component {
             onClick={this.placeOrder}
             className="btn btn-info"
           >
-            Place Order
+                        Place Order
           </button>
           <p className="red my-2">{this.state.errorMessage}</p>
         </div>

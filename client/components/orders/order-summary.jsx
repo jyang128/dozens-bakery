@@ -8,26 +8,26 @@ export default class OrderSummary extends React.Component {
     };
   }
   componentDidMount() {
-    let orderId = this.props.match.params.orderId;
+    const orderId = this.props.match.params.orderId;
     this.getOrderDetails(orderId);
   }
   getOrderDetails(orderId) {
     fetch(`/api/get_order.php?orderId=${orderId}`)
       .then(res => res.json())
       .then(res => {
-        let order = JSON.parse(res[0].cart_items);
+        const order = JSON.parse(res[0].cart_items);
         this.setState({ order });
       })
       .catch(err => console.error(err.message));
   }
   render() {
     let orderTotal = 0;
-    let orders = this.state.order.map((item, index) => {
+    const orders = this.state.order.map((item, index) => {
       let price = ((item.price / 100) * item.quantity);
       orderTotal += price;
       return <React.Fragment key={index}>
         <div className="col-12 col-md-3 align-self-md-start mb-4">
-          <img src={item.image} className="img-fluid" alt="cart item image"/>
+          <img src={item.image} className="img-fluid" alt="cart item image" />
         </div>
         <div className="col-12 col-md-9 align-self-md-center mb-4">
           <div className="col-12">
@@ -48,7 +48,7 @@ export default class OrderSummary extends React.Component {
           <p className="gray">Your order is #{this.props.match.params.orderId}</p>
         </div>
         <div className="col-12 col-lg-8 offset-lg-2 d-flex flex-wrap">
-          { orders }
+          {orders}
         </div>
       </React.Fragment>
     );

@@ -9,7 +9,7 @@ export default class ProductDetails extends React.Component {
     this.addToCartHandler = this.addToCartHandler.bind(this);
   }
   componentDidMount() {
-    let prodId = this.props.match.params.id;
+    const prodId = this.props.match.params.id;
     fetch(`/api/products.php?id=${prodId}`)
       .then(res => res.json())
       .then(res => {
@@ -21,7 +21,7 @@ export default class ProductDetails extends React.Component {
     this.props.addToCartHandler(this.state.product, event);
   }
   render() {
-    let price = (this.state.product.price / 100);
+    const price = (this.state.product.price / 100);
     let reviews = null;
     if (this.state.product.longDescription) {
       reviews = (
@@ -53,7 +53,7 @@ export default class ProductDetails extends React.Component {
     return (
       <React.Fragment>
         <div className="col-12 col-sm-6 mb-4">
-          <img src={this.state.product.image} className="img-fluid" alt="product shot"/>
+          <img src={this.state.product.image} className="img-fluid" alt="product shot" />
         </div>
         <div className="col-12 col-sm-6">
           <h3 className="card-title">{this.state.product.name}</h3>

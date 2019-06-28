@@ -10,7 +10,7 @@ export default class PageNotFound extends React.Component {
           <h1>404 Page Not Found</h1>
           <h5>
             <Link to="/">
-              Back To Home &raquo;
+                            Back To Home &raquo;
             </Link>
           </h5>
         </div>

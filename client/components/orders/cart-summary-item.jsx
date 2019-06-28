@@ -17,7 +17,7 @@ export default class CartSummaryItem extends React.Component {
     return (
       <React.Fragment>
         <div className="col-12 col-md-3 col-lg-3 offset-lg-2 mb-4 align-self-md-start">
-          <img src={this.props.item.image} className="img-fluid" alt="cart item image"/>
+          <img src={this.props.item.image} className="img-fluid" alt="cart item image" />
         </div>
         <div className="col-12 col-md-9 col-lg-5 align-self-md-center mb-4">
           <div className="col-12">
@@ -29,10 +29,10 @@ export default class CartSummaryItem extends React.Component {
           </div>
           <div className="col-12 mt-2">
             <span className="card-text gray minus" onClick={this.deleteHandler}>
-              <img src="../../images/minus.png"/>
+              <img src="../../images/minus.png" />
             </span>
             <span className="card-text gray plus" onClick={this.addHandler}>
-              <img src="../../images/plus.png"/>
+              <img src="../../images/plus.png" />
             </span>
           </div>
         </div>
