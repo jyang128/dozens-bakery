@@ -131,6 +131,11 @@ textarea:focus, input[type="text"]:focus {
     text-decoration: none;
     color: #A5435C;
 }
+@media (max-width: 400px){
+    .thank-you-inner {
+        width: 70vw;
+    }
+}
 /* about page */
 .about-container {
     background: url('../../images/cake-card-bg.jpg') no-repeat;
@@ -155,6 +160,12 @@ textarea:focus, input[type="text"]:focus {
 }
 .about-inner h5 {
     line-height: 1.5em;
+}
+@media (max-width: 400px){
+    .about-inner {
+        height: 100%;
+        background-color: rgb(255, 255, 255, .6); 
+    }
 }
 /* reviews section */
 .red-underline {
