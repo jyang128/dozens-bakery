@@ -1,5 +1,6 @@
 import React from 'react';
 import Img from '../general/image';
+import Reviews from './reviews';
 
 export default class ProductDetails extends React.Component {
   constructor(props) {
@@ -28,31 +29,10 @@ export default class ProductDetails extends React.Component {
   render() {
     const price = (this.state.product.price / 100);
     let reviews = null;
-    if (this.state.product.longDescription) {
+    if (this.state.product.reviews) {
       reviews = (
-        <React.Fragment><div className="col-12 text-center my-4">
-          <h3>
-            <span className="red-underline">Reviews</span>
-          </h3>
-        </div>
-        <div className="col-12 d-flex flex-wrap mt-4 reviews">
-          <div className="col-lg-4 mb-4">
-            <h5>{`"${this.state.product.longDescription}"`}</h5>
-          </div>
-          <div className="col-lg-4 mb-4">
-            <h5>{`"${this.state.product.longDescription}"`}</h5>
-          </div>
-          <div className="col-lg-4 mb-4">
-            <h5>{`"${this.state.product.longDescription}"`}</h5>
-          </div>
-          <div className="col-lg-4 mb-4">
-            <h5>{`"${this.state.product.longDescription}"`}</h5>
-          </div>
-          <div className="col-lg-4 mb-4">
-            <h5>{`"${this.state.product.longDescription}"`}</h5>
-          </div>
-        </div>
-        </React.Fragment>);
+        <Reviews reviews={this.state.product.reviews}/>
+      );
     } else { reviews = null; }
 
     let loader = null;
