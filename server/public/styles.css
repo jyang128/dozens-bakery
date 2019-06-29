@@ -88,6 +88,10 @@ body {
 .red {
     color: red;
 }
+.purple {
+    color: #c48289;
+    font-size: 1.1em;
+}
 .gray.cursor:hover {
     cursor:pointer;
     color: #3d69e4;
@@ -176,6 +180,11 @@ textarea:focus, input[type="text"]:focus {
     background-color: #f2f2f2;
     box-sizing: border-box;
     padding: 20px;
+}
+@media (max-width: 1024px){
+    .reviews h5 {
+        min-height: 10vh;
+    }
 }
 /* 404 Page */
 .page-not-found-container {
