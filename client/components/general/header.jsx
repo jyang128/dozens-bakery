@@ -9,7 +9,7 @@ export default class Header extends React.Component {
     }, 0);
 
     return (
-      <div className="col-12 d-flex justify-content-sm-between flex-wrap my-4 header">
+      <div className="col-12 d-flex justify-content-center justify-content-md-between flex-wrap my-4 header">
         <h1 className="align-self-center">
           <Link to="/">
             <em>{this.props.title}</em>
