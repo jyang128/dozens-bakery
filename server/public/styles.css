@@ -1,0 +1,255 @@
+body {
+    margin:0;
+    font-family: 'Nunito', sans-serif;
+}
+.wrapper {
+    min-height: 90vh;
+}
+/* header and footer */
+.header a:hover {
+    text-decoration: none;
+}
+.header h1 a {
+    font-family: 'Kaushan Script', cursive;
+    color: #D8B1B1;
+    margin-left: 15px;
+}
+.header h5 a {
+    color: #D8B1B1;
+    margin: 0 15px;
+    transition: color .5s ease-in-out;
+}
+.header h5 a:hover {
+    color: #D8B1B1;
+    border-bottom: 2px solid #D8B1B1;
+}
+.total.updated {
+    color: #A5435C;
+}
+.footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+}
+/* cart and cart operations */
+.cart-total {
+    line-height: 1.7em;
+}
+.plus img {
+    max-width: 24px;
+}
+.plus:hover {
+    cursor: pointer;
+}
+.minus img {
+    max-width: 24px;
+    margin-right: 5px;
+}
+.minus:hover {
+    cursor: pointer;
+    color: #a23347;
+}
+.add-to-order {
+    color: #A5435C;
+    transition: all 0.5s ease-out;
+}
+.add-to-order:hover {
+    cursor: pointer;
+    border-bottom: 1px solid #d88f97;
+}
+.feedback {
+    visibility: hidden;
+    color: #ffbc65;
+    font-size: 1.25em;
+    margin-left: 10px;
+}
+.feedback.on {
+    visibility: visible;
+}
+/* general styling */
+.btn-info {
+    color: #fff;
+    font-size: 1.1rem;
+    background-color: #d88f97;
+    border-color: #d88f97;
+    border-radius: 0;
+}
+.btn-info:hover {
+    background-color: #c48289;
+    border-color: #c48289;
+}
+.btn-info:not(:disabled):not(.disabled):active {
+    background-color: #c48289;
+    border-color: #c48289;
+}
+.gray {
+    color: gray;
+}
+.red {
+    color: red;
+}
+.purple {
+    color: #c48289;
+    font-size: 1.1em;
+}
+.gray.cursor:hover {
+    cursor:pointer;
+    color: #3d69e4;
+}
+/* checkout form styling */
+input, textarea {
+    outline: none;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid gray;
+    padding: 10px;
+}
+textarea:focus, input[type="text"]:focus {
+    border: 1px solid #A5435C;
+    box-shadow: inset 0 0 0 1px #A5435C;
+}
+/* confirmation page */
+.thank-you-container {
+    background: url('../../images/cookie-spread.jpg') no-repeat;
+    width: 100%;
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+    opacity: .9;
+    position: relative;
+}
+.thank-you-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255, .9); 
+    box-sizing: border-box;
+    padding: 30px;
+    border-radius: 5px;
+}
+.thank-you-inner h1 {
+    font-family: 'Kaushan Script', cursive;
+}
+.thank-you-inner a {
+    text-decoration: none;
+    color: #A5435C;
+}
+@media (max-width: 400px){
+    .thank-you-inner {
+        width: 70vw;
+    }
+}
+/* about page */
+.about-container {
+    background: url('../../images/cake-card-bg.jpg') no-repeat;
+    width: 100%;
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+    opacity: .9;
+    position: relative;
+}
+.about-inner {
+    position: absolute;
+    bottom: 0;
+    background-color: rgb(255, 255, 255, .8); 
+    box-sizing: border-box;
+    padding: 30px;
+    border-radius: 5px;
+}
+.about-inner h1 {
+    font-family: 'Kaushan Script', cursive;
+    color: #A5435C;
+}
+.about-inner h5 {
+    line-height: 1.5em;
+}
+@media (max-width: 400px){
+    .about-inner {
+        height: 100%;
+        background-color: rgb(255, 255, 255, .6); 
+    }
+}
+/* reviews section */
+.red-underline {
+    border-bottom: 4px solid #A5435C;
+}
+.reviews h5 {
+    min-height: 20vh;
+    background-color: #f2f2f2;
+    box-sizing: border-box;
+    padding: 20px;
+}
+@media (max-width: 1024px){
+    .reviews h5 {
+        min-height: 10vh;
+    }
+}
+/* 404 Page */
+.page-not-found-container {
+    width: 100%;
+    height: 75vh;
+    position: relative;
+}
+.page-not-found-inner {
+    width: 70vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.page-not-found-inner a {
+    text-decoration: none;
+    color: #A5435C;
+}
+/* images with loading bars */
+.image-load-container {
+    position: relative;
+}
+.image-load-container img.loading {
+    visibility: hidden;
+}
+.image-load-container img {
+    position: absolute;
+    top: 0;
+}
+.image-load-container .loading-animation-container {
+    margin: auto;
+    position: relative;
+    padding-top: 100%;
+    width: 100%;
+}
+.image-load-container .loading-animation-container.loaded {
+    visibility: hidden;
+}
+/* loading bars for images */
+.loading-bars {
+    height: 64px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+}
+.animation {
+    width: 70px;
+}
+/* page loader */
+.loading-page {
+    position: fixed;
+    top: 65px;
+    left:0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+}
+.loading-icon {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    
+}

@@ -1,17 +1,38 @@
 <?php
+require_once('functions.php');
+set_exception_handler('error_handler');
+require_once('db_connection.php');
 
-header('Content-Type: application/json');
+startUp();
 
-$method = $_SERVER['REQUEST_METHOD'];
-$order = file_get_contents('php://input');
-
-if ($method != 'POST') {
-  http_response_code(404);
-  print(json_encode([
-    'error' => 'Not Found',
-    'message' => "Cannot $method /api/orders.php"
-  ]));
-} else {
-  http_response_code(201);
-  print($order);
+if(!$conn){
+    throw new Exception('there is an error' . mysqli_connect_error());
 }
+
+$item = file_get_contents('php://input');
+$item = json_decode($item, true);
+
+$customer_name = $item['name'];
+$phone_number = addslashes($item['phoneNum']);
+$special_instr = addslashes($item['specialInstr']);
+$cart_items = $item['cart'];
+
+$query = "INSERT INTO `orders` (`customer_name`, `phone_number`, `special_instr`, `cart_items`) VALUES ('{$customer_name}','{$phone_number}', '{$special_instr}', '{$cart_items}')";
+
+$result = mysqli_query($conn, $query);
+
+if(!$result){
+    throw new Exception( mysqli_error($conn) );
+}
+
+if ($result) {
+    
+    $lastId = mysqli_insert_id($conn);
+    $output['orderId'] = $lastId;
+
+} else {
+    throw new Exception("failed to create order: " . mysqli_error($conn));
+}
+
+$json_output = json_encode($output);
+print $json_output;
