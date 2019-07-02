@@ -101,6 +101,27 @@ body {
     cursor:pointer;
     color: #3d69e4;
 }
+/* disclaimer popup */
+.disclaimer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(165, 67, 91, 0.9);
+}
+.disclaimer > div {
+    color: white;
+    font-size: 1.1em;
+    box-sizing: border-box;
+    padding: 35px;
+}
+.disclaimer-close {
+    color: #fff;
+    cursor: pointer;
+    position: absolute;
+    top: -25px;
+    right: -25px;
+}
 /* checkout form styling */
 input, textarea {
     outline: none;
