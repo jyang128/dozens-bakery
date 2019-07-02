@@ -7,7 +7,6 @@ import CheckoutForm from './orders/checkout-form';
 import About from './general/about-us';
 import Confirmation from './orders/confirmation';
 import OrderSummary from './orders/order-summary';
-import Disclaimer from './general/disclaimer';
 import PageNotFound from './404/page-not-found';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
@@ -86,7 +85,7 @@ class App extends React.Component {
     }, 600);
   }
   placeOrder(name, phoneNum, specialInstr) {
-    localStorage.clear();
+    localStorage.removeItem('cart');
     let orderDetails = {
       name,
       phoneNum,
@@ -100,19 +99,14 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(res => {
-        let orderId = res.orderId;
         localStorage.cart = JSON.stringify([]);
         this.setState({ cart: [] }, () => {
           this.props.history.push({
-            pathname: `/confirmation/${orderId}`
+            pathname: `/confirmation/${res.orderId}`
           });
         });
       })
       .catch(err => console.error(err.message));
-  }
-  handleDisclaimer() {
-    localStorage.disclaimer = 'hidden';
-    document.querySelector('.disclaimer').classList = ' d-none';
   }
   render() {
     return (
@@ -165,7 +159,6 @@ class App extends React.Component {
             </div>
           </div>
         </div>
-        {!localStorage.disclaimer ? <Disclaimer closeDisclaimer={this.handleDisclaimer}/> : null }
       </React.Fragment>
     );
   }
