@@ -15,7 +15,7 @@ $item = json_decode($item, true);
 $customer_name = $item['name'];
 $phone_number = addslashes($item['phoneNum']);
 $special_instr = addslashes($item['specialInstr']);
-$cart_items = $item['cart'];
+$cart_items = addslashes($item['cart']);
 
 $query = "INSERT INTO `orders` (`customer_name`, `phone_number`, `special_instr`, `cart_items`) VALUES ('{$customer_name}','{$phone_number}', '{$special_instr}', '{$cart_items}')";
 

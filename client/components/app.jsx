@@ -92,7 +92,6 @@ class App extends React.Component {
       specialInstr,
       cart: JSON.stringify(this.state.cart)
     };
-    let orderId = 0;
     fetch('/api/orders.php', {
       method: 'POST',
       body: JSON.stringify(orderDetails),
@@ -100,16 +99,14 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(res => {
-        orderId = res.orderId;
         localStorage.cart = JSON.stringify([]);
-        this.setState({ cart: [] });
-      })
-      .catch(err => console.error(err.message))
-      .finally(() => {
-        this.props.history.push({
-          pathname: `/confirmation/${orderId}`
+        this.setState({ cart: [] }, () => {
+          this.props.history.push({
+            pathname: `/confirmation/${res.orderId}`
+          });
         });
-      });
+      })
+      .catch(err => console.error(err.message));
   }
   render() {
     return (
