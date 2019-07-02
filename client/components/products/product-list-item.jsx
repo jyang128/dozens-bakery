@@ -25,9 +25,7 @@ export default class ProductListItem extends React.Component {
             <div className="card-body">
               <h5 className="card-title">{product.name}</h5>
               <p className="gray">${price} <small>/ dozen</small></p>
-              <p className="card-text">{
-                product.shortDescription.length < 71 ? product.shortDescription : product.shortDescription.substring(0, 70) + '...'
-              }</p>
+              <p className="card-text">{product.shortDescription.length > 75 ? product.shortDescription.substring(0, 75) + '...' : product.shortDescription}</p>
               <h6 onClick={this.addToCartHandler}>
                 <span className="add-to-order">+ Add to Order</span>
                 <span className="feedback"><i className="fas fa-check"></i></span>

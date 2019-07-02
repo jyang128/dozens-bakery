@@ -15,8 +15,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       products: [],
-      cart: [],
-      orderId: null
+      cart: []
     };
     this.addToCart = this.addToCart.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
@@ -102,9 +101,10 @@ class App extends React.Component {
       .then(res => {
         let orderId = res.orderId;
         localStorage.cart = JSON.stringify([]);
-        this.setState({ cart: [], orderId });
-        this.props.history.push({
-          pathname: '/confirmation'
+        this.setState({ cart: [] }, () => {
+          this.props.history.push({
+            pathname: `/confirmation/${orderId}`
+          });
         });
       })
       .catch(err => console.error(err.message));
@@ -141,11 +141,7 @@ class App extends React.Component {
                   />
                 } />
                 <Route path="/about-us" component={About} />
-                <Route path="/confirmation" render={props =>
-                  <Confirmation {...props}
-                    orderId={this.state.orderId}
-                  />
-                } />
+                <Route path="/confirmation/:orderId" component={Confirmation}/>
                 <Route path="/order/:orderId" component={OrderSummary} />
                 <Route exact path="/product/:id" render={props =>
                   <ProductDetails {...props}
