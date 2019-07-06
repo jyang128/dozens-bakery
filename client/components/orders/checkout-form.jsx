@@ -86,7 +86,7 @@ export default class CheckoutForm extends React.Component {
           />
         </form>
         <div className="col-md-8 offset-md-2">
-          <p className="purple">*Reminder! This site is for demo purposes and this is not a real order.</p>
+          <p className="reminder">*Reminder! This site is for demo purposes and this is not a real order.</p>
           <p className="red"><small>{this.state.errorMessage}</small></p>
           <button
             id="formSubmit"
