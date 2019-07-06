@@ -12,7 +12,7 @@ if(!$conn){
 $item = file_get_contents('php://input');
 $item = json_decode($item, true);
 
-$customer_name = $item['name'];
+$customer_name = addslashes($item['name']);
 $phone_number = addslashes($item['phoneNum']);
 $special_instr = addslashes($item['specialInstr']);
 $cart_items = addslashes($item['cart']);

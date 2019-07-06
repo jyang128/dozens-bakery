@@ -1,7 +1,7 @@
 {
-  "name": "wicked-sales",
+  "name": "dozens-bakery",
   "version": "1.0.0",
-  "description": "A full stack LAMP & React shopping cart app.",
+  "description": "A full stack LAMP & React.js shopping cart app.",
   "scripts": {
     "dev": "webpack-dev-server",
     "build": "webpack --mode=production",
@@ -92,8 +92,7 @@
           "asyncArrow": "always"
         }
       ],
-      "react/prop-types": 0,
-      "react/react-in-jsx-scope": 0
+      "react/prop-types": 0
     }
   },
   "repository": {
@@ -101,7 +100,7 @@
     "url": "git+https://github.com/Learning-Fuze/wicked-sales.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jessica Yang",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Learning-Fuze/wicked-sales/issues"
