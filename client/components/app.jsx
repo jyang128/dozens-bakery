@@ -85,7 +85,6 @@ class App extends React.Component {
     }, 600);
   }
   placeOrder(name, phoneNum, specialInstr) {
-    localStorage.removeItem('cart');
     let orderDetails = {
       name,
       phoneNum,
@@ -142,7 +141,7 @@ class App extends React.Component {
                 <Route path="/about-us" component={About} />
                 <Route path="/confirmation/:orderId" component={Confirmation}/>
                 <Route path="/order/:orderId" component={OrderSummary} />
-                <Route exact path="/product/:id" render={props =>
+                <Route exact path="/product/:productId" render={props =>
                   <ProductDetails {...props}
                     addToCartHandler={this.addToCart}
                   />

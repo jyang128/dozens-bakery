@@ -19,7 +19,7 @@ export default class ProductListItem extends React.Component {
           <div className="card">
             <Link to={`/product/${this.props.prodData.id}`}>
               <div className="card-img-top">
-                <Img src={product.image} className="img-fluid" alt="product shot" />
+                <Img src={product.image} className="img-fluid" alt={`${product.name} product shot`} />
               </div>
             </Link>
             <div className="card-body">

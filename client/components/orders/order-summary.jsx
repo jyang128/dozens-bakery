@@ -30,7 +30,7 @@ export default class OrderSummary extends React.Component {
       orderTotal += price;
       return <React.Fragment key={index}>
         <div className="col-12 col-md-3 align-self-md-start mb-4">
-          <Img src={item.image} className="img-fluid" alt="cart item image"/>
+          <Img src={item.image} className="img-fluid" alt={`${item.name} product shot`}/>
         </div>
         <div className="col-12 col-md-9 align-self-md-center mb-4">
           <div className="col-12">

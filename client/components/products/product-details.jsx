@@ -12,7 +12,7 @@ export default class ProductDetails extends React.Component {
     this.addToCartHandler = this.addToCartHandler.bind(this);
   }
   componentDidMount() {
-    const prodId = this.props.match.params.id;
+    const prodId = this.props.match.params.productId;
     fetch(`/api/products.php?id=${prodId}`)
       .then(res => res.json())
       .then(res => {
@@ -43,7 +43,7 @@ export default class ProductDetails extends React.Component {
     return (
       <React.Fragment>
         <div className="col-12 col-sm-6 mb-4">
-          <Img src={this.state.product.image} className="img-fluid" alt="product shot" />
+          <Img src={this.state.product.image} className="img-fluid" alt={`${this.state.product.name} product shot`} />
         </div>
         <div className="col-12 col-sm-6">
           <h3 className="card-title">{this.state.product.name}</h3>
