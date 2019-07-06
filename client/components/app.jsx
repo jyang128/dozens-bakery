@@ -38,16 +38,16 @@ class App extends React.Component {
   addToCart(product, event) {
     if (event) {
       this.showCartChanged(event);
-      let checkmark = event.target.nextElementSibling;
+      const checkmark = event.target.nextElementSibling;
       checkmark.className += ' on';
       setTimeout(() => {
         checkmark.className = 'feedback';
       }, 600);
     }
-    let currentCart = JSON.parse(localStorage.getItem('cart'));
 
-    // check for duplication and only push if unique, else add and increment qty property on the item
-    let indexToCheck = currentCart.findIndex(item => {
+    // check for duplication and only push if unique, else add and increment quantity property on the item
+    const currentCart = JSON.parse(localStorage.getItem('cart'));
+    const indexToCheck = currentCart.findIndex(item => {
       return item.id === product.id;
     });
 
@@ -62,8 +62,8 @@ class App extends React.Component {
     localStorage.cart = JSON.stringify(currentCart);
   }
   removeFromCart(removalId) {
-    let currentCart = JSON.parse(localStorage.getItem('cart'));
-    let indexToRemove = currentCart.findIndex(item => {
+    const currentCart = JSON.parse(localStorage.getItem('cart'));
+    const indexToRemove = currentCart.findIndex(item => {
       return item.id === removalId;
     });
 
@@ -78,15 +78,14 @@ class App extends React.Component {
     localStorage.cart = JSON.stringify(currentCart);
   }
   showCartChanged() {
-    let orders = document.querySelector('.total');
+    const orders = document.querySelector('.total');
     orders.className += ' updated';
     setTimeout(() => {
       orders.className = 'total';
     }, 600);
   }
   placeOrder(name, phoneNum, specialInstr) {
-    localStorage.removeItem('cart');
-    let orderDetails = {
+    const orderDetails = {
       name,
       phoneNum,
       specialInstr,
@@ -122,7 +121,12 @@ class App extends React.Component {
               <Switch>
                 <Route exact path="/" render={props =>
                   <ProductList {...props}
-                    stateData={this.state}
+                    products={this.state.products}
+                    addToCartHandler={this.addToCart}
+                  />
+                } />
+                <Route path="/product/:productId" render={props =>
+                  <ProductDetails {...props}
                     addToCartHandler={this.addToCart}
                   />
                 } />
@@ -142,11 +146,6 @@ class App extends React.Component {
                 <Route path="/about-us" component={About} />
                 <Route path="/confirmation/:orderId" component={Confirmation}/>
                 <Route path="/order/:orderId" component={OrderSummary} />
-                <Route exact path="/product/:id" render={props =>
-                  <ProductDetails {...props}
-                    addToCartHandler={this.addToCart}
-                  />
-                } />
                 <Route component={PageNotFound} />
               </Switch>
             </div>

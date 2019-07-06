@@ -7,10 +7,10 @@ export default class CartSummary extends React.Component {
     const cart = this.props.items;
     const cartItems = cart.map((item, index) =>
       <CartSummaryItem
-        key={index}
+        item={item}
         addHandler={this.props.addHandler}
         deleteHandler={this.props.deleteHandler}
-        item={item}
+        key={index}
       />);
 
     let cartTotal = this.props.items.reduce((sum, item) => {
@@ -30,7 +30,7 @@ export default class CartSummary extends React.Component {
         </div>);
     } else {
       cartStatus = (
-        <div className="col-lg-8 offset-lg-2 my-4 d-flex justify-content-between">
+        <div className="col-lg-8 offset-lg-2 d-flex justify-content-between my-4">
           <h4 className="font-weight-bold cart-total">Order Total: ${cartTotal}</h4>
           <Link to="/checkout">
             <button className="btn btn-info">Place Order</button>
@@ -48,7 +48,6 @@ export default class CartSummary extends React.Component {
           {cartStatus}
         </div>
       </React.Fragment>
-
     );
   }
 }

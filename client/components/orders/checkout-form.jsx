@@ -21,7 +21,7 @@ export default class CheckoutForm extends React.Component {
     }
 
     if (this.state.name.length > 40) {
-      this.setState({ errorMessage: 'Name must be 40 characters max.' });
+      this.setState({ errorMessage: 'Name can be 40 characters max.' });
       return;
     }
 
