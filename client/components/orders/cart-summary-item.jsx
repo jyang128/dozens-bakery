@@ -14,7 +14,7 @@ export default class CartSummaryItem extends React.Component {
     this.props.deleteHandler(this.props.item.id);
   }
   render() {
-    let price = ((this.props.item.price / 100) * this.props.item.quantity);
+    const price = ((this.props.item.price / 100) * this.props.item.quantity);
     return (
       <React.Fragment>
         <div className="col-12 col-md-3 col-lg-3 offset-lg-2 mb-4 align-self-md-start">
@@ -30,10 +30,10 @@ export default class CartSummaryItem extends React.Component {
           </div>
           <div className="col-12 mt-2">
             <span className="card-text gray minus" onClick={this.deleteHandler}>
-              <img src="../../images/minus.png" />
+              <img src="/images/minus.png" />
             </span>
             <span className="card-text gray plus" onClick={this.addHandler}>
-              <img src="../../images/plus.png" />
+              <img src="/images/plus.png" />
             </span>
           </div>
         </div>

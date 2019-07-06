@@ -10,7 +10,7 @@ export default class Confirmation extends React.Component {
           <h1>Thank you for your order!</h1>
           <h5 className="mt-4">{`We're so excited to cater your special event! We'll be in touch shortly to confirm the details of your order.`}</h5>
           <Link to={`/order/${this.props.match.params.orderId}`}>
-            <h5>View Order Summary &raquo;</h5>
+            <h5>View Summary &raquo;</h5>
           </Link>
         </div>
       </div>

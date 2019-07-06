@@ -21,7 +21,9 @@ export default class OrderSummary extends React.Component {
         this.setState({ order });
       })
       .catch(err => console.error(err.message))
-      .finally(() => { this.setState({ loading: false }); });
+      .finally(() => {
+        this.setState({ loading: false });
+      });
   }
   render() {
     let orderTotal = 0;

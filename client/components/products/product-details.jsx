@@ -30,14 +30,12 @@ export default class ProductDetails extends React.Component {
     const price = (this.state.product.price / 100);
     let reviews = null;
     if (this.state.product.reviews) {
-      reviews = (
-        <Reviews reviews={this.state.product.reviews}/>
-      );
-    } else { reviews = null; }
+      reviews = <Reviews reviews={this.state.product.reviews}/>;
+    }
 
     let loader = null;
     if (this.state.loading) {
-      loader = (<div className="loading-page"></div>);
+      loader = <div className="loading-page"></div>;
     }
 
     return (
@@ -48,8 +46,7 @@ export default class ProductDetails extends React.Component {
         <div className="col-12 col-sm-6">
           <h3 className="card-title">{this.state.product.name}</h3>
           <p className="gray">${price} <small>/ dozen</small></p>
-          <p className="card-text">{this.state.product.longDescription}
-          </p>
+          <p className="card-text">{this.state.product.longDescription}</p>
           <button className="btn btn-info my-3" onClick={this.addToCartHandler}>Add To Order</button>
           <span className="feedback"><i className="fas fa-check"></i></span>
         </div>

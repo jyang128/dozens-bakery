@@ -8,8 +8,13 @@ export default class ProductList extends React.Component {
     document.querySelector('.disclaimer').classList = ' d-none';
   }
   render() {
-    const stateData = this.props.stateData;
-    const allProducts = stateData.products.map(product => <ProductListItem key={product.id} prodData={product} addToCartHandler={this.props.addToCartHandler} />);
+    const allProducts = this.props.products.map(product =>
+      <ProductListItem
+        key={product.id}
+        prodData={product}
+        addToCartHandler={this.props.addToCartHandler}
+      />
+    );
     return (
       <div className="col-12 d-flex justify-content-around flex-wrap">
         {allProducts}

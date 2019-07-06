@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Img from '../general/image';
+import { Link } from 'react-router-dom';
 
 export default class ProductListItem extends React.Component {
   constructor(props) {
