@@ -23,7 +23,7 @@ export default class Img extends React.Component {
       <div className="image-load-container">
         <div className={`${loadingClass} loading-animation-container`}>
           <div className="loading-bars">
-            <img className="animation" src="../../images/three-dots.svg" />
+            <img className="animation" src="/images/three-dots.svg" />
           </div>
         </div>
         <img ref={e => { this.image = e; }} {...this.props} className={`${className} ${loadingClass}`} />

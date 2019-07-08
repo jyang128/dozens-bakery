@@ -40,13 +40,20 @@ export default class CheckoutForm extends React.Component {
     document.getElementById('formSubmit').disabled = true;
   }
   handleNameChange(event) {
-    this.setState({ name: event.target.value });
+    this.setState({
+      name: event.target.value,
+      errorMessage: ''
+    });
   }
   handlePhoneNumChange(event) {
-    this.setState({ phoneNum: event.target.value });
+    this.setState({ phoneNum: event.target.value,
+      errorMessage: ''
+    });
   }
   handleSpecialInstrChange(event) {
-    this.setState({ specialInstr: event.target.value });
+    this.setState({ specialInstr: event.target.value,
+      errorMessage: ''
+    });
   }
   render() {
     let orderTotal = this.props.cartItems.reduce((sum, item) => {
@@ -87,7 +94,6 @@ export default class CheckoutForm extends React.Component {
         </form>
         <div className="col-md-8 offset-md-2">
           <p className="reminder">*Reminder! This site is for demo purposes and this is not a real order.</p>
-          <p className="red"><small>{this.state.errorMessage}</small></p>
           <button
             id="formSubmit"
             onClick={this.placeOrder}
@@ -95,6 +101,7 @@ export default class CheckoutForm extends React.Component {
           >
             Place Order
           </button>
+          <p className="red pt-2"><small>{this.state.errorMessage}</small></p>
         </div>
       </React.Fragment>
     );

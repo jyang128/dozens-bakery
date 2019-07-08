@@ -36,6 +36,11 @@ export default class CartSummaryItem extends React.Component {
               <img src="/images/plus.png" />
             </span>
           </div>
+          <div className="col-12 mt-2 gray">
+            <span className="mr-2">Remove?</span>
+            <i className="fas fa-check removal-icons mr-2"></i>
+            <i className="fas fa-times removal-icons"></i>
+          </div>
         </div>
       </React.Fragment>
     );

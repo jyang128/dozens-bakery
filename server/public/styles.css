@@ -86,6 +86,9 @@ body {
 .feedback.on {
     visibility: visible;
 }
+.removal-icons:hover {
+    cursor: pointer;
+}
 /* checkout form */
 input, textarea {
     outline: none;
