@@ -71,8 +71,7 @@ class App extends React.Component {
     if (currentCart[indexToRemove].quantity > 1) {
       currentCart[indexToRemove].quantity--;
     } else {
-      // currentCart.splice(indexToRemove, 1);
-      return;
+      currentCart.splice(indexToRemove, 1);
     }
 
     this.setState({ cart: currentCart });
