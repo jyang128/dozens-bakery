@@ -4,14 +4,30 @@ import Img from '../general/image';
 export default class CartSummaryItem extends React.Component {
   constructor(props) {
     super(props);
-    this.addHandler = this.addHandler.bind(this);
-    this.deleteHandler = this.deleteHandler.bind(this);
+    this.incrementQty = this.incrementQty.bind(this);
+    this.decrementQty = this.decrementQty.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
+    this.cancelRemoval = this.cancelRemoval.bind(this);
   }
-  addHandler() {
+  incrementQty() {
     this.props.addHandler(this.props.item);
   }
-  deleteHandler() {
+  decrementQty(event) {
+    if (this.props.item.quantity === 1) {
+      const cartOps = event.target.parentNode.parentNode;
+      cartOps.className += ' hide';
+      cartOps.nextElementSibling.className += ' show';
+      return;
+    }
     this.props.deleteHandler(this.props.item.id);
+  }
+  removeFromCart() {
+    this.props.deleteHandler(this.props.item.id);
+  }
+  cancelRemoval(event) {
+    const promptOps = event.target.parentNode;
+    promptOps.previousElementSibling.className = 'col-12 mt-2 cart-operations';
+    promptOps.className = 'col-12 mt-2 removal-prompt';
   }
   render() {
     const price = ((this.props.item.price / 100) * this.props.item.quantity);
@@ -28,13 +44,18 @@ export default class CartSummaryItem extends React.Component {
             <h5 className="card-qty">QTY: {this.props.item.quantity} dozen</h5>
             <h5 className="gray">Total: ${price}</h5>
           </div>
-          <div className="col-12 mt-2">
-            <span className="card-text gray minus" onClick={this.deleteHandler}>
+          <div className="col-12 mt-2 cart-operations">
+            <span className="card-text gray minus" onClick={this.decrementQty}>
               <img src="/images/minus.png" />
             </span>
-            <span className="card-text gray plus" onClick={this.addHandler}>
+            <span className="card-text gray plus" onClick={this.incrementQty}>
               <img src="/images/plus.png" />
             </span>
+          </div>
+          <div className="col-12 mt-2 removal-prompt">
+            <span className="mr-2">Remove?</span>
+            <i className="fas fa-check removal-icons mr-2" onClick={this.removeFromCart}></i>
+            <i className="fas fa-times removal-icons" onClick={this.cancelRemoval}></i>
           </div>
         </div>
       </React.Fragment>

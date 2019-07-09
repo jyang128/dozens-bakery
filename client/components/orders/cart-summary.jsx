@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 export default class CartSummary extends React.Component {
   render() {
     const cart = this.props.items;
-    const cartItems = cart.map((item, index) =>
+    const cartItems = cart.map(item =>
       <CartSummaryItem
         item={item}
         addHandler={this.props.addHandler}
         deleteHandler={this.props.deleteHandler}
-        key={index}
+        key={item.id}
       />);
 
     let cartTotal = this.props.items.reduce((sum, item) => {

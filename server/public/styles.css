@@ -63,7 +63,7 @@ body {
     line-height: 1.7em;
 }
 .plus img, .minus img {
-    max-width: 24px;
+    max-width: 23px;
     margin-right: 5px;
 }
 .plus:hover, .minus:hover {
@@ -85,6 +85,19 @@ body {
 }
 .feedback.on {
     visibility: visible;
+}
+.cart-operations.hide {
+    display: none;
+}
+.removal-prompt {
+    display: none;
+}
+.removal-prompt.show {
+    display: block;
+    color: #A5435C;
+}
+.removal-icons:hover {
+    cursor: pointer;
 }
 /* checkout form */
 input, textarea {
