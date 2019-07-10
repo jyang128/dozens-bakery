@@ -97,13 +97,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Learning-Fuze/wicked-sales.git"
+    "url": "git+https://github.com/jyang128/dozens-bakery.git"
   },
   "keywords": [],
   "author": "Jessica Yang",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Learning-Fuze/wicked-sales/issues"
+    "url": "https://github.com/jyang128/dozens-bakery/issues"
   },
-  "homepage": "https://github.com/Learning-Fuze/wicked-sales#readme"
+  "homepage": "https://github.com/jyang128/dozens-bakery#readme"
 }
