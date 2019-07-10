@@ -63,7 +63,7 @@ body {
     line-height: 1.7em;
 }
 .plus img, .minus img {
-    max-width: 24px;
+    max-width: 22px;
     margin-right: 5px;
 }
 .plus:hover, .minus:hover {
@@ -85,6 +85,19 @@ body {
 }
 .feedback.on {
     visibility: visible;
+}
+.cart-operations.hide {
+    display: none;
+}
+.removal-prompt {
+    display: none;
+}
+.removal-prompt.show {
+    display: block;
+    color: #A5435C;
+}
+.removal-icons:hover {
+    cursor: pointer;
 }
 /* checkout form */
 input, textarea {
@@ -113,7 +126,7 @@ textarea:focus, input[type="text"]:focus {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgb(255, 255, 255, .9); 
+    background-color: rgba(255, 255, 255, .9); 
     box-sizing: border-box;
     padding: 30px;
     border-radius: 5px;
@@ -158,7 +171,7 @@ textarea:focus, input[type="text"]:focus {
 .about-inner {
     position: absolute;
     bottom: 0;
-    background-color: rgb(255, 255, 255, .8); 
+    background-color: rgba(255, 255, 255, .8); 
     box-sizing: border-box;
     padding: 30px;
     border-radius: 5px;
@@ -173,7 +186,7 @@ textarea:focus, input[type="text"]:focus {
 @media (max-width: 750px){
     .about-inner {
         height: 100%;
-        background-color: rgb(255, 255, 255, .6); 
+        background-color: rgba(255, 255, 255, .6); 
     }
 }
 /* image component - with loader */
