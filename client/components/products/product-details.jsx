@@ -7,9 +7,11 @@ export default class ProductDetails extends React.Component {
     super(props);
     this.state = {
       product: {},
+      quantity: 1,
       loading: true
     };
     this.addToCartHandler = this.addToCartHandler.bind(this);
+    this.handleQtyChange = this.handleQtyChange.bind(this);
   }
   componentDidMount() {
     const prodId = this.props.match.params.productId;
@@ -25,6 +27,11 @@ export default class ProductDetails extends React.Component {
   }
   addToCartHandler(event) {
     this.props.addToCartHandler(this.state.product, event);
+  }
+  handleQtyChange(event) {
+    this.setState({
+      quantity: event.target.value
+    });
   }
   render() {
     const price = (this.state.product.price / 100);
@@ -47,8 +54,14 @@ export default class ProductDetails extends React.Component {
           <h3 className="card-title">{this.state.product.name}</h3>
           <p className="gray">${price} <small>/ dozen</small></p>
           <p className="card-text">{this.state.product.longDescription}</p>
-          <button className="btn btn-info my-3" onClick={this.addToCartHandler}>Add To Order</button>
-          <span className="feedback"><i className="fas fa-check"></i></span>
+          <div className="d-flex justify-content-left">
+            <div className="my-3">
+              <input type="number" min="1" max="100" value={this.state.quantity} onChange={this.handleQtyChange}/>
+            </div>
+            <button className="btn btn-info my-3" onClick={this.addToCartHandler}>Add To Order</button>
+            <span className="feedback"><i className="fas fa-check"></i></span>
+          </div>
+
         </div>
         {reviews}
         {loader}
