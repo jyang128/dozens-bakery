@@ -17,6 +17,7 @@ class App extends React.Component {
       products: [],
       cart: []
     };
+    this.updateCart = this.updateCart.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
@@ -35,6 +36,17 @@ class App extends React.Component {
       .then(res => this.setState({ products: res }))
       .catch(err => console.error(err.message));
   }
+  updateCart(product, quantity) {
+    const currentCart = JSON.parse(localStorage.getItem('cart'));
+    const indexToCheck = currentCart.findIndex(item => {
+      return item.id === product.id;
+    });
+
+    currentCart[indexToCheck].quantity = quantity;
+
+    this.setState({ cart: currentCart });
+    localStorage.cart = JSON.stringify(currentCart);
+  }
   addToCart(product, quantity, event) {
     if (event) {
       this.showCartChanged(event);
@@ -45,7 +57,6 @@ class App extends React.Component {
       }, 600);
     }
 
-    // check for duplication and only push if unique, else add and increment quantity property on the item
     const currentCart = JSON.parse(localStorage.getItem('cart'));
     const indexToCheck = currentCart.findIndex(item => {
       return item.id === product.id;
@@ -67,12 +78,7 @@ class App extends React.Component {
       return item.id === removalId;
     });
 
-    // check for quantity and decrement it, or remove completely if 1 left
-    if (currentCart[indexToRemove].quantity > 1) {
-      currentCart[indexToRemove].quantity--;
-    } else {
-      currentCart.splice(indexToRemove, 1);
-    }
+    currentCart.splice(indexToRemove, 1);
 
     this.setState({ cart: currentCart });
     localStorage.cart = JSON.stringify(currentCart);
@@ -134,7 +140,7 @@ class App extends React.Component {
                   <CartSummary {...props}
                     items={this.state.cart}
                     deleteHandler={this.removeFromCart}
-                    addHandler={this.addToCart}
+                    updateHandler={this.updateCart}
                   />
                 } />
                 <Route path="/checkout" render={props =>

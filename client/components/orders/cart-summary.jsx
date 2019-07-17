@@ -8,7 +8,7 @@ export default class CartSummary extends React.Component {
     const cartItems = cart.map(item =>
       <CartSummaryItem
         item={item}
-        addHandler={this.props.addHandler}
+        updateHandler={this.props.updateHandler}
         deleteHandler={this.props.deleteHandler}
         key={item.id}
       />);
