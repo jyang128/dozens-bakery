@@ -35,7 +35,7 @@ class App extends React.Component {
       .then(res => this.setState({ products: res }))
       .catch(err => console.error(err.message));
   }
-  addToCart(product, event) {
+  addToCart(product, event, quantity) {
     if (event) {
       this.showCartChanged(event);
       const checkmark = event.target.nextElementSibling;
@@ -52,9 +52,9 @@ class App extends React.Component {
     });
 
     if (indexToCheck > -1) {
-      currentCart[indexToCheck].quantity++;
+      currentCart[indexToCheck].quantity += quantity;
     } else {
-      product.quantity = 1;
+      product.quantity = quantity;
       currentCart.push(product);
     }
 

@@ -82,6 +82,7 @@ body {
     color: #ffbc65;
     font-size: 1.25em;
     margin-left: 10px;
+    margin-top: 10px;
 }
 .feedback.on {
     visibility: visible;
@@ -98,6 +99,17 @@ body {
 }
 .removal-icons:hover {
     cursor: pointer;
+}
+/* number input - quantity controls */
+input[type="number"] {
+    border: none;
+    border-bottom: 2px solid #c7c7c7;
+    text-align: center;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
 /* checkout form */
 input, textarea {
