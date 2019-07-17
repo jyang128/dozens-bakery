@@ -35,7 +35,7 @@ class App extends React.Component {
       .then(res => this.setState({ products: res }))
       .catch(err => console.error(err.message));
   }
-  addToCart(product, event, quantity) {
+  addToCart(product, quantity, event) {
     if (event) {
       this.showCartChanged(event);
       const checkmark = event.target.nextElementSibling;

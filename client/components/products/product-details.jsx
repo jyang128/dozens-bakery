@@ -26,7 +26,7 @@ export default class ProductDetails extends React.Component {
       });
   }
   addToCartHandler(event) {
-    this.props.addToCartHandler(this.state.product, event, this.state.quantity);
+    this.props.addToCartHandler(this.state.product, this.state.quantity, event);
   }
   handleQtyChange(event) {
     let quantity = event.target.value;
