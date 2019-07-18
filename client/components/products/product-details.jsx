@@ -7,9 +7,12 @@ export default class ProductDetails extends React.Component {
     super(props);
     this.state = {
       product: {},
+      quantityInput: 1,
       loading: true
     };
     this.addToCartHandler = this.addToCartHandler.bind(this);
+    this.handleQtyChange = this.handleQtyChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
   componentDidMount() {
     const prodId = this.props.match.params.productId;
@@ -24,7 +27,34 @@ export default class ProductDetails extends React.Component {
       });
   }
   addToCartHandler(event) {
-    this.props.addToCartHandler(this.state.product, event);
+    this.props.addToCartHandler(this.state.product, parseInt(this.state.quantityInput, 10), event);
+    this.setState({
+      quantityInput: 1
+    });
+  }
+  handleBlur() {
+    let quantity = this.state.quantityInput;
+    if (!this.state.quantityInput) {
+      quantity = 1;
+    }
+    this.setState({
+      quantityInput: quantity
+    });
+  }
+  handleQtyChange(event) {
+    let quantity = event.target.value;
+    const character = quantity.charAt(quantity.length - 1);
+    if (isNaN(character)) return;
+    if (quantity.charAt(0) === '0' || quantity.charAt(0) === ' ') return;
+    if (event.target.value.length > 2) {
+      quantity = event.target.value.slice(0, 2);
+    }
+    if (event.target.value.trim === '') {
+      quantity = '';
+    }
+    this.setState({
+      quantityInput: quantity
+    });
   }
   render() {
     const price = (this.state.product.price / 100);
@@ -47,8 +77,20 @@ export default class ProductDetails extends React.Component {
           <h3 className="card-title">{this.state.product.name}</h3>
           <p className="gray">${price} <small>/ dozen</small></p>
           <p className="card-text">{this.state.product.longDescription}</p>
-          <button className="btn btn-info my-3" onClick={this.addToCartHandler}>Add To Order</button>
-          <span className="feedback"><i className="fas fa-check"></i></span>
+          <div className="d-flex justify-content-left details-qty my-3">
+            <div className="mr-2">
+              <input
+                type="text"
+                pattern="^[1-9]\d*$"
+                value={this.state.quantityInput}
+                onChange={this.handleQtyChange}
+                onBlur={this.handleBlur}
+              />
+            </div>
+            <button className="btn btn-info" onClick={this.addToCartHandler}>Add To Order</button>
+            <span className="feedback"><i className="fas fa-check"></i></span>
+          </div>
+
         </div>
         {reviews}
         {loader}
