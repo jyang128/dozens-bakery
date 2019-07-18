@@ -4,22 +4,47 @@ import Img from '../general/image';
 export default class CartSummaryItem extends React.Component {
   constructor(props) {
     super(props);
-    this.incrementQty = this.incrementQty.bind(this);
-    this.decrementQty = this.decrementQty.bind(this);
+    this.state = {
+      quantityInput: 1
+    };
+    this.showRemovalPrompt = this.showRemovalPrompt.bind(this);
+    this.handleQtyChange = this.handleQtyChange.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
     this.cancelRemoval = this.cancelRemoval.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
-  incrementQty() {
-    this.props.addHandler(this.props.item);
+  componentDidMount() {
+    this.setState({
+      quantityInput: this.props.item.quantity
+    });
   }
-  decrementQty(event) {
-    if (this.props.item.quantity === 1) {
-      const cartOps = event.target.parentNode.parentNode;
-      cartOps.className += ' hide';
-      cartOps.nextElementSibling.className += ' show';
-      return;
+  handleBlur() {
+    let quantity = this.state.quantityInput;
+    if (!this.state.quantityInput) {
+      quantity = 1;
     }
-    this.props.deleteHandler(this.props.item.id);
+    this.setState({ quantityInput: quantity });
+    this.props.updateHandler(this.props.item, parseInt(quantity, 10));
+  }
+  handleQtyChange(event) {
+    let quantity = event.target.value;
+    let character = quantity.charAt(quantity.length - 1);
+    if (isNaN(character)) return;
+    if (quantity.charAt(0) === '0' || quantity.charAt(0) === ' ') return;
+    if (event.target.value.length > 2) {
+      quantity = event.target.value.slice(0, 2);
+    }
+    if (event.target.value.trim === '') {
+      quantity = '';
+    }
+    this.setState({
+      quantityInput: quantity
+    });
+  }
+  showRemovalPrompt(event) {
+    const cartOps = event.target.parentNode.parentNode;
+    cartOps.className += ' hide';
+    cartOps.nextElementSibling.className += ' show';
   }
   removeFromCart() {
     this.props.deleteHandler(this.props.item.id);
@@ -30,7 +55,10 @@ export default class CartSummaryItem extends React.Component {
     promptOps.className = 'col-12 mt-2 removal-prompt';
   }
   render() {
-    const price = ((this.props.item.price / 100) * this.props.item.quantity);
+    let price = ((this.props.item.price / 100) * this.state.quantityInput);
+    if (isNaN(price)) {
+      price = 0;
+    }
     return (
       <React.Fragment>
         <div className="col-12 col-md-3 col-lg-3 offset-lg-2 mb-4 align-self-md-start">
@@ -41,19 +69,23 @@ export default class CartSummaryItem extends React.Component {
             <h3 className="card-title mt-0">{this.props.item.name}</h3>
           </div>
           <div className="col-12 d-flex justify-content-between my-2">
-            <h5 className="card-qty">QTY: {this.props.item.quantity} dozen</h5>
+            <h5 className="cart-qty">QTY:
+              <input
+                type="text"
+                value={this.state.quantityInput}
+                onChange={this.handleQtyChange}
+                onBlur={this.handleBlur}
+              />
+             dozen</h5>
             <h5 className="gray">Total: ${price}</h5>
           </div>
           <div className="col-12 mt-2 cart-operations">
-            <span className="card-text gray minus" onClick={this.decrementQty}>
-              <img src="/images/minus.png" />
-            </span>
-            <span className="card-text gray plus" onClick={this.incrementQty}>
-              <img src="/images/plus.png" />
-            </span>
+            <div>
+              <span className="remove-btn" onClick={this.showRemovalPrompt}>&times; Remove</span>
+            </div>
           </div>
           <div className="col-12 mt-2 removal-prompt">
-            <span className="mr-2">Remove?</span>
+            <span className="mr-2">Are you sure?</span>
             <i className="fas fa-check removal-icons mr-2" onClick={this.removeFromCart}></i>
             <i className="fas fa-times removal-icons" onClick={this.cancelRemoval}></i>
           </div>
