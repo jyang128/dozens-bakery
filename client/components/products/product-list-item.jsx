@@ -8,7 +8,7 @@ export default class ProductListItem extends React.Component {
     this.addToCartHandler = this.addToCartHandler.bind(this);
   }
   addToCartHandler(event) {
-    this.props.addToCartHandler(this.props.prodData, event, 1);
+    this.props.addToCartHandler(this.props.prodData, 1, event);
   }
   render() {
     const product = this.props.prodData;

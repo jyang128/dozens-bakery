@@ -62,13 +62,6 @@ body {
 .cart-total {
     line-height: 1.7em;
 }
-.plus img, .minus img {
-    max-width: 22px;
-    margin-right: 5px;
-}
-.plus:hover, .minus:hover {
-    cursor: pointer;
-}
 .add-to-order {
     color: #A5435C;
     transition: all 0.5s ease-out;
@@ -90,21 +83,6 @@ body {
 .cart-operations.hide {
     display: none;
 }
-.cart-qty input[type="text"] {
-    padding: 0;
-    margin: 0 5px;
-    width: 45px;
-    border: none;
-    border-bottom: 1px solid #bdbdbd;
-    text-align: center;
-}
-.add-btn {
-    border: 1px solid #A5435C;
-    color: #A5435C;
-    padding: 7px;
-    border-radius: 5px;
-    cursor: pointer;
-}
 .removal-prompt {
     display: none;
 }
@@ -125,10 +103,13 @@ body {
     border: 1px solid #bdbdbd;
     text-align: center;
 }
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+.cart-qty input[type="text"] {
+    padding: 0;
+    margin: 0 5px;
+    width: 45px;
+    border: none;
+    border-bottom: 1px solid #bdbdbd;
+    text-align: center;
 }
 /* checkout form */
 input, textarea {

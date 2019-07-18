@@ -10,6 +10,7 @@ export default class CartSummary extends React.Component {
         item={item}
         updateHandler={this.props.updateHandler}
         deleteHandler={this.props.deleteHandler}
+        handleQtyChange={this.props.handleQtyChange}
         key={item.id}
       />);
 

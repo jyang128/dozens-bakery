@@ -28,6 +28,9 @@ export default class ProductDetails extends React.Component {
   }
   addToCartHandler(event) {
     this.props.addToCartHandler(this.state.product, parseInt(this.state.quantityInput, 10), event);
+    this.setState({
+      quantityInput: 1
+    });
   }
   handleBlur() {
     let quantity = this.state.quantityInput;
@@ -40,7 +43,7 @@ export default class ProductDetails extends React.Component {
     let quantity = event.target.value;
     let character = quantity.charAt(quantity.length - 1);
     if (isNaN(character)) return;
-
+    if (quantity.charAt(0) === '0' || quantity.charAt(0) === ' ') return;
     if (event.target.value.length > 2) {
       quantity = event.target.value.slice(0, 2);
     }
@@ -76,6 +79,7 @@ export default class ProductDetails extends React.Component {
             <div className="mr-2">
               <input
                 type="text"
+                pattern="^[1-9]\d*$"
                 value={this.state.quantityInput}
                 onChange={this.handleQtyChange}
                 onBlur={this.handleBlur}

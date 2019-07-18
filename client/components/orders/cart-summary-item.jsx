@@ -30,7 +30,7 @@ export default class CartSummaryItem extends React.Component {
     let quantity = event.target.value;
     let character = quantity.charAt(quantity.length - 1);
     if (isNaN(character)) return;
-
+    if (quantity.charAt(0) === '0' || quantity.charAt(0) === ' ') return;
     if (event.target.value.length > 2) {
       quantity = event.target.value.slice(0, 2);
     }
