@@ -107,7 +107,10 @@ class App extends React.Component {
         localStorage.cart = JSON.stringify([]);
         this.setState({ cart: [] }, () => {
           this.props.history.push({
-            pathname: `/confirmation/${res.orderId}`
+            pathname: `/confirmation`,
+            state: {
+              orderId: res.orderId
+            }
           });
         });
       })
@@ -150,7 +153,7 @@ class App extends React.Component {
                   />
                 } />
                 <Route path="/about-us" component={About} />
-                <Route path="/confirmation/:orderId" component={Confirmation}/>
+                <Route path="/confirmation" component={Confirmation}/>
                 <Route path="/order/:orderId" component={OrderSummary} />
                 <Route component={PageNotFound} />
               </Switch>
