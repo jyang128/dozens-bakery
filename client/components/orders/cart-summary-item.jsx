@@ -18,21 +18,27 @@ export default class CartSummaryItem extends React.Component {
       quantityInput: this.props.item.quantity
     });
   }
-  componentDidUpdate(prevProps) {
-    if (prevProps.item.quantity !== this.props.item.quantity) {
-      this.setState({ quantityInput: this.props.item.quantity });
+  handleBlur() {
+    let quantity = this.state.quantityInput;
+    if (!this.state.quantityInput) {
+      quantity = 1;
     }
-  }
-  handleBlur(event) {
-    this.props.updateHandler(this.props.item, this.state.quantityInput);
+    this.setState({ quantityInput: quantity });
+    this.props.updateHandler(this.props.item, parseInt(quantity, 10));
   }
   handleQtyChange(event) {
     let quantity = event.target.value;
+    let character = quantity.charAt(quantity.length - 1);
+    if (isNaN(character)) return;
+
     if (event.target.value.length > 2) {
       quantity = event.target.value.slice(0, 2);
     }
+    if (event.target.value.trim === '') {
+      quantity = '';
+    }
     this.setState({
-      quantityInput: parseInt(quantity, 10)
+      quantityInput: quantity
     });
   }
   showRemovalPrompt(event) {
@@ -63,11 +69,9 @@ export default class CartSummaryItem extends React.Component {
             <h3 className="card-title mt-0">{this.props.item.name}</h3>
           </div>
           <div className="col-12 d-flex justify-content-between my-2">
-            <h5 className="card-qty">QTY:
+            <h5 className="cart-qty">QTY:
               <input
-                type="number"
-                min="1"
-                max="99"
+                type="text"
                 value={this.state.quantityInput}
                 onChange={this.handleQtyChange}
                 onBlur={this.handleBlur}

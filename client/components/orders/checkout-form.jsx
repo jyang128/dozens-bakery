@@ -68,7 +68,7 @@ export default class CheckoutForm extends React.Component {
           <h2>Checkout</h2>
           <h4 className="gray">Order Total: ${orderTotal}</h4>
         </div>
-        <form className="col-md-8 offset-md-2">
+        <form className="col-md-8 offset-md-2 checkout">
           <h5>Name</h5>
           <input
             type="text"

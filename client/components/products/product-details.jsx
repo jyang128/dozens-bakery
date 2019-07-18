@@ -7,11 +7,12 @@ export default class ProductDetails extends React.Component {
     super(props);
     this.state = {
       product: {},
-      quantity: 1,
+      quantityInput: 1,
       loading: true
     };
     this.addToCartHandler = this.addToCartHandler.bind(this);
     this.handleQtyChange = this.handleQtyChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
   componentDidMount() {
     const prodId = this.props.match.params.productId;
@@ -26,15 +27,28 @@ export default class ProductDetails extends React.Component {
       });
   }
   addToCartHandler(event) {
-    this.props.addToCartHandler(this.state.product, this.state.quantity, event);
+    this.props.addToCartHandler(this.state.product, parseInt(this.state.quantityInput, 10), event);
+  }
+  handleBlur() {
+    let quantity = this.state.quantityInput;
+    if (!this.state.quantityInput) {
+      quantity = 1;
+    }
+    this.setState({ quantityInput: quantity });
   }
   handleQtyChange(event) {
     let quantity = event.target.value;
+    let character = quantity.charAt(quantity.length - 1);
+    if (isNaN(character)) return;
+
     if (event.target.value.length > 2) {
       quantity = event.target.value.slice(0, 2);
     }
+    if (event.target.value.trim === '') {
+      quantity = '';
+    }
     this.setState({
-      quantity: parseInt(quantity, 10)
+      quantityInput: quantity
     });
   }
   render() {
@@ -58,9 +72,14 @@ export default class ProductDetails extends React.Component {
           <h3 className="card-title">{this.state.product.name}</h3>
           <p className="gray">${price} <small>/ dozen</small></p>
           <p className="card-text">{this.state.product.longDescription}</p>
-          <div className="d-flex justify-content-left my-3">
+          <div className="d-flex justify-content-left details-qty my-3">
             <div className="mr-2">
-              <input type="number" min="1" max="99" value={this.state.quantity} onChange={this.handleQtyChange}/>
+              <input
+                type="text"
+                value={this.state.quantityInput}
+                onChange={this.handleQtyChange}
+                onBlur={this.handleBlur}
+              />
             </div>
             <button className="btn btn-info" onClick={this.addToCartHandler}>Add To Order</button>
             <span className="feedback"><i className="fas fa-check"></i></span>
