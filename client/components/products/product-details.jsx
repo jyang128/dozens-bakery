@@ -37,11 +37,13 @@ export default class ProductDetails extends React.Component {
     if (!this.state.quantityInput) {
       quantity = 1;
     }
-    this.setState({ quantityInput: quantity });
+    this.setState({
+      quantityInput: quantity
+    });
   }
   handleQtyChange(event) {
     let quantity = event.target.value;
-    let character = quantity.charAt(quantity.length - 1);
+    const character = quantity.charAt(quantity.length - 1);
     if (isNaN(character)) return;
     if (quantity.charAt(0) === '0' || quantity.charAt(0) === ' ') return;
     if (event.target.value.length > 2) {

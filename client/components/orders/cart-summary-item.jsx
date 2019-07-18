@@ -23,12 +23,14 @@ export default class CartSummaryItem extends React.Component {
     if (!this.state.quantityInput) {
       quantity = 1;
     }
-    this.setState({ quantityInput: quantity });
+    this.setState({
+      quantityInput: quantity
+    });
     this.props.updateHandler(this.props.item, parseInt(quantity, 10));
   }
   handleQtyChange(event) {
     let quantity = event.target.value;
-    let character = quantity.charAt(quantity.length - 1);
+    const character = quantity.charAt(quantity.length - 1);
     if (isNaN(character)) return;
     if (quantity.charAt(0) === '0' || quantity.charAt(0) === ' ') return;
     if (event.target.value.length > 2) {
@@ -76,7 +78,8 @@ export default class CartSummaryItem extends React.Component {
                 onChange={this.handleQtyChange}
                 onBlur={this.handleBlur}
               />
-             dozen</h5>
+              dozen
+            </h5>
             <h5 className="gray">Total: ${price}</h5>
           </div>
           <div className="col-12 mt-2 cart-operations">
