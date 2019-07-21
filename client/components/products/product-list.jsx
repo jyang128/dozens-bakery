@@ -4,7 +4,7 @@ import Disclaimer from '../general/disclaimer';
 
 export default class ProductList extends React.Component {
   handleDisclaimer() {
-    localStorage.disclaimer = 'hidden';
+    sessionStorage.disclaimer = 'hidden';
     document.querySelector('.disclaimer').classList = ' d-none';
   }
   render() {
@@ -18,7 +18,7 @@ export default class ProductList extends React.Component {
     return (
       <div className="col-12 d-flex justify-content-around flex-wrap">
         {allProducts}
-        {!localStorage.disclaimer ? <Disclaimer closeDisclaimer={this.handleDisclaimer}/> : null }
+        {!sessionStorage.disclaimer ? <Disclaimer closeDisclaimer={this.handleDisclaimer}/> : null }
       </div>
     );
   }
