@@ -33,17 +33,17 @@ body {
 }
 .header h1 a {
     font-family: 'Kaushan Script', cursive;
-    color: #D8B1B1;
+    color: #dc9f9f;
     margin-left: 15px;
 }
 .header h5 a {
-    color: #D8B1B1;
+    color: #dc9f9f;
     margin: 0 15px;
     transition: color .5s ease-in-out;
 }
 .header h5 a:hover {
-    color: #D8B1B1;
-    border-bottom: 2px solid #D8B1B1;
+    color: #dc9f9f;
+    border-bottom: 2px solid #dc9f9f;
 }
 .total.updated {
     color: #A5435C;
