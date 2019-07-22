@@ -25,7 +25,7 @@ class App extends React.Component {
   componentDidMount() {
     this.getProducts();
     if (!localStorage.cart) {
-      localStorage.cart = JSON.stringify(this.state.cart);
+      localStorage.cart = '[]';
     } else {
       this.setState({ cart: JSON.parse(localStorage.cart) });
     }
@@ -117,12 +117,15 @@ class App extends React.Component {
       .catch(err => console.error(err.message));
   }
   render() {
+    const { addToCart, removeFromCart, updateCart, placeOrder } = this;
+    const { cart, products } = this.state;
+
     return (
       <React.Fragment>
         <div className="wrapper">
           <div className="container header">
             <div className="row">
-              <Header title="Dozen's Bakery" cart={this.state.cart} />
+              <Header title="Dozen's Bakery" cart={cart} />
             </div>
           </div>
           <div className="container main-section">
@@ -130,26 +133,26 @@ class App extends React.Component {
               <Switch>
                 <Route exact path="/" render={props =>
                   <ProductList {...props}
-                    products={this.state.products}
-                    addToCartHandler={this.addToCart}
+                    products={products}
+                    addToCartHandler={addToCart}
                   />
                 } />
                 <Route path="/product/:productId" render={props =>
                   <ProductDetails {...props}
-                    addToCartHandler={this.addToCart}
+                    addToCartHandler={addToCart}
                   />
                 } />
                 <Route path="/cart-summary" render={props =>
                   <CartSummary {...props}
-                    items={this.state.cart}
-                    deleteHandler={this.removeFromCart}
-                    updateHandler={this.updateCart}
+                    items={cart}
+                    deleteHandler={removeFromCart}
+                    updateHandler={updateCart}
                   />
                 } />
                 <Route path="/checkout" render={props =>
                   <CheckoutForm {...props}
-                    cartItems={this.state.cart}
-                    orderHandler={this.placeOrder}
+                    cartItems={cart}
+                    orderHandler={placeOrder}
                   />
                 } />
                 <Route path="/about-us" component={About} />

@@ -10,9 +10,7 @@ export default class CheckoutForm extends React.Component {
       errorMessage: ''
     };
     this.placeOrder = this.placeOrder.bind(this);
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handlePhoneNumChange = this.handlePhoneNumChange.bind(this);
-    this.handleSpecialInstrChange = this.handleSpecialInstrChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   placeOrder() {
     if (!this.state.name || !this.state.phoneNum) {
@@ -39,23 +37,17 @@ export default class CheckoutForm extends React.Component {
     this.props.orderHandler(this.state.name, this.state.phoneNum, this.state.specialInstr);
     document.getElementById('formSubmit').disabled = true;
   }
-  handleNameChange(event) {
+  handleChange(event) {
+    const name = event.target.name;
     this.setState({
-      name: event.target.value,
-      errorMessage: ''
-    });
-  }
-  handlePhoneNumChange(event) {
-    this.setState({ phoneNum: event.target.value,
-      errorMessage: ''
-    });
-  }
-  handleSpecialInstrChange(event) {
-    this.setState({ specialInstr: event.target.value,
+      [name]: event.target.value,
       errorMessage: ''
     });
   }
   render() {
+    const { handleChange, placeOrder } = this;
+    const { name, phoneNum, specialInstr, errorMessage } = this.state;
+
     let orderTotal = this.props.cartItems.reduce((sum, item) => {
       sum += item.price * item.quantity;
       return sum;
@@ -72,23 +64,26 @@ export default class CheckoutForm extends React.Component {
           <h5>Name</h5>
           <input
             type="text"
-            value={this.state.name}
-            onChange={this.handleNameChange}
+            name="name"
+            value={name}
+            onChange={handleChange}
             className="mb-3"
           />
           <h5>Phone Number</h5>
           <input
             type="text"
-            value={this.state.phoneNum}
-            onChange={this.handlePhoneNumChange}
+            name="phoneNum"
+            value={phoneNum}
+            onChange={handleChange}
             className="mb-3"
           />
           <h5>Special Instructions</h5>
           <p className="gray">{`Let us know if there are any special adjustments or customizations you'd like to make. We'll be in touch within 48 business hours to discuss the details of your order.`}</p>
           <textarea
+            name="specialInstr"
             rows="3"
-            value={this.state.specialInstr}
-            onChange={this.handleSpecialInstrChange}
+            value={specialInstr}
+            onChange={handleChange}
             className="mb-2"
           />
         </form>
@@ -96,12 +91,12 @@ export default class CheckoutForm extends React.Component {
           <p className="reminder">*Reminder! This site is for demo purposes and this is not a real order.</p>
           <button
             id="formSubmit"
-            onClick={this.placeOrder}
+            onClick={placeOrder}
             className="btn btn-info"
           >
             Place Order
           </button>
-          <p className="red pt-2"><small>{this.state.errorMessage}</small></p>
+          <p className="red pt-2"><small>{errorMessage}</small></p>
         </div>
       </React.Fragment>
     );

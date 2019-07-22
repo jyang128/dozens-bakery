@@ -57,40 +57,44 @@ export default class CartSummaryItem extends React.Component {
     promptOps.className = 'col-12 mt-2 removal-prompt';
   }
   render() {
-    let price = ((this.props.item.price / 100) * this.state.quantityInput);
+    const { handleBlur, handleQtyChange, showRemovalPrompt, removeFromCart, cancelRemoval } = this;
+    const { image, name, price } = this.props.item;
+    const { quantityInput } = this.state;
+
+    let shownPrice = ((price / 100) * quantityInput);
     if (isNaN(price)) {
-      price = 0;
+      shownPrice = 0;
     }
     return (
       <React.Fragment>
         <div className="col-12 col-md-3 col-lg-3 offset-lg-2 mb-4 align-self-md-start">
-          <Img src={this.props.item.image} className="img-fluid" alt={`${this.props.item.name} product shot`}/>
+          <Img src={image} className="img-fluid" alt={`${name} product shot`}/>
         </div>
         <div className="col-12 col-md-9 col-lg-5 align-self-md-center mb-4">
           <div className="col-12">
-            <h3 className="card-title mt-0">{this.props.item.name}</h3>
+            <h3 className="card-title mt-0">{name}</h3>
           </div>
           <div className="col-12 d-flex justify-content-between my-2">
             <h5 className="cart-qty">QTY:
               <input
                 type="text"
-                value={this.state.quantityInput}
-                onChange={this.handleQtyChange}
-                onBlur={this.handleBlur}
+                value={quantityInput}
+                onChange={handleQtyChange}
+                onBlur={handleBlur}
               />
               dozen
             </h5>
-            <h5 className="gray">Total: ${price}</h5>
+            <h5 className="gray">Total: ${shownPrice}</h5>
           </div>
           <div className="col-12 mt-2 cart-operations">
             <div>
-              <span className="remove-btn" onClick={this.showRemovalPrompt}>&times; Remove</span>
+              <span className="remove-btn" onClick={showRemovalPrompt}>&times; Remove</span>
             </div>
           </div>
           <div className="col-12 mt-2 removal-prompt">
             <span className="mr-2">Are you sure?</span>
-            <i className="fas fa-check removal-icons mr-2" onClick={this.removeFromCart}></i>
-            <i className="fas fa-times removal-icons" onClick={this.cancelRemoval}></i>
+            <i className="fas fa-check removal-icons mr-2" onClick={removeFromCart}></i>
+            <i className="fas fa-times removal-icons" onClick={cancelRemoval}></i>
           </div>
         </div>
       </React.Fragment>
