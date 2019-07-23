@@ -57,42 +57,45 @@ export default class ProductDetails extends React.Component {
     });
   }
   render() {
-    const price = (this.state.product.price / 100);
-    let reviews = null;
-    if (this.state.product.reviews) {
-      reviews = <Reviews reviews={this.state.product.reviews}/>;
+    const { handleQtyChange, handleBlur, addToCartHandler } = this;
+    const { image, name, price, reviews, longDescription } = this.state.product;
+    const { quantityInput, loading } = this.state;
+
+    const shownPrice = (price / 100);
+    let shownReviews = null;
+    if (reviews) {
+      shownReviews = <Reviews reviews={reviews}/>;
     }
 
     let loader = null;
-    if (this.state.loading) {
+    if (loading) {
       loader = <div className="loading-page"></div>;
     }
 
     return (
       <React.Fragment>
         <div className="col-12 col-sm-6 mb-4">
-          <Img src={this.state.product.image} className="img-fluid" alt={`${this.state.product.name} product shot`} />
+          <Img src={image} className="img-fluid" alt={`${name} product shot`} />
         </div>
         <div className="col-12 col-sm-6">
-          <h3 className="card-title">{this.state.product.name}</h3>
-          <p className="gray">${price} <small>/ dozen</small></p>
-          <p className="card-text">{this.state.product.longDescription}</p>
+          <h3 className="card-title">{name}</h3>
+          <p className="gray">${shownPrice} <small>/ dozen</small></p>
+          <p className="card-text">{longDescription}</p>
           <div className="d-flex justify-content-left details-qty my-3">
             <div className="mr-2">
               <input
                 type="text"
-                pattern="^[1-9]\d*$"
-                value={this.state.quantityInput}
-                onChange={this.handleQtyChange}
-                onBlur={this.handleBlur}
+                value={quantityInput}
+                onChange={handleQtyChange}
+                onBlur={handleBlur}
               />
             </div>
-            <button className="btn btn-info" onClick={this.addToCartHandler}>Add To Order</button>
+            <button className="btn btn-info" onClick={addToCartHandler}>Add To Order</button>
             <span className="feedback"><i className="fas fa-check"></i></span>
           </div>
 
         </div>
-        {reviews}
+        {shownReviews}
         {loader}
       </React.Fragment>
     );
