@@ -1,6 +1,7 @@
 import React from 'react';
 import Img from '../general/image';
 import Reviews from './reviews';
+import { Link } from 'react-router-dom';
 
 export default class ProductDetails extends React.Component {
   constructor(props) {
@@ -31,6 +32,7 @@ export default class ProductDetails extends React.Component {
     this.setState({
       quantityInput: 1
     });
+    this.showFeedback();
   }
   handleBlur() {
     let quantity = this.state.quantityInput;
@@ -55,6 +57,9 @@ export default class ProductDetails extends React.Component {
     this.setState({
       quantityInput: quantity
     });
+  }
+  showFeedback() {
+    document.querySelector('.cart-add-prompt').className += ' show';
   }
   render() {
     const { handleQtyChange, handleBlur, addToCartHandler } = this;
@@ -90,10 +95,19 @@ export default class ProductDetails extends React.Component {
                 onBlur={handleBlur}
               />
             </div>
-            <button className="btn btn-info" onClick={addToCartHandler}>Add To Order</button>
+            <button className="btn btn-info" onClick={addToCartHandler}>
+              Add to Order
+            </button>
             <span className="feedback"><i className="fas fa-check"></i></span>
           </div>
-
+          <div className="cart-add-prompt">
+            <Link to="/cart-summary">
+              <i className="fas fa-cookie"></i> Go to Order<br/>
+            </Link>
+            <Link to="/">
+              <i className="fas fa-undo-alt"></i> Back to Browse
+            </Link>
+          </div>
         </div>
         {shownReviews}
         {loader}

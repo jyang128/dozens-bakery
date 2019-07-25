@@ -101,11 +101,24 @@ body {
     color: black;    
     cursor: pointer;
 }
-.product-name a:hover  {
+.product-name a:hover {
     color: #A5435C;
     text-decoration: none;
 }
-/* product details */
+.cart-add-prompt {
+    display: none;
+}
+.cart-add-prompt.show {
+    display: block;
+}
+.cart-add-prompt a {
+    color: #A5435C;
+}
+.cart-add-prompt a:hover {
+    color: #d88f97;
+    text-decoration: none;
+}
+/* product qty inputs */
 .details-qty input[type="text"] {
     width: 45px;
     border: 1px solid #bdbdbd;
