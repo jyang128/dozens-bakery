@@ -97,6 +97,14 @@ body {
     color: #919191;
     cursor: pointer;
 }
+.product-name a {
+    color: black;    
+    cursor: pointer;
+}
+.product-name a:hover  {
+    color: #A5435C;
+    text-decoration: none;
+}
 /* product details */
 .details-qty input[type="text"] {
     width: 45px;

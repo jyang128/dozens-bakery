@@ -1,5 +1,6 @@
 import React from 'react';
 import Img from '../general/image';
+import { Link } from 'react-router-dom';
 
 export default class CartSummaryItem extends React.Component {
   constructor(props) {
@@ -58,7 +59,7 @@ export default class CartSummaryItem extends React.Component {
   }
   render() {
     const { handleBlur, handleQtyChange, showRemovalPrompt, removeFromCart, cancelRemoval } = this;
-    const { image, name, price } = this.props.item;
+    const { id, image, name, price } = this.props.item;
     const { quantityInput } = this.state;
 
     let shownPrice = ((price / 100) * quantityInput);
@@ -71,8 +72,10 @@ export default class CartSummaryItem extends React.Component {
           <Img src={image} className="img-fluid" alt={`${name} product shot`}/>
         </div>
         <div className="col-12 col-md-9 col-lg-5 align-self-md-center mb-4">
-          <div className="col-12">
-            <h3 className="card-title mt-0">{name}</h3>
+          <div className="col-12 product-name">
+            <Link to={`/product/${id}`}>
+              <h3 className="card-title mt-0">{name}</h3>
+            </Link>
           </div>
           <div className="col-12 d-flex justify-content-between my-2">
             <h5 className="cart-qty">QTY:

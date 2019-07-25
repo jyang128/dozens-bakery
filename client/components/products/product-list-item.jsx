@@ -24,8 +24,10 @@ export default class ProductListItem extends React.Component {
                 <Img src={image} className="img-fluid" alt={`${name} product shot`} />
               </div>
             </Link>
-            <div className="card-body">
-              <h5 className="card-title">{name}</h5>
+            <div className="card-body product-name">
+              <Link to={`/product/${id}`}>
+                <h5 className="card-title">{name}</h5>
+              </Link>
               <p className="gray">${shownPrice} <small>/ dozen</small></p>
               <p className="card-text">{shortDescription.length > 75 ? shortDescription.substring(0, 75) + '...' : shortDescription}</p>
               <h6 onClick={addToCartHandler}>
