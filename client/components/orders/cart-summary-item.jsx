@@ -12,14 +12,14 @@ export default class CartSummaryItem extends React.Component {
     this.handleQtyChange = this.handleQtyChange.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
     this.cancelRemoval = this.cancelRemoval.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
+    this.handleQtyBlur = this.handleQtyBlur.bind(this);
   }
   componentDidMount() {
     this.setState({
       quantityInput: this.props.item.quantity
     });
   }
-  handleBlur() {
+  handleQtyBlur() {
     let quantity = this.state.quantityInput;
     if (!this.state.quantityInput) {
       quantity = 1;
@@ -31,8 +31,6 @@ export default class CartSummaryItem extends React.Component {
   }
   handleQtyChange(event) {
     let quantity = event.target.value;
-    const character = quantity.charAt(quantity.length - 1);
-    if (isNaN(character)) return;
     if (quantity.charAt(0) === '0' || quantity.charAt(0) === ' ') return;
     if (event.target.value.length > 2) {
       quantity = event.target.value.slice(0, 2);
@@ -58,7 +56,7 @@ export default class CartSummaryItem extends React.Component {
     promptOps.className = 'col-12 mt-2 removal-prompt';
   }
   render() {
-    const { handleBlur, handleQtyChange, showRemovalPrompt, removeFromCart, cancelRemoval } = this;
+    const { handleQtyBlur, handleQtyChange, showRemovalPrompt, removeFromCart, cancelRemoval } = this;
     const { id, image, name, price } = this.props.item;
     const { quantityInput } = this.state;
 
@@ -80,10 +78,12 @@ export default class CartSummaryItem extends React.Component {
           <div className="col-12 d-flex justify-content-between my-2">
             <h5 className="cart-qty">QTY:
               <input
-                type="text"
+                type="number"
+                min="1"
+                max="99"
                 value={quantityInput}
                 onChange={handleQtyChange}
-                onBlur={handleBlur}
+                onBlur={handleQtyBlur}
               />
               dozen
             </h5>
