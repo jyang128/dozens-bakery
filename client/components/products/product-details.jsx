@@ -13,7 +13,7 @@ export default class ProductDetails extends React.Component {
     };
     this.addToCartHandler = this.addToCartHandler.bind(this);
     this.handleQtyChange = this.handleQtyChange.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
+    this.handleQtyBlur = this.handleQtyBlur.bind(this);
   }
   componentDidMount() {
     const prodId = this.props.match.params.productId;
@@ -34,7 +34,7 @@ export default class ProductDetails extends React.Component {
     });
     this.showFeedback();
   }
-  handleBlur() {
+  handleQtyBlur() {
     let quantity = this.state.quantityInput;
     if (!this.state.quantityInput) {
       quantity = 1;
@@ -45,8 +45,6 @@ export default class ProductDetails extends React.Component {
   }
   handleQtyChange(event) {
     let quantity = event.target.value;
-    const character = quantity.charAt(quantity.length - 1);
-    if (isNaN(character)) return;
     if (quantity.charAt(0) === '0' || quantity.charAt(0) === ' ') return;
     if (event.target.value.length > 2) {
       quantity = event.target.value.slice(0, 2);
@@ -62,7 +60,7 @@ export default class ProductDetails extends React.Component {
     document.querySelector('.cart-add-prompt').className += ' show';
   }
   render() {
-    const { handleQtyChange, handleBlur, addToCartHandler } = this;
+    const { handleQtyChange, handleQtyBlur, addToCartHandler } = this;
     const { image, name, price, reviews, longDescription } = this.state.product;
     const { quantityInput, loading } = this.state;
 
@@ -89,10 +87,12 @@ export default class ProductDetails extends React.Component {
           <div className="d-flex justify-content-left details-qty my-3">
             <div className="mr-2">
               <input
-                type="text"
+                type="number"
+                min="1"
+                max="99"
                 value={quantityInput}
                 onChange={handleQtyChange}
-                onBlur={handleBlur}
+                onBlur={handleQtyBlur}
               />
             </div>
             <button className="btn btn-info" onClick={addToCartHandler}>
