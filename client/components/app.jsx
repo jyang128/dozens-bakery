@@ -157,7 +157,7 @@ class App extends React.Component {
                 } />
                 <Route path="/about-us" component={About} />
                 <Route path="/confirmation" component={Confirmation}/>
-                <Route path="/order/:orderId" component={OrderSummary} />
+                <Route path="/order" component={OrderSummary} />
                 <Route component={PageNotFound} />
               </Switch>
             </div>

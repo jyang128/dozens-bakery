@@ -10,7 +10,8 @@ export default class OrderSummary extends React.Component {
     };
   }
   componentDidMount() {
-    const orderId = this.props.match.params.orderId;
+    const searchArray = this.props.location.search.split('=');
+    const orderId = searchArray[1];
     this.getOrderDetails(orderId);
   }
   getOrderDetails(orderId) {
@@ -51,12 +52,15 @@ export default class OrderSummary extends React.Component {
       loader = (<div className="loading-page"></div>);
     }
 
+    const searchArray = this.props.location.search.split('=');
+    const orderId = searchArray[1];
+
     return (
       <React.Fragment>
         <div className="col-12 text-center mb-4">
           <h1><span className="red-underline">Order Summary</span></h1>
           <h4 className="gray mt-4">Grand Total: ${orderTotal}</h4>
-          <p className="gray">Your order is #{this.props.match.params.orderId}</p>
+          <p className="gray">Your order is #{orderId}</p>
         </div>
         <div className="col-12 col-lg-8 offset-lg-2 d-flex flex-wrap">
           {orders}
