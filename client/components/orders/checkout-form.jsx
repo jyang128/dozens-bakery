@@ -7,7 +7,8 @@ export default class CheckoutForm extends React.Component {
       name: '',
       phoneNum: '',
       specialInstr: '',
-      errorMessage: ''
+      errorMessage: '',
+      specialInstrError: false
     };
     this.placeOrder = this.placeOrder.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -30,7 +31,7 @@ export default class CheckoutForm extends React.Component {
     }
 
     if (this.state.specialInstr.length > 500) {
-      this.setState({ errorMessage: `Description must be under 500 characters. It currently has ${this.state.specialInstr.length}.` });
+      this.setState({ specialInstrError: true });
       return;
     }
 
@@ -39,14 +40,22 @@ export default class CheckoutForm extends React.Component {
   }
   handleChange(event) {
     const name = event.target.name;
-    this.setState({
-      [name]: event.target.value,
-      errorMessage: ''
-    });
+    if (name === 'specialInstr' && event.target.value.length >= 500) {
+      this.setState({
+        [name]: event.target.value,
+        specialInstrError: true
+      });
+    } else {
+      this.setState({
+        [name]: event.target.value,
+        errorMessage: '',
+        specialInstrError: false
+      });
+    }
   }
   render() {
     const { handleChange, placeOrder } = this;
-    const { name, phoneNum, specialInstr, errorMessage } = this.state;
+    const { name, phoneNum, specialInstr, errorMessage, specialInstrError } = this.state;
 
     let orderTotal = this.props.cartItems.reduce((sum, item) => {
       sum += item.price * item.quantity;
@@ -96,7 +105,8 @@ export default class CheckoutForm extends React.Component {
           >
             Place Order
           </button>
-          <p className="red pt-2"><small>{errorMessage}</small></p>
+          <p className="red pt-2 mb-0"><small>{errorMessage}</small></p>
+          <p className="red"><small>{specialInstrError ? `Description must be under 500 characters. It currently has ${specialInstr.length}.` : null}</small></p>
         </div>
       </React.Fragment>
     );

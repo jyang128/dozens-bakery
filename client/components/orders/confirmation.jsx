@@ -12,7 +12,7 @@ export default function Confirmation(props) {
       <div className="thank-you-inner text-center">
         <h1>Thank you for your order!</h1>
         <h5 className="mt-4">{`We're so excited to cater your special event! We'll be in touch shortly to confirm the details of your order.`}</h5>
-        <Link to={`/order/${stateData.orderId}`}>
+        <Link to={`/order?id=${stateData.orderId}`}>
           <h5>View Summary &raquo;</h5>
         </Link>
       </div>

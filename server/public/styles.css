@@ -126,7 +126,7 @@ body {
     text-align: center;
 }
 .cart-qty input[type="number"] {
-    width: 55px;
+    width: 65px;
     border: none;
     border-bottom: 1px solid #bdbdbd;
     padding: 0 0 0 15px;
