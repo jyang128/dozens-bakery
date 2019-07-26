@@ -1,5 +1,6 @@
 import React from 'react';
 import Img from '../general/image';
+import { Link } from 'react-router-dom';
 
 export default class CartSummaryItem extends React.Component {
   constructor(props) {
@@ -11,14 +12,14 @@ export default class CartSummaryItem extends React.Component {
     this.handleQtyChange = this.handleQtyChange.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
     this.cancelRemoval = this.cancelRemoval.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
+    this.handleQtyBlur = this.handleQtyBlur.bind(this);
   }
   componentDidMount() {
     this.setState({
       quantityInput: this.props.item.quantity
     });
   }
-  handleBlur() {
+  handleQtyBlur() {
     let quantity = this.state.quantityInput;
     if (!this.state.quantityInput) {
       quantity = 1;
@@ -30,8 +31,6 @@ export default class CartSummaryItem extends React.Component {
   }
   handleQtyChange(event) {
     let quantity = event.target.value;
-    const character = quantity.charAt(quantity.length - 1);
-    if (isNaN(character)) return;
     if (quantity.charAt(0) === '0' || quantity.charAt(0) === ' ') return;
     if (event.target.value.length > 2) {
       quantity = event.target.value.slice(0, 2);
@@ -57,8 +56,8 @@ export default class CartSummaryItem extends React.Component {
     promptOps.className = 'col-12 mt-2 removal-prompt';
   }
   render() {
-    const { handleBlur, handleQtyChange, showRemovalPrompt, removeFromCart, cancelRemoval } = this;
-    const { image, name, price } = this.props.item;
+    const { handleQtyBlur, handleQtyChange, showRemovalPrompt, removeFromCart, cancelRemoval } = this;
+    const { id, image, name, price } = this.props.item;
     const { quantityInput } = this.state;
 
     let shownPrice = ((price / 100) * quantityInput);
@@ -71,16 +70,20 @@ export default class CartSummaryItem extends React.Component {
           <Img src={image} className="img-fluid" alt={`${name} product shot`}/>
         </div>
         <div className="col-12 col-md-9 col-lg-5 align-self-md-center mb-4">
-          <div className="col-12">
-            <h3 className="card-title mt-0">{name}</h3>
+          <div className="col-12 product-name">
+            <Link to={`/product/${id}`}>
+              <h3 className="card-title mt-0">{name}</h3>
+            </Link>
           </div>
           <div className="col-12 d-flex justify-content-between my-2">
             <h5 className="cart-qty">QTY:
               <input
-                type="text"
+                type="number"
+                min="1"
+                max="99"
                 value={quantityInput}
                 onChange={handleQtyChange}
-                onBlur={handleBlur}
+                onBlur={handleQtyBlur}
               />
               dozen
             </h5>
