@@ -9,15 +9,24 @@ if(!$conn){
     throw new Exception('there is an error' . mysqli_connect_error());
 }
 
-$item = file_get_contents('php://input');
-$item = json_decode($item, true);
+if(empty($_GET['orderId'])){
+    $item = file_get_contents('php://input');
+    $item = json_decode($item, true);
 
-$customer_name = addslashes($item['name']);
-$phone_number = addslashes($item['phoneNum']);
-$special_instr = addslashes($item['specialInstr']);
-$cart_items = addslashes($item['cart']);
+    $customer_name = test_input($item['name']);
+    $phone_number = test_input($item['phoneNum']);
+    $special_instr = test_input($item['specialInstr']);
+    $cart_items = test_input($item['cart']);
+    
+    $query = "INSERT INTO `orders` (`customer_name`, `phone_number`, `special_instr`, `cart_items`) VALUES ('{$customer_name}','{$phone_number}', '{$special_instr}', '{$cart_items}')";
 
-$query = "INSERT INTO `orders` (`customer_name`, `phone_number`, `special_instr`, `cart_items`) VALUES ('{$customer_name}','{$phone_number}', '{$special_instr}', '{$cart_items}')";
+} else {
+    if( !is_numeric($_GET['orderId']) ){
+        throw new Exception('order id needs to be a number');
+    }
+    $orderId = $_GET['orderId'];
+    $query = "SELECT * FROM `orders` WHERE id = {$orderId}";
+} 
 
 $result = mysqli_query($conn, $query);
 
@@ -25,13 +34,23 @@ if(!$result){
     throw new Exception( mysqli_error($conn) );
 }
 
-if ($result) {
-    
-    $lastId = mysqli_insert_id($conn);
-    $output['orderId'] = $lastId;
+$output = [];
 
+if(empty($_GET['orderId'])){
+    if(mysqli_affected_rows($result) === 0) {
+        throw new Exception("failed to create order: " . mysqli_error($conn));
+    } else {
+        $lastId = mysqli_insert_id($conn);
+        $output['orderId'] = $lastId;
+    }
 } else {
-    throw new Exception("failed to create order: " . mysqli_error($conn));
+    if (mysqli_num_rows($result) === 0) {
+        throw new Exception("failed to retrieve order: " . mysqli_error($conn));
+    } else {
+        while ($row = mysqli_fetch_assoc($result)) {
+        $output[] = $row;
+        }
+    }
 }
 
 $json_output = json_encode($output);
