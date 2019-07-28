@@ -31,21 +31,22 @@ if(empty($_GET['orderId'])){
 $result = mysqli_query($conn, $query);
 
 if(!$result){
-    throw new Exception( mysqli_error($conn) );
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        throw new Exception("failed to retrieve order: " . mysqli_error($conn));
+    }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        throw new Exception("failed to create order: " . mysqli_error($conn));
+    }
 }
 
 $output = [];
 
 if(empty($_GET['orderId'])){
-    if(mysqli_affected_rows($result) === 0) {
-        throw new Exception("failed to create order: " . mysqli_error($conn));
-    } else {
-        $lastId = mysqli_insert_id($conn);
-        $output['orderId'] = $lastId;
-    }
+    $lastId = mysqli_insert_id($conn);
+    $output['orderId'] = $lastId;
 } else {
     if (mysqli_num_rows($result) === 0) {
-        throw new Exception("failed to retrieve order: " . mysqli_error($conn));
+        throw new Exception("No orders found.");
     } else {
         while ($row = mysqli_fetch_assoc($result)) {
         $output[] = $row;
