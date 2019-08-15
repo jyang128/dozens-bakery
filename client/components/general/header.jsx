@@ -19,7 +19,7 @@ export default function Header(props) {
           <span>About</span>
         </Link>
         <Link to="/cart-summary">
-          <span className="total">Your Order: {totalOrders}</span>
+          <span className={`total ${props.totalClass}`}>Your Order: {totalOrders}</span>
         </Link>
       </h5>
     </div>

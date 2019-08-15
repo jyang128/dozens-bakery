@@ -15,7 +15,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       products: [],
-      cart: []
+      cart: [],
+      totalClass: '',
+      checkMarkClass: '',
+      checkMarkIndex: null
     };
     this.updateCart = this.updateCart.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -24,10 +27,10 @@ class App extends React.Component {
   }
   componentDidMount() {
     this.getProducts();
-    if (!localStorage.cart) {
-      localStorage.cart = '[]';
+    if (!localStorage.getItem('cart')) {
+      localStorage.setItem('cart', '[]');
     } else {
-      this.setState({ cart: JSON.parse(localStorage.cart) });
+      this.setState({ cart: JSON.parse(localStorage.getItem('cart')) });
     }
   }
   getProducts() {
@@ -45,16 +48,11 @@ class App extends React.Component {
     currentCart[indexToCheck].quantity = quantity;
 
     this.setState({ cart: currentCart });
-    localStorage.cart = JSON.stringify(currentCart);
+    localStorage.setItem('cart', JSON.stringify(currentCart));
   }
-  addToCart(product, quantity, event) {
+  addToCart(product, quantity, event = null) {
     if (event) {
-      this.showCartChanged(event);
-      const checkmark = event.target.nextElementSibling;
-      checkmark.className += ' on';
-      setTimeout(() => {
-        checkmark.className = 'feedback';
-      }, 600);
+      this.showCartChanged(product.id);
     }
 
     const currentCart = JSON.parse(localStorage.getItem('cart'));
@@ -70,7 +68,7 @@ class App extends React.Component {
     }
 
     this.setState({ cart: currentCart });
-    localStorage.cart = JSON.stringify(currentCart);
+    localStorage.setItem('cart', JSON.stringify(currentCart));
   }
   removeFromCart(removalId) {
     const currentCart = JSON.parse(localStorage.getItem('cart'));
@@ -81,13 +79,21 @@ class App extends React.Component {
     currentCart.splice(indexToRemove, 1);
 
     this.setState({ cart: currentCart });
-    localStorage.cart = JSON.stringify(currentCart);
+    localStorage.setItem('cart', JSON.stringify(currentCart));
   }
-  showCartChanged() {
-    const orders = document.querySelector('.total');
-    orders.className += ' updated';
+  showCartChanged(prodId) {
+    this.setState({
+      totalClass: 'updated',
+      checkMarkClass: 'on',
+      checkMarkIndex: prodId
+    });
+
     setTimeout(() => {
-      orders.className = 'total';
+      this.setState({
+        totalClass: '',
+        checkMarkClass: '',
+        checkMarkIndex: null
+      });
     }, 600);
   }
   placeOrder(name, phoneNum, specialInstr) {
@@ -104,7 +110,7 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(res => {
-        localStorage.cart = JSON.stringify([]);
+        localStorage.setItem('cart', '[]');
         this.setState({ cart: [] }, () => {
           this.props.history.push({
             pathname: `/confirmation`,
@@ -118,14 +124,14 @@ class App extends React.Component {
   }
   render() {
     const { addToCart, removeFromCart, updateCart, placeOrder } = this;
-    const { cart, products } = this.state;
+    const { cart, products, totalClass, checkMarkClass, checkMarkIndex } = this.state;
 
     return (
       <React.Fragment>
         <div className="wrapper">
           <div className="container header">
             <div className="row">
-              <Header title="Dozen's Bakery" cart={cart} />
+              <Header title="Dozen's Bakery" cart={cart} totalClass={totalClass} />
             </div>
           </div>
           <div className="container main-section">
@@ -135,11 +141,13 @@ class App extends React.Component {
                   <ProductList {...props}
                     products={products}
                     addToCartHandler={addToCart}
+                    checkMarkIndex={checkMarkIndex}
                   />
                 } />
                 <Route path="/product/:productId" render={props =>
                   <ProductDetails {...props}
                     addToCartHandler={addToCart}
+                    checkMarkClass={checkMarkClass}
                   />
                 } />
                 <Route path="/cart-summary" render={props =>

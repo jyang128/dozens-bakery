@@ -14,4 +14,10 @@ function startUp(){
     header("Content-Type: application/json");
 }
 
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    return $data;
+}
+
 ?>

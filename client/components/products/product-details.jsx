@@ -63,6 +63,7 @@ export default class ProductDetails extends React.Component {
     const { handleQtyChange, handleQtyBlur, addToCartHandler } = this;
     const { image, name, price, reviews, longDescription } = this.state.product;
     const { quantityInput, loading } = this.state;
+    const { checkMarkClass } = this.props;
 
     const shownPrice = (price / 100);
     let shownReviews = null;
@@ -98,7 +99,7 @@ export default class ProductDetails extends React.Component {
             <button className="btn btn-info" onClick={addToCartHandler}>
               Add to Order
             </button>
-            <span className="feedback"><i className="fas fa-check"></i></span>
+            <span className={`feedback ${checkMarkClass}`}><i className="fas fa-check"></i></span>
           </div>
           <div className="cart-add-prompt">
             <Link to="/cart-summary">

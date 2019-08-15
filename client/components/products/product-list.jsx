@@ -13,6 +13,7 @@ export default class ProductList extends React.Component {
         key={product.id}
         prodData={product}
         addToCartHandler={this.props.addToCartHandler}
+        checkMarkIndex={this.props.checkMarkIndex}
       />
     );
     return (

@@ -13,6 +13,7 @@ export default class ProductListItem extends React.Component {
   render() {
     const { id, name, image, price, shortDescription } = this.props.prodData;
     const { addToCartHandler } = this;
+    const { checkMarkIndex } = this.props;
     const shownPrice = (price / 100);
 
     return (
@@ -32,7 +33,11 @@ export default class ProductListItem extends React.Component {
               <p className="card-text">{shortDescription.length > 75 ? shortDescription.substring(0, 75) + '...' : shortDescription}</p>
               <h6 onClick={addToCartHandler}>
                 <span className="add-to-order">+ Add to Order</span>
-                <span className="feedback"><i className="fas fa-check"></i></span>
+                <span
+                  className={`feedback ${checkMarkIndex === id && 'on'}`}
+                >
+                  <i className="fas fa-check"></i>
+                </span>
               </h6>
             </div>
           </div>

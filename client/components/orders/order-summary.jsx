@@ -15,7 +15,7 @@ export default class OrderSummary extends React.Component {
     this.getOrderDetails(orderId);
   }
   getOrderDetails(orderId) {
-    fetch(`/api/get_order.php?orderId=${orderId}`)
+    fetch(`/api/orders.php?orderId=${orderId}`)
       .then(res => res.json())
       .then(res => {
         const order = JSON.parse(res[0].cart_items);
