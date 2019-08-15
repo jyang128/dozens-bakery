@@ -106,7 +106,7 @@ export default class CheckoutForm extends React.Component {
             Place Order
           </button>
           <p className="red pt-2 mb-0"><small>{errorMessage}</small></p>
-          <p className="red"><small>{specialInstrError ? `Description must be under 500 characters. It currently has ${specialInstr.length}.` : null}</small></p>
+          <p className="red"><small>{specialInstrError && `Description must be under 500 characters. It currently has ${specialInstr.length}.`}</small></p>
         </div>
       </React.Fragment>
     );

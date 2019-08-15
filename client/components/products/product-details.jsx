@@ -8,7 +8,9 @@ export default class ProductDetails extends React.Component {
     super(props);
     this.state = {
       product: {},
+      showPromptClass: '',
       quantityInput: 1,
+
       loading: true
     };
     this.addToCartHandler = this.addToCartHandler.bind(this);
@@ -27,12 +29,14 @@ export default class ProductDetails extends React.Component {
         this.setState({ loading: false });
       });
   }
-  addToCartHandler(event) {
-    this.props.addToCartHandler(this.state.product, parseInt(this.state.quantityInput, 10), event);
+  addToCartHandler() {
+    this.props.addToCartHandler(this.state.product, parseInt(this.state.quantityInput, 10));
     this.setState({
       quantityInput: 1
     });
-    this.showFeedback();
+    this.setState({
+      showPromptClass: 'show'
+    });
   }
   handleQtyBlur() {
     let quantity = this.state.quantityInput;
@@ -56,25 +60,13 @@ export default class ProductDetails extends React.Component {
       quantityInput: quantity
     });
   }
-  showFeedback() {
-    document.querySelector('.cart-add-prompt').className += ' show';
-  }
   render() {
     const { handleQtyChange, handleQtyBlur, addToCartHandler } = this;
     const { image, name, price, reviews, longDescription } = this.state.product;
-    const { quantityInput, loading } = this.state;
+    const { quantityInput, showPromptClass, loading } = this.state;
     const { checkMarkClass } = this.props;
 
     const shownPrice = (price / 100);
-    let shownReviews = null;
-    if (reviews) {
-      shownReviews = <Reviews reviews={reviews}/>;
-    }
-
-    let loader = null;
-    if (loading) {
-      loader = <div className="loading-page"></div>;
-    }
 
     return (
       <React.Fragment>
@@ -101,7 +93,7 @@ export default class ProductDetails extends React.Component {
             </button>
             <span className={`feedback ${checkMarkClass}`}><i className="fas fa-check"></i></span>
           </div>
-          <div className="cart-add-prompt">
+          <div className={`cart-add-prompt ${showPromptClass}`}>
             <Link to="/cart-summary">
               <i className="fas fa-cookie"></i> Go to Order<br/>
             </Link>
@@ -110,8 +102,8 @@ export default class ProductDetails extends React.Component {
             </Link>
           </div>
         </div>
-        {shownReviews}
-        {loader}
+        {reviews && <Reviews reviews={reviews}/>}
+        {loading && <div className="loading-page"></div>}
       </React.Fragment>
     );
   }

@@ -6,7 +6,9 @@ export default class CartSummaryItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantityInput: 1
+      quantityInput: 1,
+      removalClass: '',
+      cartOpsClass: ''
     };
     this.showRemovalPrompt = this.showRemovalPrompt.bind(this);
     this.handleQtyChange = this.handleQtyChange.bind(this);
@@ -42,23 +44,25 @@ export default class CartSummaryItem extends React.Component {
       quantityInput: quantity
     });
   }
-  showRemovalPrompt(event) {
-    const cartOps = event.target.parentNode.parentNode;
-    cartOps.className += ' hide';
-    cartOps.nextElementSibling.className += ' show';
+  showRemovalPrompt() {
+    this.setState({
+      removalClass: 'hide',
+      cartOpsClass: 'show'
+    });
   }
   removeFromCart() {
     this.props.deleteHandler(this.props.item.id);
   }
-  cancelRemoval(event) {
-    const promptOps = event.target.parentNode;
-    promptOps.previousElementSibling.className = 'col-12 mt-2 cart-operations';
-    promptOps.className = 'col-12 mt-2 removal-prompt';
+  cancelRemoval() {
+    this.setState({
+      removalClass: '',
+      cartOpsClass: ''
+    });
   }
   render() {
     const { handleQtyBlur, handleQtyChange, showRemovalPrompt, removeFromCart, cancelRemoval } = this;
     const { id, image, name, price } = this.props.item;
-    const { quantityInput } = this.state;
+    const { quantityInput, removalClass, cartOpsClass } = this.state;
 
     let shownPrice = ((price / 100) * quantityInput);
     if (isNaN(price)) {
@@ -89,12 +93,12 @@ export default class CartSummaryItem extends React.Component {
             </h5>
             <h5 className="gray">Total: ${shownPrice}</h5>
           </div>
-          <div className="col-12 mt-2 cart-operations">
+          <div className={`col-12 mt-2 cart-operations ${removalClass}`}>
             <div>
               <span className="remove-btn" onClick={showRemovalPrompt}>&times; Remove</span>
             </div>
           </div>
-          <div className="col-12 mt-2 removal-prompt">
+          <div className={`col-12 mt-2 removal-prompt ${cartOpsClass}`}>
             <span className="mr-2">Are you sure?</span>
             <i className="fas fa-check removal-icons mr-2" onClick={removeFromCart}></i>
             <i className="fas fa-times removal-icons" onClick={cancelRemoval}></i>
