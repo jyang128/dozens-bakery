@@ -50,10 +50,8 @@ class App extends React.Component {
     this.setState({ cart: currentCart });
     localStorage.setItem('cart', JSON.stringify(currentCart));
   }
-  addToCart(product, quantity, event = null) {
-    if (event) {
-      this.showCartChanged(product.id);
-    }
+  addToCart(product, quantity) {
+    this.showCartChanged(product.id);
 
     const currentCart = JSON.parse(localStorage.getItem('cart'));
     const indexToCheck = currentCart.findIndex(item => {
