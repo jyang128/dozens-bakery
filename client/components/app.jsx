@@ -17,8 +17,8 @@ class App extends React.Component {
       products: [],
       cart: [],
       totalClass: '',
-      showCheckMark: '',
-      showCheckMarkIndex: null
+      checkMarkClass: '',
+      checkMarkIndex: null
     };
     this.updateCart = this.updateCart.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -83,16 +83,16 @@ class App extends React.Component {
   }
   showCartChanged(prodId) {
     this.setState({
-      showCheckMark: 'on',
       totalClass: 'updated',
-      showCheckMarkIndex: prodId
+      checkMarkClass: 'on',
+      checkMarkIndex: prodId
     });
 
     setTimeout(() => {
       this.setState({
-        showCheckMark: '',
         totalClass: '',
-        showCheckMarkIndex: null
+        checkMarkClass: '',
+        checkMarkIndex: null
       });
     }, 600);
   }
@@ -110,7 +110,7 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(res => {
-        localStorage.removeItem('cart');
+        localStorage.setItem('cart', '[]');
         this.setState({ cart: [] }, () => {
           this.props.history.push({
             pathname: `/confirmation`,
@@ -124,7 +124,7 @@ class App extends React.Component {
   }
   render() {
     const { addToCart, removeFromCart, updateCart, placeOrder } = this;
-    const { cart, products, totalClass, showCheckMark, showCheckMarkIndex } = this.state;
+    const { cart, products, totalClass, checkMarkClass, checkMarkIndex } = this.state;
 
     return (
       <React.Fragment>
@@ -141,13 +141,13 @@ class App extends React.Component {
                   <ProductList {...props}
                     products={products}
                     addToCartHandler={addToCart}
-                    showCheckMarkIndex={showCheckMarkIndex}
+                    checkMarkIndex={checkMarkIndex}
                   />
                 } />
                 <Route path="/product/:productId" render={props =>
                   <ProductDetails {...props}
                     addToCartHandler={addToCart}
-                    showCheckMark={showCheckMark}
+                    checkMarkClass={checkMarkClass}
                   />
                 } />
                 <Route path="/cart-summary" render={props =>
