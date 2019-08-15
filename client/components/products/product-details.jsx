@@ -8,7 +8,9 @@ export default class ProductDetails extends React.Component {
     super(props);
     this.state = {
       product: {},
+      showPromptClass: '',
       quantityInput: 1,
+
       loading: true
     };
     this.addToCartHandler = this.addToCartHandler.bind(this);
@@ -32,7 +34,9 @@ export default class ProductDetails extends React.Component {
     this.setState({
       quantityInput: 1
     });
-    this.showFeedback();
+    this.setState({
+      showPromptClass: 'show'
+    });
   }
   handleQtyBlur() {
     let quantity = this.state.quantityInput;
@@ -56,13 +60,10 @@ export default class ProductDetails extends React.Component {
       quantityInput: quantity
     });
   }
-  showFeedback() {
-    document.querySelector('.cart-add-prompt').className += ' show';
-  }
   render() {
     const { handleQtyChange, handleQtyBlur, addToCartHandler } = this;
     const { image, name, price, reviews, longDescription } = this.state.product;
-    const { quantityInput, loading } = this.state;
+    const { quantityInput, showPromptClass, loading } = this.state;
     const { checkMarkClass } = this.props;
 
     const shownPrice = (price / 100);
@@ -101,7 +102,7 @@ export default class ProductDetails extends React.Component {
             </button>
             <span className={`feedback ${checkMarkClass}`}><i className="fas fa-check"></i></span>
           </div>
-          <div className="cart-add-prompt">
+          <div className={`cart-add-prompt ${showPromptClass}`}>
             <Link to="/cart-summary">
               <i className="fas fa-cookie"></i> Go to Order<br/>
             </Link>
