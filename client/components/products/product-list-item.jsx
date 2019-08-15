@@ -13,7 +13,7 @@ export default class ProductListItem extends React.Component {
   render() {
     const { id, name, image, price, shortDescription } = this.props.prodData;
     const { addToCartHandler } = this;
-    const { showCheckMarkIndex } = this.props;
+    const { checkMarkIndex } = this.props;
     const shownPrice = (price / 100);
 
     return (
@@ -34,7 +34,7 @@ export default class ProductListItem extends React.Component {
               <h6 onClick={addToCartHandler}>
                 <span className="add-to-order">+ Add to Order</span>
                 <span
-                  className={`feedback ${showCheckMarkIndex === id && 'on'}`}
+                  className={`feedback ${checkMarkIndex === id && 'on'}`}
                 >
                   <i className="fas fa-check"></i>
                 </span>
