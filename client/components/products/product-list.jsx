@@ -19,7 +19,7 @@ export default class ProductList extends React.Component {
     return (
       <div className="col-12 d-flex justify-content-around flex-wrap">
         {allProducts}
-        {!sessionStorage.disclaimer ? <Disclaimer closeDisclaimer={this.handleDisclaimer}/> : null }
+        {!sessionStorage.disclaimer && <Disclaimer closeDisclaimer={this.handleDisclaimer}/>}
       </div>
     );
   }
